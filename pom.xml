@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.xy</groupId>
-    <artifactId>xyqas</artifactId>
+    <artifactId>yslt</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>ysqas</name>
+    <name>yslt</name>
     <url></url>
 
     <properties>
