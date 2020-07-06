@@ -11,7 +11,7 @@
    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
     <!--2.静态资源-->
     <mvc:default-servlet-handler/>
-    <!--3.扫描包：Controller-->
+    <!--3.扫描包： Controller-->
     <context:component-scan base-package="cn.qas.controller"/>
     <!--4.视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
