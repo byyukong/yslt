@@ -11,23 +11,13 @@
         <!--<setting name="logImpl" value="LOG4J"/>-->
     </settings>
     <!--可以给实体类起别名-->
-    <!--<typeAliases>
-        <package name="cn.kong.pojo"/>
-    </typeAliases>-->
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://106.52.185.64:3306/xyqas"/>
-                <property name="username" value="root"/>
-                <property name="password" value="1157436060"/>
-            </dataSource>
-        </environment>
-    </environments>
+    <typeAliases>
+        <package name="cn.qas.pojo"/>
+    </typeAliases>
+
     <!--每一个Mapper.xml的需要在Mybatis核心配置文件中注册-->
     <!--绑定接口-->
     <mappers>
-        <mapper class="mapper.UserMapper"/>
+        <package name="cn.qas.mapper"/>
     </mappers>
 </configuration>
