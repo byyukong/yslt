@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--configuration核心配置文件-->
+<configuration>
+    <!--引入外部配置文件-->
+    <settings>
+        <!--标准的日志工厂-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--<setting name="logImpl" value="LOG4J"/>-->
+    </settings>
+    <!--可以给实体类起别名-->
+    <!--<typeAliases>
+        <package name="cn.kong.pojo"/>
+    </typeAliases>-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis2"/>
+                <property name="username" value="root"/>
+                <property name="password" value="1157436060"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--每一个Mapper.xml的需要在Mybatis核心配置文件中注册-->
+    <!--绑定接口-->
+    <mappers>
+        <mapper class="mapper.UserMapper"/>
+    </mappers>
+</configuration>
