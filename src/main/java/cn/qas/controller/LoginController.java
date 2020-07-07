@@ -34,6 +34,8 @@ public class LoginController {
         System.out.println(""+login);
         if (login!=null){
             session.setAttribute("userName",user.getUser_name());
+
+            model.addAttribute("identity",login);
             return "main";
         }
         model.addAttribute("msg","用户名或密码错误！");
