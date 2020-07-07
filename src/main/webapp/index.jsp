@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h1>测试</h1>
+<%
+    response.sendRedirect(basePath + "yukong");
+%>
 </body>
 </html>

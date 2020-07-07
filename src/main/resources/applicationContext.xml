@@ -13,10 +13,10 @@
 	<!--1.关联数据库配置文件-->
 	<!--<context:property-override location="classpath:database.properties"/>-->
 	<!--2.连接池-->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://106.52.185.64:3306/xyqas"/>
-		<property name="username" value="root"/>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql://106.52.185.64:3306/xyqas"/>
+		<property name="user" value="root"/>
 		<property name="password" value="1157436060"/>
 	</bean>
 	<!--3.sqlSessionFactory-->
