@@ -11,13 +11,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class Reply {
 
-  private int replyId;  //回复id
-  private int userId; //回复人id
-  private int tipId;  //被回复贴id
-  private String replyContent;  //回复内容
-  private Date replyPublishTime;  //回复发表时间
-  private Date replyModifyTime; //回复修改时间
-  private int replyIsDeleted; //是否删除，0-否，1-逻辑删除
+  private User user; // 用户
+  private Tip tip; // 贴子
+
+  private int user_id; // 回复用户的id
+  private int tip_id; // 被回复的贴子id
+
+  private int reply_id; // 回复id
+  private String reply_content; // 回复内容
+  private Date reply_publishTime; // 回复发表时间
+  private Date reply_modifyTime; // 回复修改时间
+  // private int reply_status; // 回复状态
+  private int reply_isDeleted; // 是否删除，0-否，1-是
 
 
 }

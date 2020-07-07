@@ -13,7 +13,7 @@
     </div>
     <ul class="list-group" style="width: 100%">
         <li class="list-group-item">
-            <a href="#" class="btn btn-primary btn-block">登录</a>
+            <a href="/toLogin" class="btn btn-primary btn-block">登录</a>
             <a href="#" class="btn btn-default btn-block">注册</a>
         </li>
     </ul>

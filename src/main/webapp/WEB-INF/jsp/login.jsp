@@ -21,7 +21,7 @@
     <div class="panel-heading" style="background-color: #fff">
         <h3 class="panel-title">欢迎登录</h3>
     </div>
-      <form class="form-signin" action="userLogin.do" method="post" id="myLoginForm">
+      <form class="form-signin" action="/userLogin" method="post" id="myLoginForm">
           <label>用户名</label>
           <input type="text" class="form-control" name="user_name" placeholder="请输入用户名"/>
           <br>
@@ -35,8 +35,8 @@
             </label>
             <a style="margin-left: 30%" href="#">忘记密码?</a>--%>
 
-        <p style="text-align: right;color: red;position: absolute" id="info"></p><br/>
-        <input type="button" class="btn btn-success btn-block" value="登录"/>
+        <p style="text-align: right;color: red;position: absolute" id="info">${msg}</p><br/>
+        <input type="submit" class="btn btn-success btn-block" value="登录"/>
         <a href="#" class="btn btn-default btn-block">注册</a>
       </form>
   </div>

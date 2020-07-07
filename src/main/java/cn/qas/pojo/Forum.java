@@ -11,10 +11,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class Forum {
 
-  private int forumId;  //版块id
-  private String forumName; //版块名
-  private int forumIsDeleted; //是否删除，0-否，1-逻辑删除
-  private Date forumCreateTime; //创建时间
-  private Date forumModifyTime; //修改时间
+  private int forum_id; // 版块id
+  private String forum_name; // 版块名
+  // private int forum_status; // 版块状态
+  private int forum_isDeleted; // 是否删除，0-否，1-是
+  private Date forum_createTime; // 创建时间
+  private Date forum_modifyTime; // 修改时间
 
 }

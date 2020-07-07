@@ -1,6 +1,7 @@
 package cn.qas.test;
 
 import cn.qas.mapper.UserMapper;
+import cn.qas.pojo.User;
 import cn.qas.service.UserService;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -20,6 +21,9 @@ public class MyTest {
     public void test1(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserService userServiceImpl = context.getBean("userServiceImpl", UserService.class);
-        System.out.println(userServiceImpl.getAllUser());
+        User user = new User();
+        user.setUser_name("1");
+        user.setUser_password("1");
+        System.out.println(userServiceImpl.login(user));
     }
 }
