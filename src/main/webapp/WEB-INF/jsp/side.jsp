@@ -28,19 +28,19 @@
                 <a href="">${sessionScope.userName}</a>
                     <%--展示用户权限需要判断--%>
                 <c:choose>
-                    <c:when test="${identity==0}">
+                    <c:when test="${sessionScope.identity==0}">
                         <span class="label label-success">超级管理员</span>
                     </c:when>
-                    <c:when test="${identity==1}">
+                    <c:when test="${sessionScope.identity==1}">
                         <span class="label label-warning">管理员</span>
                     </c:when>
-                    <c:when test="${identity==2}">
+                    <c:when test="${sessionScope.identity==2}">
                         <span class="label label-default">普通用户</span>
                     </c:when>
                 </c:choose>
             </div>
             <c:choose>
-                <c:when test="${identity==0}">
+                <c:when test="${sessionScope.identity==0}">
                     <ul class="list-group" style="width: 100%">
                             <%--被锁定的用户不能发贴  不显示发帖--%>
                         <li class="list-group-item">
@@ -59,7 +59,7 @@
                     </ul>
 
                 </c:when>
-                <c:when test="${identity==1}">
+                <c:when test="${sessionScope.identity==1}">
                     <ul class="list-group" style="width: 100%">
                             <%--被锁定的用户不能发贴  不显示发帖--%>
                         <li class="list-group-item">
@@ -74,7 +74,7 @@
                     </ul>
 
                 </c:when>
-                <c:when test="${identity==2}">
+                <c:when test="${sessionScope.identity==2}">
                     <ul class="list-group" style="width: 100%">
                             <%--被锁定的用户不能发贴  不显示发帖--%>
                         <li class="list-group-item">

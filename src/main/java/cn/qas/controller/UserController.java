@@ -43,10 +43,10 @@ public class UserController {
         User login = userService.login(user);
         if (login!=null){
             session.setAttribute("userName",user.getUser_name());
-            model.addAttribute("identity",login.getUser_type());
+            session.setAttribute("identity",login.getUser_type());
             System.out.println("测试身份："+login.getUser_type());
             //return "forward:/yukong"
-            return "forward:/yukong";
+            return "redirect:/yukong";
         }
         model.addAttribute("msg","用户名或密码错误！");
         return "login";

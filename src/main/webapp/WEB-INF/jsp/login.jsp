@@ -21,7 +21,7 @@
     <div class="panel-heading" style="background-color: #fff">
         <h3 class="panel-title">欢迎登录</h3>
     </div>
-      <form class="form-signin" action="/userLogin" method="post" id="myLoginForm">
+      <form class="form-signin" action="${pageContext.request.contextPath}/userLogin" method="post" id="myLoginForm">
           <label>用户名</label>
           <input type="text" class="form-control" name="user_name" placeholder="请输入用户名"/>
           <br>

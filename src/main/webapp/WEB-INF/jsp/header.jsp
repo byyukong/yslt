@@ -33,27 +33,27 @@
                                 <p class="navbar-text"><a href="<%=basePath%>">首页</a></p>
                             </li>
                                 <%--判断是否为被锁定的用户 被锁定的用户不能发贴--%>
-                            <li><p class="navbar-text"><a href="toPublishTipPage.do">发表新贴</a></p></li>
+                            <li><p class="navbar-text"><a href="#">发表新贴</a></p></li>
                             <li>
                                 <p class="navbar-text">
                                         <%--显示用户昵称 点击进入修改页面--%>
                                     <a href="">${sessionScope.userName}</a>
                                     <c:choose>
-                                        <c:when test="${identity==0}">
+                                        <c:when test="${sessionScope.identity==0}">
                                             <%--展示用户权限--%>
                                             <span class="label label-success">超级管理员</span>
                                         </c:when>
-                                        <c:when test="${identity==1}">
+                                        <c:when test="${sessionScope.identity==1}">
                                             <span class="label label-warning">管理员</span>
                                         </c:when>
-                                        <c:when test="${identity==2}">
+                                        <c:when test="${sessionScope.identity==2}">
                                             <span class="label label-default">普通用户</span>
                                         </c:when>
                                     </c:choose>
                                 </p>
                             </li>
                             <c:choose>
-                                <c:when test="${identity==0}">
+                                <c:when test="${sessionScope.identity==0}">
                                     <%--判断是否是管理员 显示管理员功能下拉栏--%>
                                     <li class="dropdown" open>
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -62,23 +62,23 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                                 <%--超级管理员可以注册新管理员--%>
-                                            <li><a href="toSignUpPage.do">注册新的管理员</a></li>
+                                            <li><a href="#">注册新的管理员</a></li>
                                             <li role="separator" class="divider"></li>
 
                                                 <%--普通管理员--%>
-                                            <li><a href="toUserManagePage.do">用户管理</a></li>
+                                            <li><a href="#">用户管理</a></li>
                                                 <%--分割线separator--%>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="toTipManagePage.do">贴子管理</a></li>
+                                            <li><a href="#">贴子管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="toForumManagePage.do">版块管理</a></li>
+                                            <li><a href="#">版块管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="toTabManagePage.do">分类管理</a></li>
+                                            <li><a href="#">分类管理</a></li>
                                             <li role="separator" class="divider"></li>
                                         </ul>
                                     </li>
                                 </c:when>
-                                <c:when test="${identity==1}">
+                                <c:when test="${sessionScope.identity==1}">
                                     <%--判断是否是管理员 显示管理员功能下拉栏--%>
                                     <li class="dropdown" open>
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -87,14 +87,14 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                                 <%--普通管理员--%>
-                                            <li><a href="toUserManagePage.do">用户管理</a></li>
+                                            <li><a href="#">用户管理</a></li>
                                                 <%--分割线separator--%>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="toTipManagePage.do">贴子管理</a></li>
+                                            <li><a href="#">贴子管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="toForumManagePage.do">版块管理</a></li>
+                                            <li><a href="#">版块管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="toTabManagePage.do">分类管理</a></li>
+                                            <li><a href="#">分类管理</a></li>
                                             <li role="separator" class="divider"></li>
                                         </ul>
                                     </li>
