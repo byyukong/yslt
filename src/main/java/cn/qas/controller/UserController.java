@@ -2,7 +2,6 @@ package cn.qas.controller;
 
 import cn.qas.pojo.User;
 import cn.qas.service.UserService;
-import cn.qas.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @create 2020-07-07 8:26
  */
 @Controller
-public class LoginController {
+public class UserController {
     @Autowired
     private UserService userService;
     /**
@@ -47,7 +46,7 @@ public class LoginController {
             model.addAttribute("identity",login.getUser_type());
             System.out.println("测试身份："+login.getUser_type());
             //return "forward:/yukong"
-            return "main";
+            return "forward:/yukong";
         }
         model.addAttribute("msg","用户名或密码错误！");
         return "login";

@@ -61,14 +61,14 @@
 <%@ include file="header.jsp"%>
 
 <div class="panel panel-default" id="main" style="width: 70%;margin:1% 2% 5% 5%;float: left;">
-    <form role="form" method="post" action="searchTipByKeyword.do">
+    <form role="form" method="post" action="">
         <div class="input-group col-md-3"
              style="margin-top:2px; float: left; text-align: center;">
             <%--首页的贴子搜索框--%>
             <input type="text" class="form-control" id="keyword" name="keyword"
                    placeholder="请输入要搜索的关键词" />
             <span class="input-group-btn">
-            <button type="button" class="btn btn-info btn-search">搜索</button>
+            <button type="submit" class="btn btn-info btn-search">搜索</button>
         </span>
         </div>
     </form>
