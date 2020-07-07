@@ -68,7 +68,7 @@
             <input type="text" class="form-control" id="keyword" name="keyword"
                    placeholder="请输入要搜索的关键词" />
             <span class="input-group-btn">
-            <button type="submit" class="btn btn-info btn-search">搜索</button>
+            <button type="button" class="btn btn-info btn-search">搜索</button>
         </span>
         </div>
     </form>
