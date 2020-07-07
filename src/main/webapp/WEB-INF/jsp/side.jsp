@@ -81,7 +81,6 @@
                             <a href="#">发表新贴</a>
                         </li>
                     </ul>
-
                 </c:when>
             </c:choose>
 
