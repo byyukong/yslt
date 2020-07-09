@@ -1,16 +1,10 @@
 package cn.qas.test;
 
-import cn.qas.mapper.UserMapper;
 import cn.qas.pojo.User;
 import cn.qas.service.UserService;
-import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-import cn.qas.util.MybatisUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author GaoJianJun

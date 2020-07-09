@@ -2,7 +2,6 @@ package cn.qas.service;
 
 import cn.qas.pojo.Reply;
 import cn.qas.pojo.Tip;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
