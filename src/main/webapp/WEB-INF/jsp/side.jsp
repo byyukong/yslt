@@ -2,10 +2,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!-- 这是侧边栏 -->
-
+<style>
+    .bg{
+        background-color: #EFEFEF;
+    }
+</style>
+<script src="<%=path%>/static/js/jquery-3.2.1.js"></script>
+<script>
+    $(document).on("mouseover","ul li",function () {
+        $(this).addClass("bg");
+    });
+    $(document).on("mouseout","ul li",function () {
+        $(this).removeClass("bg");
+    });
+</script>
 <!-- 未登录 -->
 <c:choose>
-    <c:when test="${sessionScope.userName==null}">
+    <c:when test="${sessionScope.user.user_name==null}">
         <div class="panel panel-default" id="sidebar2" style="width: 20%;margin:1% 2% 1% 0%;float: right">
             <div class="panel-heading" style="background-color: white;text-align: center">
                 <blockquote>
@@ -25,27 +38,29 @@
         <div class="panel panel-default" id="sidebar2" style="width: 20%;margin:1% 2% 1% 0%;float: right">
             <div class="panel-heading" style="background-color: white;text-align: center">欢迎您！
                     <%--展示用户昵称--%>
-                <a href="">${sessionScope.userName}</a>
+                <a href="">${sessionScope.user.user_nick}</a>
                     <%--展示用户权限需要判断--%>
                 <c:choose>
-                    <c:when test="${sessionScope.identity==0}">
+                    <c:when test="${sessionScope.user.user_type==0}">
                         <span class="label label-success">超级管理员</span>
                     </c:when>
-                    <c:when test="${sessionScope.identity==1}">
+                    <c:when test="${sessionScope.user.user_type==1}">
                         <span class="label label-warning">管理员</span>
                     </c:when>
-                    <c:when test="${sessionScope.identity==2}">
+                    <c:when test="${sessionScope.user.user_type==2}">
                         <span class="label label-default">普通用户</span>
                     </c:when>
                 </c:choose>
             </div>
             <c:choose>
-                <c:when test="${sessionScope.identity==0}">
+                <c:when test="${sessionScope.user.user_type==0}">
                     <ul class="list-group" style="width: 100%">
                             <%--被锁定的用户不能发贴  不显示发帖--%>
-                        <li class="list-group-item">
-                            <a href="#">发表新贴</a>
-                        </li>
+                        <c:if test="${sessionScope.user.user_status!=2}">
+                            <li class="list-group-item">
+                                <a href="#">发表新贴</a>
+                            </li>
+                        </c:if>
                             <%--超管特有    判断是否是超管--%>
                         <li class="list-group-item">
                             <a href="#">注册新的管理员</a>
@@ -59,12 +74,14 @@
                     </ul>
 
                 </c:when>
-                <c:when test="${sessionScope.identity==1}">
+                <c:when test="${sessionScope.user.user_type==1}">
                     <ul class="list-group" style="width: 100%">
                             <%--被锁定的用户不能发贴  不显示发帖--%>
-                        <li class="list-group-item">
-                            <a href="#">发表新贴</a>
-                        </li>
+                        <c:if test="${sessionScope.user.user_status!=2}">
+                            <li class="list-group-item">
+                                <a href="#">发表新贴</a>
+                            </li>
+                        </c:if>
                             <%--管理员功能 2020-03-14 22:33--%>
                         <li class="list-group-item"><a href="#">用户管理</a></li>
                         <li class="list-group-item"><a href="#">贴子管理</a></li>
@@ -74,21 +91,19 @@
                     </ul>
 
                 </c:when>
-                <c:when test="${sessionScope.identity==2}">
+                <c:when test="${sessionScope.user.user_type==2}">
                     <ul class="list-group" style="width: 100%">
                             <%--被锁定的用户不能发贴  不显示发帖--%>
-                        <li class="list-group-item">
-                            <a href="#">发表新贴</a>
-                        </li>
+                        <c:if test="${sessionScope.user.user_status!=2}">
+                            <li class="list-group-item">
+                                <a href="#">发表新贴</a>
+                            </li>
+                        </c:if>
                     </ul>
                 </c:when>
             </c:choose>
-
         </div>
     </c:otherwise>
 </c:choose>
-
 <!-- 已登录 -->
-
-
 </div>

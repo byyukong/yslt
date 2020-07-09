@@ -42,8 +42,11 @@ public class UserController {
     public String Login(User user, HttpSession session, Model model){
         User login = userService.login(user);
         if (login!=null){
-            session.setAttribute("userName",user.getUser_name());
-            session.setAttribute("identity",login.getUser_type());
+            if(login.getUser_status()==1){
+                model.addAttribute("msg","用户被封禁，请联系管理员！");
+                return "login";
+            }
+            session.setAttribute("user",login);
             System.out.println("测试身份："+login.getUser_type());
             //return "forward:/yukong"
             return "redirect:/yukong";
@@ -58,7 +61,7 @@ public class UserController {
      */
     @RequestMapping("/logOut")
     public String logOut(HttpSession session){
-        session.removeAttribute("userName");
+        session.removeAttribute("user");
         return "redirect:/toLogin";
     }
 }

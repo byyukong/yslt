@@ -15,7 +15,7 @@
                     </li>
                 </ul>
                 <c:choose>
-                    <c:when test="${sessionScope.userName==null}">
+                    <c:when test="${sessionScope.user.user_name==null}">
                         <%--判断为未登录--%>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
@@ -33,27 +33,30 @@
                                 <p class="navbar-text"><a href="<%=basePath%>">首页</a></p>
                             </li>
                                 <%--判断是否为被锁定的用户 被锁定的用户不能发贴--%>
-                            <li><p class="navbar-text"><a href="#">发表新贴</a></p></li>
+                            <c:if test="${sessionScope.user.user_status!=2}">
+                                <li><p class="navbar-text"><a href="#">发表新贴</a></p></li>
+                            </c:if>
+
                             <li>
                                 <p class="navbar-text">
                                         <%--显示用户昵称 点击进入修改页面--%>
-                                    <a href="">${sessionScope.userName}</a>
+                                    <a href="">${sessionScope.user.user_nick}</a>
                                     <c:choose>
-                                        <c:when test="${sessionScope.identity==0}">
+                                        <c:when test="${sessionScope.user.user_type==0}">
                                             <%--展示用户权限--%>
                                             <span class="label label-success">超级管理员</span>
                                         </c:when>
-                                        <c:when test="${sessionScope.identity==1}">
+                                        <c:when test="${sessionScope.user.user_type==1}">
                                             <span class="label label-warning">管理员</span>
                                         </c:when>
-                                        <c:when test="${sessionScope.identity==2}">
+                                        <c:when test="${sessionScope.user.user_type==2}">
                                             <span class="label label-default">普通用户</span>
                                         </c:when>
                                     </c:choose>
                                 </p>
                             </li>
                             <c:choose>
-                                <c:when test="${sessionScope.identity==0}">
+                                <c:when test="${sessionScope.user.user_type==0}">
                                     <%--判断是否是管理员 显示管理员功能下拉栏--%>
                                     <li class="dropdown" open>
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -78,7 +81,7 @@
                                         </ul>
                                     </li>
                                 </c:when>
-                                <c:when test="${sessionScope.identity==1}">
+                                <c:when test="${sessionScope.user.user_type==1}">
                                     <%--判断是否是管理员 显示管理员功能下拉栏--%>
                                     <li class="dropdown" open>
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
