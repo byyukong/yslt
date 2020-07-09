@@ -64,4 +64,8 @@ public class UserController {
         session.removeAttribute("user");
         return "redirect:/toLogin";
     }
+    @RequestMapping("/toRegis")
+    public String toRegis(){
+        return "signUp";
+    }
 }

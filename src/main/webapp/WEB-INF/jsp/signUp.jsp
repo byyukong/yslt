@@ -60,9 +60,31 @@
     </style>
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/static/js/jquery-3.2.1.js"></script>
+<script>
+    $(function () {
+        $("#sub").click(function () {
+            var name=$("#user_name").val();
+            var userNameErr=$("#userNameErr");
 
+            var nick=$("#user_nick").val();
+            var userNickErr=$("#userNickErr");
 
-
+            var user_password=$("#user_password").val();
+            var userPwdErr=$("#userPwdErr");
+            if(name==""){
+                userNameErr.text("用户名不能为空！");
+                return false;
+            }else if(nick==""){
+                userNickErr.text("昵称不能为空！！");
+                return false;
+            }else if(user_password==""){
+                userPwdErr.text("密码不能为空！！");
+                return false;
+            }
+        })
+    })
+</script>
 <%--引入header导航栏--%>
 <%@ include file="header.jsp" %>
 
@@ -76,8 +98,7 @@
                 <label class="col-sm-2 control-label">用户名</label>
                 <div class="col-sm-6" style="width: 40%;">
                     <span style="color:red">*必填，用于登录，注册后不可修改。</span>
-                    <input type="text" class="form-control" id="user_name" name="user_name"
-                           required/>
+                    <input type="text" class="form-control" id="user_name" name="user_name"/>
                     <span id="userNameErr" style="color:red"></span>
                 </div>
                 <div class="col-sm-4">
@@ -100,8 +121,7 @@
                 <label class="col-sm-2 control-label">密码</label>
                 <div class="col-sm-6" style="width: 40%;">
                     <span style="color:red">*必填，用于登录</span>
-                    <input type="password" class="form-control" id="user_password" name="user_password"
-                           required/>
+                    <input type="password" class="form-control" id="user_password" name="user_password"/>
                     <span id="userPwdErr" style="color:red"></span>
                 </div>
                 <div class="col-sm-4">
@@ -112,11 +132,14 @@
                 <label class="col-sm-2 control-label">注册用户类型：</label>
                 <div class="col-sm-10" style="width: 20%">
                     <select class="form-control" id="user_type" name="user_type">
-                        <!-- 超级管理员可以注册管理员 -->
-                        <option value="1" selected>管理员</option>
+
+
+                        <c:if test="${sessionScope.user.user_type==0}">
+                            <!-- 超级管理员可以注册管理员 -->
+                            <option value="1" selected>管理员</option>
+                        </c:if>
                         <!-- 超级管理员没有登录 -->
                         <option value="2">普通用户</option>
-                        <option value="2" selected>普通用户</option>
                     </select>
                 </div>
             </div>
@@ -125,7 +148,7 @@
                    style="margin-left: 5%"/>
             <input type="button" class="btn btn-success" value="登录"
                    style="margin-left: 25%"/>
-            <input type="submit" class="btn btn-primary" value="注册"
+            <input id="sub" type="submit" class="btn btn-primary" value="注册"
                    style="margin-left: 5%"/>
 
         </form>

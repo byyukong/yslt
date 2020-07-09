@@ -22,7 +22,7 @@
                                 <p class="navbar-text"><a href="${pageContext.request.contextPath}/toLogin">登录</a></p>
                             </li>
                             <li>
-                                <p class="navbar-text"><a href="#">注册</a></p>
+                                <p class="navbar-text"><a href="${pageContext.request.contextPath}/toRegis">注册</a></p>
                             </li>
                         </ul>
                     </c:when>

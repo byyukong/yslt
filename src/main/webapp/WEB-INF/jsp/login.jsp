@@ -37,7 +37,7 @@
 
         <p style="text-align: right;color: red;position: absolute" id="info">${msg}</p><br/>
         <input type="submit" class="btn btn-success btn-block" value="登录"/>
-        <a href="#" class="btn btn-default btn-block">注册</a>
+        <a href="${pageContext.request.contextPath}/toRegis" class="btn btn-default btn-block">注册</a>
       </form>
   </div>
 
