@@ -6,11 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Tip {
-
+  private Forum forum;//板块
   private User user; // 用户
   private Tab tab; // 分类对象
   private int user_id; // 楼主id（发贴人id）
@@ -27,7 +29,4 @@ public class Tip {
   private int tip_replies; // 贴子回复数
   private int tip_isTop; // 是否置顶，0-否，1-是
   private Date tip_topTime; // 置顶时间
-
-
-
 }

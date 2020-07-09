@@ -61,14 +61,12 @@
 <%@ include file="header.jsp"%>
 
 <div class="panel panel-default" id="main" style="width: 70%;margin:1% 2% 5% 5%;float: left;">
-    <form role="form" method="post" action="">
-        <div class="input-group col-md-3"
-             style="margin-top:2px; float: left; text-align: center;">
+    <form role="form" method="post" action="${pageContext.request.contextPath}/sousuo" method="post">
+        <div class="input-group col-md-3" style="margin-top:2px; float: left; text-align: center;">
             <%--首页的贴子搜索框--%>
-            <input type="text" class="form-control" id="keyword" name="keyword"
-                   placeholder="请输入要搜索的关键词" />
+            <input type="text" class="form-control" id="keyword" name="keyword" placeholder="请输入要搜索的关键词" />
             <span class="input-group-btn">
-            <button type="submit" class="btn btn-info btn-search">搜索</button>
+            <button  type="submit" class="btn btn-info btn-search">搜索</button>
         </span>
         </div>
     </form>
@@ -80,52 +78,60 @@
     </div>
 
 
-<ul class="list-group" style="width: 100%">
-    <%--遍历所有贴子--%>
-    <%--如果没有逻辑删除则显示--%>
-    <li class="list-group-item">
-        <div style="height: 50px">
-            <div style="width: 89%;float: left">
-                <%--这里显示贴子标题，点击贴子跳转到贴子详情，需要传参贴子id--%>
-                <a href="#">贴子标题</a>&nbsp;
-                <%--显示贴子的状态     结贴&置顶--%>
-                <span class="label label-success" >结贴</span>
-                <span class="label label-danger" >置顶</span>
-                <br>
-                <div>
-                    <%--显示贴子对应的版块--%>
-                    <a><span class="label label-primary">默认</span></a>
-                    <%--显示贴子对应的分类--%>
-                    <a><span class="label label-warning" >技术</span></a>
-                    &nbsp;&nbsp;&nbsp;
-                    <%--点击用户跳转到用户信息页面，需要传参用户id--%>
-                    <a href="#">
+    <ul class="list-group" style="width: 100%">
+        <c:forEach items="${list}" var="i">
+
+            <li class="list-group-item">
+                <div style="height: 50px">
+                    <div style="width: 89%;float: left">
+                            <%--这里显示贴子标题，点击贴子跳转到贴子详情，需要传参贴子id--%>
+                        <a href="${pageContext.request.contextPath}/click/${i.tip_id}">${i.tip_title}</a>&nbsp;
+                            <%--显示贴子的状态     结贴&置顶--%>
+                        <c:if test="${i.tip_isKnot==1}">
+                            <span class="label label-success" >结贴</span>
+                        </c:if>
+                        <c:if test="${i.tip_isTop==1}">
+                            <span class="label label-danger" >置顶</span>
+                        </c:if>
+                        <br>
+                        <div>
+                                <%--显示贴子对应的版块--%>
+
+                            <a><span class="label label-primary">${i.forum.forum_name}</span></a>
+
+                                <%--显示贴子对应的分类--%>
+                            <a><span class="label label-warning" >${i.tab.tab_name}</span></a>
+                            &nbsp;&nbsp;&nbsp;
+                                <%--点击用户跳转到用户信息页面，需要传参用户id--%>
+                            <a href="#">
                             <span>
                                 <strong>
-                                    用户名
+                                        ${i.user.user_nick}
                                 </strong>
                             </span>
-                    </a>
-                    &nbsp;&nbsp;&nbsp;
-                    <%--显示贴子发表时间--%>
-                    <small class="text-muted">
-                        发表时间：
-                        &nbsp;&nbsp;
-                        更新时间：
-                        &nbsp;&nbsp;
-                        <span class="label label-warning" title="点击量">99次点击</span>
-                    </small>
-                </div>
-            </div>
-            <div style="width: 5%;float: right;text-align: center">
+                            </a>
+                            &nbsp;&nbsp;&nbsp;
+                                <%--显示贴子发表时间--%>
+                            <small class="text-muted" >
+
+                                发表时间：<fmt:formatDate value="${i.tip_publishTime}" type="both"/>&nbsp;
+                                &nbsp;更新时间：<fmt:formatDate value="${i.tip_modifyTime}" type="both"/>
+                                <span class="label label-warning" title="点击量">${i.tip_click}</span>
+                            </small>
+                        </div>
+                    </div>
+                    <div style="width: 5%;float: right;text-align: center">
                     <span class="label label-info" title="回复数">
                         <%--这里显示贴子回复量--%>
-                        10条回复
+                        ${i.tip_replies}条回复
                     </span>
-            </div>
-        </div>
-    </li>
-</ul>
+                    </div>
+                </div>
+            </li>
+
+        </c:forEach>
+
+    </ul>
 </div>
 
 <!-- 引入侧边栏文件 -->
@@ -134,4 +140,9 @@
 <!-- 引入footer文件 -->
 <%@ include file="footer.jsp"%>
 </body>
+<script src="/static/js/jquery-3.2.1.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script>
+
+</script>
 </html>

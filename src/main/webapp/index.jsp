@@ -8,7 +8,7 @@
 <html>
 <body>
 <%
-    response.sendRedirect(basePath + "yukong");
+    response.sendRedirect(basePath + "main");
 %>
 </body>
 </html>

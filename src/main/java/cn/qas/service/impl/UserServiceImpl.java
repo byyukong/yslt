@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    @Override
     public User login(User user) {
         return userMapper.login(user);
     }

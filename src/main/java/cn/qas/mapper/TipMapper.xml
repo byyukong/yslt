@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.qas.mapper.TipMapper">
+
+    <resultMap id="user" type="tip">
+        <association property="tab" javaType="tab" >
+            <result property="tab_name" column="tab_name"/>
+        </association>
+        <association property="user" javaType="user">
+            <result property="user_nick" column="user_nick"/>
+        </association>
+        <association property="forum" javaType="forum">
+            <result property="forum_name" column="forum_name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="reply" type="reply">
+        <association property="user" javaType="user">
+            <result property="user_nick" column="user_nick"/>
+        </association>
+        <association property="tip" javaType="tip">
+            <result property="tip_title" column="tip_title"/>
+        </association>
+    </resultMap>
+    <select id="seleall" resultMap="user">
+    SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime 
+    FROM tip t
+    INNER JOIN tab t1 ON t.tab_id = t1.tab_id
+    INNER JOIN `user` u ON u.user_id = t.user_id
+    INNER JOIN forum f ON t.forum_id = f.forum_id
+    ORDER BY tip_isTop DESC
+    </select>
+
+    <select id="likesele" resultMap="user">
+        SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+        FROM tip t
+        INNER JOIN tab t1 ON t.tab_id = t1.tab_id
+        INNER JOIN `user` u ON u.user_id = t.user_id
+        INNER JOIN forum f ON t.forum_id = f.forum_id
+            <where>
+            <if test="title!=null">
+                t.tip_title LIKE '%${title}%'
+            </if>
+            </where>
+        ORDER BY tip_isTop DESC
+    </select>
+
+    <select id="clickreply" resultMap="reply">
+    SELECT reply_id,u.user_nick,t.tip_title,reply_content,reply_publishTime,reply_modifyTime,reply_isDeleted
+    FROM reply r
+    INNER JOIN tip t ON r.tip_id = t.tip_id
+    INNER JOIN `user` u ON u.user_id = r.user_id
+    WHERE r.tip_id=#{id}
+    </select>
+</mapper>    
