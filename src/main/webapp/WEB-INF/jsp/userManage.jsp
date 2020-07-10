@@ -63,7 +63,7 @@
 <!-- 引入header文件 -->
 <%@ include file="header.jsp"%>
 
-<div class="panel panel-default"
+<%--<div class="panel panel-default"
      style="width: 90%;margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
     <div class="panel-heading" style="background-color: #fff">
         <h3 class="panel-title">用户管理</h3>
@@ -76,8 +76,8 @@
                 <th>用户ID</th>
                 <th>用户名</th>
                 <th>用户昵称</th>
-                <%--不显示用户密码 2020-03-04 11:02--%>
-                <%--<th>用户密码</th>--%>
+                &lt;%&ndash;不显示用户密码 2020-03-04 11:02&ndash;%&gt;
+                &lt;%&ndash;<th>用户密码</th>&ndash;%&gt;
                 <th>用户权限</th>
                 <th>状态</th>
                 <th>操作</th>
@@ -89,8 +89,8 @@
                 <td>1</td>
                 <td>yukong</td>
                 <td>yusheng</td>
-                <%--不显示用户密码 2020-03-04 11:02--%>
-                <%--<td>${user.user_password}</td>--%>
+                &lt;%&ndash;不显示用户密码 2020-03-04 11:02&ndash;%&gt;
+                &lt;%&ndash;<td>${user.user_password}</td>&ndash;%&gt;
                 <td>
                     <span class="label label-success">超级管理员</span>
                     <span class="label label-warning">管理员</span>
@@ -100,9 +100,9 @@
                     <span class="label label-warning">锁定</span>
                 </td>
                 <td><!-- 这里放操作按钮 -->
-                    <%--处理其它正常的用户：管理员不能处理自己的状态--%>
-                    <%--管理员不能处理其它管理员--%>
-                    <%--管理员可处理普通用户--%>
+                    &lt;%&ndash;处理其它正常的用户：管理员不能处理自己的状态&ndash;%&gt;
+                    &lt;%&ndash;管理员不能处理其它管理员&ndash;%&gt;
+                    &lt;%&ndash;管理员可处理普通用户&ndash;%&gt;
                     <input type="button" class="btn btn-primary" value="修改"/>
                     <input type="button" class="btn btn-warning" value="锁定"/>
                     <input type="button" class="btn btn-danger" value="禁用"/>
@@ -111,6 +111,78 @@
                     <!-- 如果对方是超级管理员 无操作 -->
                 </td>
             </tr>
+            </tbody>
+        </table>
+        <input type="button" class="btn btn-default" value="返回"/>
+    </div>
+</div>--%>
+<div class="panel panel-default"
+     style="width: 90%;margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+    <div class="panel-heading" style="background-color: #fff">
+        <h3 class="panel-title">用户管理</h3>
+    </div>
+    <div class="panel-body">
+
+        <!-- 这里显示所有用户信息 -->
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>用户ID</th>
+                <th>用户名</th>
+                <th>用户昵称</th>
+
+
+                <th>用户权限</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 这里是表格内容，需要遍历数组 -->
+
+            <c:forEach items="${list}" var="i">
+                <tr>
+                    <td>${i.user_id}</td>
+                    <td>${i.user_name}</td>
+                    <td>${i.user_nick}</td>
+
+                    <c:if test="${i.user_type eq 0}">
+                        <td>
+                            <span class="label label-success">超级管理员</span>
+                        </td>
+                    </c:if>
+
+                    <c:if test="${i.user_type eq 1}">
+                        <td>
+                            <span class="label label-warning">管理员</span>
+                        </td>
+                    </c:if>
+
+                    <c:if test="${i.user_type eq 2}">
+                        <td>
+                            <span class="label label-primary">普通用户</span>
+                        </td>
+                    </c:if>
+
+                    <c:if test="${i.user_status eq 0}">
+                        <td class="info">正常</td>
+                    </c:if>
+
+                    <c:if test="${i.user_status eq 1}">
+                        <td class="danger">封禁</td>
+                    </c:if>
+
+                    <c:if test="${i.user_status eq 2}">
+                        <td class="warning">锁定</td>
+                    </c:if>
+
+                    <td>
+                        <!-- 这里放操作按钮 -->
+                        <!-- 超级管理员权限：超级管理员不能处理其它超级管理员 -->
+                        <!-- 如果对方是超级管理员 无操作 -->
+                    </td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
         <input type="button" class="btn btn-default" value="返回"/>

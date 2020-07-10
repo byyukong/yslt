@@ -4,7 +4,6 @@ import cn.qas.pojo.User;
 import cn.qas.service.UserService;
 import cn.qas.util.Email;
 import cn.qas.util.UUIDUtils;
-import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,6 +119,6 @@ public class UserController {
     public String userInfo(Model model){
         List<User> list = userService.getAll();
         model.addAttribute("list",list);
-        return "User_Management";
+        return "userManage";
     }
 }
