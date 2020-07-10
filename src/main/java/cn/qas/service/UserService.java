@@ -11,6 +11,10 @@ import java.util.List;
 public interface UserService {
     //登录
     User login(User user);
+    //注册
+    int regis(User user);
+    //激活用户
+    int activation(String code);
 
     //查询所有用户
     List<User> getAll();

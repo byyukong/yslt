@@ -65,7 +65,7 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                                 <%--超级管理员可以注册新管理员--%>
-                                            <li><a href="#">注册新的管理员</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/toRegis">注册新的管理员</a></li>
                                             <li role="separator" class="divider"></li>
 
                                                 <%--普通管理员--%>

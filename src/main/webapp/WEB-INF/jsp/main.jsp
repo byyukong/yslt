@@ -113,10 +113,9 @@
                             &nbsp;&nbsp;&nbsp;
                                 <%--显示贴子发表时间--%>
                             <small class="text-muted" >
-
                                 发表时间：<fmt:formatDate value="${i.tip_publishTime}" type="both"/>&nbsp;
                                 &nbsp;更新时间：<fmt:formatDate value="${i.tip_modifyTime}" type="both"/>
-                                <span class="label label-warning" title="点击量">${i.tip_click}</span>
+                                <span class="label label-warning" title="点击量">${i.tip_click}次点击</span>
                             </small>
                         </div>
                     </div>

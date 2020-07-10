@@ -64,25 +64,95 @@
 <script>
     $(function () {
         $("#sub").click(function () {
-            var name=$("#user_name").val();
+            var user_name=$("#user_name").val();
             var userNameErr=$("#userNameErr");
+            var user_name_yz=/^[a-zA-Z]\w{3,12}$/;
 
-            var nick=$("#user_nick").val();
+            var user_nick=$("#user_nick").val();
             var userNickErr=$("#userNickErr");
+            var user_nick_yz=/^[\u4e00-\u9fa5]{2,6}$/;
 
             var user_password=$("#user_password").val();
             var userPwdErr=$("#userPwdErr");
-            if(name==""){
+            var user_password_yz=/^[\s\S]{6,12}/;
+
+            var user_qrpassword=$("#user_qrpassword").val();
+            var userPwdQrErr=$("#userPwdQrErr");
+
+            var user_email=$("#user_email").val();
+            var userEmailErr=$("#userEmailErr");
+            var user_email_yz=/^\w{3,12}@\w{1,5}\.[a-z]{2,3}$/;
+
+            /*var user_verificationCode=$("#user_verificationCode").val();
+            var userVerificationCodeErr=$("#userVerificationCodeErr");*/
+            if(user_name==""){
+                $("#user_name").focus();
                 userNameErr.text("用户名不能为空！");
                 return false;
-            }else if(nick==""){
-                userNickErr.text("昵称不能为空！！");
+            }else if(user_name_yz.test(user_name)==false){
+                $("#user_name").focus();
+                userNameErr.text("用户名格式不正确，只能以字母开头，4到13位（字母，数字，下划线，减号）！");
+                return false;
+            }else if(user_nick==""){
+                userNameErr.text("");
+                $("#user_nick").focus();
+                userNickErr.text("昵称不能为空！");
+                return false;
+            }else if(user_nick_yz.test(user_nick)==false){
+                $("#user_nick").focus();
+                userNickErr.text("昵称只能是2~6位中文！");
                 return false;
             }else if(user_password==""){
-                userPwdErr.text("密码不能为空！！");
+                userNickErr.text("");
+                $("#user_password").focus();
+                userPwdErr.text("密码不能为空！");
                 return false;
+            }else if(user_password_yz.test(user_password)==false){
+                $("#user_password").focus();
+                userPwdErr.text("密码格式不正确，6-12位！");
+                return false;
+            }else if(user_qrpassword==""){
+                $("#user_qrpassword").focus();
+                userPwdErr.text("");
+                userPwdQrErr.text("确认密码不能为空！")
+                return false;
+            }else if(user_qrpassword!=user_password){
+                $("#user_qrpassword").focus();
+                userPwdQrErr.text("两次密码不一致！")
+                return false;
+            }else if(user_email==""){
+                userPwdQrErr.text("");
+                $("#user_email").focus();
+                userEmailErr.text("邮箱不能为空！");
+                return false;
+            }else if(user_email_yz.test(user_email)==false){
+                $("#user_email").focus();
+                userEmailErr.text("邮箱格式不正确，例如：1719549607@qq.com！");
+                return false;
+            }/*else if(user_verificationCode==""){
+                userEmailErr.text("");
+                $("#user_verificationCode").focus();
+                userVerificationCodeErr.text("验证码不能为空！");
+                return false;
+            }*/else{
+                //userVerificationCodeErr.text("");
+                return true;
             }
         })
+        /*$("#vc").click(function () {
+            var count = 60;
+            var countdown = setInterval(CountDown, 1000);
+            $("#vc").attr("disabled", true);
+            function CountDown() {
+                $("#vc").text(count + "秒后重新获取");
+                if (count == 0) {
+                    $("#vc").text("获取验证码").removeAttr("disabled");
+                    clearInterval(countdown);
+                }
+                count--;
+            }
+            return true;
+        })*/
     })
 </script>
 <%--引入header导航栏--%>
@@ -93,7 +163,7 @@
         <h3 class="panel-title">注册</h3>
     </div>
     <div class="panel-body">
-        <form action="" method="POST" id="mySignUpForm" class="form-horizontal" role="form">
+        <form action="${pageContext.request.contextPath}/regis" method="POST" id="mySignUpForm" class="form-horizontal" role="form">
             <div class="form-group">
                 <label class="col-sm-2 control-label">用户名</label>
                 <div class="col-sm-6" style="width: 40%;">
@@ -104,7 +174,7 @@
                 <div class="col-sm-4">
                     <p class="form-control-static">用户名：</p>
                     <p class="form-control-static">（1）不超过13位字符（含）</p>
-                    <p class="form-control-static">（2）第一位必须为字母，其余可以是字母、数字、下划线</p>
+                    <p class="form-control-static">（2）可以是字母、数字、下划线、减号</p>
                 </div>
             </div>
             <div class="form-group">
@@ -114,7 +184,7 @@
                     <span id="userNickErr" style="color:red"></span>
                 </div>
                 <div class="col-sm-4">
-                    <p class="form-control-static">昵称可不填，注册后可修改。</p>
+                    <p class="form-control-static">注册后可修改。</p>
                 </div>
             </div>
             <div class="form-group">
@@ -129,11 +199,44 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-6" style="width: 40%;">
+                    <span style="color:red">*必填，用于登录</span>
+                    <input type="password" class="form-control" id="user_qrpassword" name="qruser_password"/>
+                    <span id="userPwdQrErr" style="color:red"></span>
+                </div>
+                <div class="col-sm-4">
+                    <p class="form-control-static">密码至少6位字符，可以是字母、数字、下划线</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-6" style="width: 40%;">
+                    <span style="color:red">*必填</span>
+                    <input type="text" class="form-control" id="user_email" name="user_email"/>
+                    <span id="userEmailErr" style="color:red"></span>
+                </div>
+                <div class="col-sm-4">
+                    <p class="form-control-static">邮箱必须包含@.例如：1719549607@qq.com</p>
+                </div>
+            </div>
+            <%--<div class="form-group">
+                <label class="col-sm-2 control-label">验证码</label>
+                <div class="col-sm-6" style="width: 40%;">
+                    <span style="color:red">*必填</span>
+                    <input type="text" class="form-control" id="user_verificationCode" name="user_password"/>
+                    <br>
+                    <button id="vc" type="button" class="btn btn-info">获取验证码</button>
+                    <span id="userVerificationCodeErr" style="color:red"></span>
+                </div>
+                <div class="col-sm-4">
+                    <p class="form-control-static"></p>
+                </div>
+            </div>--%>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">注册用户类型：</label>
                 <div class="col-sm-10" style="width: 20%">
                     <select class="form-control" id="user_type" name="user_type">
-
-
                         <c:if test="${sessionScope.user.user_type==0}">
                             <!-- 超级管理员可以注册管理员 -->
                             <option value="1" selected>管理员</option>
@@ -144,8 +247,7 @@
                 </div>
             </div>
 
-            <input type="button" class="btn btn-default" value="返回"
-                   style="margin-left: 5%"/>
+            <a href="${pageContext.request.contextPath}/main" type="button" class="btn btn-default btn-sm"  style="margin-left: 5%">返回</a>
             <input type="button" class="btn btn-success" value="登录"
                    style="margin-left: 25%"/>
             <input id="sub" type="submit" class="btn btn-primary" value="注册"

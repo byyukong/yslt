@@ -63,7 +63,7 @@
                         </c:if>
                             <%--超管特有    判断是否是超管--%>
                         <li class="list-group-item">
-                            <a href="#">注册新的管理员</a>
+                            <a href="${pageContext.request.contextPath}/toRegis">注册新的管理员</a>
                         </li>
                             <%--管理员功能 2020-03-14 22:33--%>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/userInfo">用户管理</a></li>

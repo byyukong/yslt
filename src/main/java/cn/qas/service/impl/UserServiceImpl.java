@@ -29,4 +29,13 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return userMapper.getAll();
     }
+
+    public int regis(User user) {
+        return userMapper.regis(user);
+    }
+
+    @Override
+    public int activation(String code) {
+        return userMapper.activation(code);
+    }
 }

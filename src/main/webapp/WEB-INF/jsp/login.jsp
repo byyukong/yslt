@@ -40,7 +40,7 @@ border-radius:25px;">
             </label>
             <a style="margin-left: 30%" href="#">忘记密码?</a>--%>
 
-        <p style="text-align: right;color: red;position: absolute" id="info">${msg}</p><br/>
+        <p style="margin-left: 5%;text-align: right;color: red;position: absolute" id="info">${msg}</p><br/>
         <input type="submit" class="btn btn-success btn-block" style="margin-left: 13%;margin-top:20px;width:500px;height: 40px;" value="登录"/>
         <a href="${pageContext.request.contextPath}/toRegis" class="btn btn-default btn-block" style="margin-left: 13%;margin-top: 30px;margin-bottom:60px;width:500px;height: 40px;">注册</a>
       </form>
