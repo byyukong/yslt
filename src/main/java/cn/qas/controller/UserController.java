@@ -11,15 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-import java.security.GeneralSecurityException;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
 
 /**
  * @author GaoJianJun
