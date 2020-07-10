@@ -66,7 +66,7 @@
                             <a href="#">注册新的管理员</a>
                         </li>
                             <%--管理员功能 2020-03-14 22:33--%>
-                        <li class="list-group-item"><a href="#">用户管理</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/userInfo">用户管理</a></li>
                         <li class="list-group-item"><a href="#">贴子管理</a></li>
                         <li class="list-group-item"><a href="#">版块管理</a></li>
                         <li class="list-group-item"><a href="#">分类管理</a></li>
@@ -83,7 +83,7 @@
                             </li>
                         </c:if>
                             <%--管理员功能 2020-03-14 22:33--%>
-                        <li class="list-group-item"><a href="#">用户管理</a></li>
+                        <li class="list-group-item"><a href="User_Management.jsp">用户管理</a></li>
                         <li class="list-group-item"><a href="#">贴子管理</a></li>
                         <li class="list-group-item"><a href="#">版块管理</a></li>
                         <li class="list-group-item"><a href="#">分类管理</a></li>

@@ -3,11 +3,13 @@ package cn.qas.controller;
 import cn.qas.pojo.User;
 import cn.qas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author GaoJianJun
@@ -67,5 +69,12 @@ public class UserController {
     @RequestMapping("/toRegis")
     public String toRegis(){
         return "signUp";
+    }
+
+    @RequestMapping("/userInfo")
+    public String userInfo(Model model){
+        List<User> list = userService.getAll();
+        model.addAttribute("list",list);
+        return "User_Management";
     }
 }

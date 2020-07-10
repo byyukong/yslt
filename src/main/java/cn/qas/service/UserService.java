@@ -2,6 +2,8 @@ package cn.qas.service;
 
 import cn.qas.pojo.User;
 
+import java.util.List;
+
 /**
  * @author GaoJianJun
  * @create 2020-07-06 17:19
@@ -9,4 +11,7 @@ import cn.qas.pojo.User;
 public interface UserService {
     //登录
     User login(User user);
+
+    //查询所有用户
+    List<User> getAll();
 }
