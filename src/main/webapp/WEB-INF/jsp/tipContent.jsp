@@ -28,7 +28,7 @@
         <div class="panel-heading" style="background-color: white">
             <div>
                 <div class="panel-heading" style="background-color: white">
-                    <a href="<%=basePath%>">XX论坛</a> › <a href="#">贴子标题</a>
+                    <a href="<%=basePath%>">论坛</a> › <a href="#">贴子标题</a>
                 </div>
                 <%--贴子标题--%>
                 <h3>
