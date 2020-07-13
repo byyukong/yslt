@@ -74,7 +74,7 @@
                                             <li role="separator" class="divider"></li>
                                             <li><a href="#">贴子管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">版块管理</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="#">分类管理</a></li>
                                             <li role="separator" class="divider"></li>
@@ -95,7 +95,7 @@
                                             <li role="separator" class="divider"></li>
                                             <li><a href="#">贴子管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">版块管理</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="#">分类管理</a></li>
                                             <li role="separator" class="divider"></li>

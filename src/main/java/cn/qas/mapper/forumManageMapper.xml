@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="cn.qas.mapper.forumManageMapper">
+    <select id="queryForum" resultType="forum">
+        select * from forum
+    </select>
+    <update id="delForum">
+        update forum set forum_isDeleted  =  1 where forum_id=#{id}
+    </update>
+    <update id="cancelDel">
+        update forum set forum_isDeleted  =  0 where forum_id=#{id}
+    </update>
+    <select id="uniquenessForumName" resultType="forum">
+        select * from forum where forum_name=#{forum_name}
+    </select>
+    <insert id="addForum" parameterType="forum">
+        insert forum value (null,#{forum_name},#{forum_isDeleted},#{forum_createTime},#{forum_modifyTime})
+    </insert>
+    <select id="queryForumById" resultType="forum">
+        select * from forum where forum_id=#{forum_id}
+    </select>
+    <update id="modifyForum" parameterType="forum">
+        update forum set forum_id = #{forum_id},forum_name=#{forum_name},forum_modifyTime=#{forum_modifyTime}  where forum_id=#{forum_id};
+    </update>
+</mapper>

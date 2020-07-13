@@ -11,7 +11,9 @@
         </association>
         <association property="forum" javaType="forum">
             <result property="forum_name" column="forum_name"/>
+            <result property="forum_isDeleted" column="forum_isDeleted"/>
         </association>
+
     </resultMap>
 
     <resultMap id="reply" type="reply">
@@ -29,7 +31,7 @@
         </association>
     </resultMap>
     <select id="seleall" resultMap="user">
-    SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime 
+    SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,f.forum_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
     FROM tip t
     INNER JOIN tab t1 ON t.tab_id = t1.tab_id
     INNER JOIN `user` u ON u.user_id = t.user_id

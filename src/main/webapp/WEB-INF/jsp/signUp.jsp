@@ -318,9 +318,10 @@
                 </div>
             </div>
 
-            <a href="${pageContext.request.contextPath}/main" type="button" class="btn btn-default btn-sm"  style="margin-left: 5%">返回</a>
-            <input type="button" class="btn btn-success" value="登录"
-                   style="margin-left: 25%"/>
+            <a href="${pageContext.request.contextPath}/main" type="button" class="btn btn-default"  style="margin-left: 5%">返回</a>
+            <a href="${pageContext.request.contextPath}/toLogin" type="button" class="btn btn-success"  style="margin-left: 25%">登录</a>
+            <%--<input type="button" class="btn btn-success" value="登录"
+                   style="margin-left: 25%"/>--%>
             <input id="sub" type="submit" class="btn btn-primary" value="注册"
                    style="margin-left: 5%"/>
 

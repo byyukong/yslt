@@ -24,29 +24,30 @@
         </div>
 
         <div class="panel-body">
-            <form  action="modifyForumInfo.do" id="myForumUpdateForm" method="POST" class="form-horizontal" role="form">
+            <form  action="${pageContext.request.contextPath}/modifyForum" id="myForumUpdateForm" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">版块ID</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">版块ID</p>
+                        <p class="form-control-static">${forum.forum_id}</p>
                     </div>
                     <div class="col-sm-5">
-                        <input type="text"  name="forum_id" value="版块ID" readonly />
+                        <input type="text"  name="forum_id" value="${forum.forum_id}" readonly />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">版块名</label>
+                    <label class="col-sm-2 control-label">${forum.forum_name}</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">默认</p>
+                        <p class="form-control-static">${forum.forum_name}</p>
                     </div>
                     <div class="col-sm-5">
                         修改版块名：<br>
-                        <input type="text"  name="forum_name" value="默认" required />
+                        <input type="text" id="forum_name" name="forum_name" value="${forum.forum_name}" required />
+                        <p id="forumNameErr" class="form-control-static"></p>
                     </div>
                 </div>
-                <input class="btn btn-warning" type="button" value="修改"/>
+                <input class="btn btn-warning" id="sub" type="submit" value="修改"/>
                 <input class="btn btn-default" type="reset" value="重填"/>
-                <input type="button" class="btn btn-default" value="返回"/>
+                <a href="${pageContext.request.contextPath}/toForumManage" class="btn btn-default">返回</a>
             </form>
         </div>
     </div>
@@ -59,7 +60,38 @@
 <%@ include file="footer.jsp"%>
 
 <script>
-
+    $(function () {
+        $("#forum_name").blur(function () {
+            var forum_name= $(this).val();
+            var forumNameErr=$("#forumNameErr");
+            $.ajax({
+                url:"${pageContext.request.contextPath}/uniquenessForumName",
+                type:"post",
+                data:{"forum_name":forum_name},
+                dataType:"text",
+                success:function (result) {
+                    if(forum_name!=""){
+                        if (result!="0"){
+                            forumNameErr.css("color","green");
+                            forumNameErr.text("版块名可以使用！");
+                            $("#sub").attr("disabled", false);
+                        }else{
+                            forumNameErr.css("color","red");
+                            forumNameErr.text("版块名已被使用！");
+                            $("#sub").attr("disabled", true);
+                        }
+                    }else{
+                        forumNameErr.css("color","red");
+                        forumNameErr.text("版块名不能为空！");
+                        $("#sub").attr("disabled", true);
+                    }
+                },
+                error:function () {
+                    alert("获取版块失败！")
+                }
+            })
+        })
+    })
 </script>
 
 </body>

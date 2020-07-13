@@ -31,18 +31,18 @@
         <h3 class="panel-title">添加版块</h3>
     </div>
     <div class="panel-body">
-        <form action="addForum.do" method="POST" id="myAddForumForm" class="form-horizontal" role="form" style="margin-left: 5%">
+        <form action="${pageContext.request.contextPath}/addForum" method="POST" id="myAddForumForm" class="form-horizontal" role="form" style="margin-left: 5%">
             <div class="form-group" >
                 <label class="col-sm-2 control-label">*版块名</label>
                 <div class="col-sm-10" style="width: 40%;">
                     <input type="text" class="form-control" id="forum_name" name="forum_name" required />
-                    <p class="form-control-static"></p>
+                    <p id="forumNameErr" class="form-control-static"></p>
                 </div>
             </div>
 
-            <input type="button" class="btn btn-primary" value="添加" style="margin-left: 20%"/>
+            <input type="submit" id="sub" class="btn btn-primary" value="添加" style="margin-left: 20%"/>
             <%--返回首页--%>
-            <input type="button" class="btn btn-default" value="返回" style="margin-left: 15%"/>
+            <a href="${pageContext.request.contextPath}/toForumManage" class="btn btn-default" style="margin-left: 15%">返回</a>
         </form>
 
     </div>
@@ -52,7 +52,38 @@
 <%@ include file="footer.jsp"%>
 
 <script>
-
+    $(function () {
+        $("#forum_name").blur(function () {
+            var forum_name= $(this).val();
+            var forumNameErr=$("#forumNameErr");
+            $.ajax({
+                url:"${pageContext.request.contextPath}/uniquenessForumName",
+                type:"post",
+                data:{"forum_name":forum_name},
+                dataType:"text",
+                success:function (result) {
+                    if(forum_name!=""){
+                        if (result!="0"){
+                            forumNameErr.css("color","green");
+                            forumNameErr.text("版块名可以使用！");
+                            $("#sub").attr("disabled", false);
+                        }else{
+                            forumNameErr.css("color","red");
+                            forumNameErr.text("版块名已被使用！");
+                            $("#sub").attr("disabled", true);
+                        }
+                    }else{
+                        forumNameErr.css("color","red");
+                        forumNameErr.text("版块名不能为空！");
+                        $("#sub").attr("disabled", true);
+                    }
+                },
+                error:function () {
+                    alert("获取版块失败！")
+                }
+            })
+        })
+    })
 </script>
 </body>
 </html>

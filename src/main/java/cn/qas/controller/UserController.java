@@ -133,6 +133,12 @@ public class UserController {
         }
         return "1";
     }
+
+    /**
+     * 判断enail是否唯一
+     * @param email
+     * @return
+     */
     @RequestMapping("/uniquenessEmail")
     @ResponseBody
     public String uniquenessEmail(String email){
