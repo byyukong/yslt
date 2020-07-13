@@ -13,16 +13,29 @@ import java.util.List;
 public class TipServiceImpl implements TipService {
     @Autowired
     private TipMapper tipMapper;
+
     @Override
     public List<Tip> seleall() {
        return tipMapper.seleall();
     }
+
     @Override
     public List<Tip> likesele(String title) {
         return tipMapper.likesele(title);
     }
+
     @Override
     public List<Reply> clickreply(int id) {
         return tipMapper.clickreply(id);
+    }
+
+    @Override
+    public Tip selezuozhe(int id) {
+        return tipMapper.selezuozhe(id);
+    }
+
+    @Override
+    public int addreply(Reply reply) {
+        return tipMapper.addreply(reply);
     }
 }

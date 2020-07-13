@@ -45,7 +45,7 @@ public class Email {
         }
         // 连接邮件服务器：邮箱类型，帐号，POP3/SMTP协议授权码 163使用：smtp.163.com
         try {
-            ts.connect("smtp.qq.com", "帐号", "POP3/SMTP协议授权码");
+            ts.connect("smtp.qq.com", "1719549607", "xhbrvnjtgsyhbdfc");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -73,13 +73,13 @@ public class Email {
         // 创建邮件对象
         MimeMessage message = new MimeMessage(session);
         // 指明邮件的发件人
-        message.setFrom(new InternetAddress(""));
+        message.setFrom(new InternetAddress("yukongc@qq.com"));
         // 指明邮件的收件人，现在发件人和收件人是一样的，那就是自己给自己发
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
         // 邮件的标题
         message.setSubject("论坛");
         // 邮件的文本内容
-        message.setContent("欢迎您注册【论坛】请点击下面链接激活,<h2 style=\"color:red;font-weight:bold;\">"+url+"</h2>,请勿回复此邮箱", "text/html;charset=UTF-8");
+        message.setContent("欢迎您注册【论坛】请点击下面链接激活用户,<h2 style=\"color:red;font-weight:bold;\">"+url+"</h2>,请勿回复此邮箱", "text/html;charset=UTF-8");
         // 返回创建好的邮件对象
         return message;
     }

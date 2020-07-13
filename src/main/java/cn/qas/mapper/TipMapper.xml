@@ -22,6 +22,12 @@
             <result property="tip_title" column="tip_title"/>
         </association>
     </resultMap>
+
+    <resultMap id="zuozhe" type="tip">
+        <association property="user" javaType="user">
+            <result property="user_nick" column="user_nick"/>
+        </association>
+    </resultMap>
     <select id="seleall" resultMap="user">
     SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime 
     FROM tip t
@@ -46,10 +52,22 @@
     </select>
 
     <select id="clickreply" resultMap="reply">
-    SELECT reply_id,u.user_nick,t.tip_title,reply_content,reply_publishTime,reply_modifyTime,reply_isDeleted
+    SELECT reply_id,u.user_nick,u.user_type,u.user_id,t.tip_title,t.tip_click,t.tip_replies,reply_content,reply_publishTime,reply_modifyTime,reply_isDeleted
     FROM reply r
     INNER JOIN tip t ON r.tip_id = t.tip_id
     INNER JOIN `user` u ON u.user_id = r.user_id
     WHERE r.tip_id=#{id}
+    ORDER BY reply_publishTime DESC
     </select>
-</mapper>    
+    <select id="selezuozhe"  resultMap="zuozhe">
+    SELECT tip_id,u.user_nick,u.user_type,u.user_id,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+        FROM tip t
+        INNER JOIN `user` u ON u.user_id = t.user_id
+        WHERE tip_id=#{id}
+    </select>
+
+    <insert id="addreply">
+        INSERT INTO reply (user_id,tip_id,reply_content,reply_publishTime)
+        VALUES (#{reply.user_id},#{reply.tip_id},#{reply.reply_content},#{reply.reply_publishTime})
+    </insert>
+</mapper>
