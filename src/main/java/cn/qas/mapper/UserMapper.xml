@@ -7,6 +7,9 @@
     <select id="login" resultType="user" parameterType="user">
         select * from user where user_name=#{user_name} and user_password=#{user_password}
     </select>
+    <update id="updLoginTime">
+        update user set user_lastLoginTime=#{date} where user_id=#{id};
+    </update>
     <select id="getAll" resultType="user">
         select * from user
     </select>

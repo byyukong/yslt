@@ -6,6 +6,7 @@ import cn.qas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,11 @@ public class UserServiceImpl implements UserService {
 
     public User login(User user) {
         return userMapper.login(user);
+    }
+
+    @Override
+    public int updLoginTime(Date date,String id) {
+        return userMapper.updLoginTime(date,id);
     }
 
     @Override

@@ -60,6 +60,8 @@ public class UserController {
                 model.addAttribute("msg","用户未激活，请查看邮箱激活！");
                 return "login";
             }
+            //修改最后登录时间
+            userService.updLoginTime(new Date(),login.getUser_id());
             session.setAttribute("user",login);
             System.out.println("测试身份："+login.getUser_type());
             //return "forward:/yukong"
@@ -68,6 +70,7 @@ public class UserController {
         model.addAttribute("msg","用户名或密码错误！");
         return "login";
     }
+
 
     /**
      * 退出登录
