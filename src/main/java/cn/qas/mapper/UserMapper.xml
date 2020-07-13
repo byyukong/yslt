@@ -16,4 +16,10 @@
     <update id="activation">
         update user set user_status = 0 where user_id=#{user_id};
     </update>
+    <select id="uniquenessName" resultType="user">
+        select * from user where user_name=#{name}
+    </select>
+    <select id="uniquenessEmail" resultType="user">
+        select * from user where user_email=#{email}
+    </select>
 </mapper>

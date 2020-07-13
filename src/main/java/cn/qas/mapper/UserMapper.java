@@ -22,4 +22,10 @@ public interface UserMapper {
     //激活用户
     int activation(String code);
 
+    //判断用户名是否唯一
+    User uniquenessName(String name);
+
+    //判断邮箱是否唯一
+    User uniquenessEmail(String email);
+
 }

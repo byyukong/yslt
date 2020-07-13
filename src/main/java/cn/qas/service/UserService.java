@@ -15,6 +15,10 @@ public interface UserService {
     int regis(User user);
     //激活用户
     int activation(String code);
+    //判断用户名是否唯一
+    User uniquenessName(String name);
+    //判断用户名是否唯一
+    User uniquenessEmail(String email);
 
     //查询所有用户
     List<User> getAll();

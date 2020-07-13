@@ -87,10 +87,12 @@
             var userVerificationCodeErr=$("#userVerificationCodeErr");*/
             if(user_name==""){
                 $("#user_name").focus();
+                userNameErr.css("color","red");
                 userNameErr.text("用户名不能为空！");
                 return false;
             }else if(user_name_yz.test(user_name)==false){
                 $("#user_name").focus();
+                userNameErr.css("color","red");
                 userNameErr.text("用户名格式不正确，只能以字母开头，4到13位（字母，数字，下划线，减号）！");
                 return false;
             }else if(user_nick==""){
@@ -153,6 +155,75 @@
             }
             return true;
         })*/
+        $("#user_name").blur(function () {
+            var name= $(this).val();
+            var userNameErr=$("#userNameErr");
+
+            var user_name=$("#user_name").val();
+            var user_name_yz=/^[a-zA-Z]\w{3,12}$/;
+            $.ajax({
+                url:"${pageContext.request.contextPath}/uniquenessName",
+                type:"post",
+                data:{"name":name},
+                dataType:"text",
+                success:function (result) {
+                    if(name!=""){
+                        if (result!="0"){
+                            userNameErr.css("color","green");
+                            userNameErr.text("用户名可以使用！");
+                            $("#sub").attr("disabled", false);
+                        }else{
+                            userNameErr.css("color","red");
+                            userNameErr.text("用户名已被使用！");
+                            $("#sub").attr("disabled", true);
+                        }
+                        if(user_name_yz.test(user_name)==false){
+                            $("#user_name").focus();
+                            userNameErr.css("color","red");
+                            userNameErr.text("用户名格式不正确，只能以字母开头，4到13位（字母，数字，下划线，减号）！");
+                        }
+                    }
+                },
+                error:function () {
+                    alert("获取用户名失败！")
+                }
+            })
+        })
+        $("#user_email").blur(function () {
+            var email= $(this).val();
+            var userEmailErr=$("#userEmailErr");
+
+            var user_email=$("#user_email").val();
+            var user_email_yz=/^\w{3,12}@\w{1,5}\.[a-z]{2,3}$/;
+            $.ajax({
+                url:"${pageContext.request.contextPath}/uniquenessEmail",
+                type:"post",
+                data:{"email":email},
+                dataType:"text",
+                success:function (result) {
+                    if(email!=""){
+                        if (result!="0"){
+                            userEmailErr.css("color","green");
+                            userEmailErr.text("邮箱可以使用！");
+                            $("#sub").attr("disabled", false);
+                        }else{
+                            userEmailErr.css("color","red");
+                            userEmailErr.text("邮箱已被使用！");
+                            $("#sub").attr("disabled", true);
+                        }
+                        if(user_email_yz.test(user_email)==false){
+                            $("#user_name").focus();
+                            userEmailErr.css("color","red");
+                            userEmailErr.text("邮箱格式不正确，例如：1719549607@qq.com！");
+                        }
+                    }
+                },
+                error:function () {
+                    alert("获取用户名失败！")
+                }
+            })
+        })
+
     })
 </script>
 <%--引入header导航栏--%>

@@ -12,9 +12,24 @@
     <!--1.扫描包： Controller-->
     <context:component-scan base-package="cn.qas.controller"/>
     <!--1.注解驱动-->
-    <mvc:annotation-driven/>
+    <!--JSON乱码问题配置-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>application/xml;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!--2.静态资源-->
     <mvc:default-servlet-handler/>
+
 
     <!--3.视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

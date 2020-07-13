@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -113,6 +114,30 @@ public class UserController {
     public String activation(@PathVariable String code){
         userService.activation(code);
         return "redirect:/toLogin";
+    }
+
+    /**
+     * 判断name是否唯一
+     * @param name
+     * @return
+     */
+    @RequestMapping("/uniquenessName")
+    @ResponseBody
+    public String uniquenessName(String name){
+        User user = userService.uniquenessName(name);
+        if (user!=null){
+            return "0";
+        }
+        return "1";
+    }
+    @RequestMapping("/uniquenessEmail")
+    @ResponseBody
+    public String uniquenessEmail(String email){
+        User user = userService.uniquenessEmail(email);
+        if (user!=null){
+            return "0";
+        }
+        return "1";
     }
 
     @RequestMapping("/userInfo")

@@ -38,4 +38,14 @@ public class UserServiceImpl implements UserService {
     public int activation(String code) {
         return userMapper.activation(code);
     }
+
+    @Override
+    public User uniquenessName(String name) {
+        return userMapper.uniquenessName(name);
+    }
+
+    @Override
+    public User uniquenessEmail(String email) {
+        return userMapper.uniquenessEmail(email);
+    }
 }
