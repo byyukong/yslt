@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="cn.qas.mapper.tabMapper">
+    <resultMap id="tab_forum" type="tab">
+        <association property="forum" javaType="forum">
+            <result property="tab_name" column="forum_id"/>
+        </association>
+    </resultMap>
+    <select id="queryTab" resultMap="tab_forum">
+        select t.tab_id,t.tab_name,f.forum_name,t.tab_isDeleted,t.tab_createTime,t.tab_modifyTime from tab t,forum f where t.forum_id=f.forum_id
+    </select>
+    <update id="delTab">
+        update tab set tab_isDeleted  =  1 where tab_id=#{id}
+    </update>
+    <update id="cancelDelClassify">
+        update tab set tab_isDeleted  =  0 where tab_id=#{id}
+    </update>
+    <insert id="addTab" parameterType="forum">
+        insert tab value (null,#{tab_name},#{forum_id},#{tab_isDeleted},#{tab_createTime},#{tab_modifyTime})
+    </insert>
+    <select id="uniquenessTabName" resultType="tab">
+        select * from tab where tab_name=#{tab_name}
+    </select>
+    <select id="queryTabById" resultMap="tab_forum">
+        select t.tab_id,t.tab_name,f.forum_name,t.tab_isDeleted,t.tab_createTime,t.tab_modifyTime from tab t,forum f where t.forum_id=f.forum_id and t.tab_id=#{tab_id}
+    </select>
+    <update id="modifyTab" parameterType="tab">
+        update tab set tab_name=#{tab_name},forum_id=#{forum_id},tab_modifyTime=#{tab_modifyTime}  where tab_id=#{tab_id};
+    </update>
+</mapper>

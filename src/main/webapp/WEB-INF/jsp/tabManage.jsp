@@ -42,17 +42,16 @@
 
 <%--引入header文件--%>
 <%@ include file="header.jsp" %>
-
+<%@ include file="side.jsp"%>
 <div class="panel panel-default"
      style="width: 50%;margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
     <div class="panel-heading" style="background-color: #fff">
         <h3 class="panel-title">分类管理</h3>
     </div>
     <div class="panel-body">
-        <input type="button" class="btn btn-success" value="添加分类"
-               style="margin-left: 0%"/>
+        <a href="${pageContext.request.contextPath}/goAddTab" class="btn btn-success" style="margin-left: 0%">添加分类</a>
         <%--这里显示所有版块信息--%>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th style="width: 10%">分类ID</th>
@@ -64,28 +63,41 @@
             </thead>
             <tbody>
             <%--这里是表格内容，需要遍历数组--%>
-            <tr>
-                <td>1</td>
-                <td>技术</td>
-                <td>默认</td>
-                <%--状态--%>
-                <td>
-                    <%--判断是否已删除--%>
-                    <span class="label label-danger">已删除</span>
-                </td>
-                <%--这里放操作按钮--%>
-                <td>
-                    <input type="button" class="btn btn-warning" value="修改"/>
-                    <%--逻辑删除与取消删除--%>
-                    <input type="button" class="btn btn-danger" value="删除"/>
-                    <input type="button" class="btn btn-success" value="取消删除"/>
-
-                </td>
-            </tr>
+            <c:forEach items="${tab}" var="i">
+                <tr>
+                    <td>${i.tab_id}</td>
+                    <td>${i.tab_name}</td>
+                    <td>${i.forum.forum_name}</td>
+                        <%--状态--%>
+                    <td>
+                            <%--判断是否已删除--%>
+                        <c:choose>
+                            <c:when test="${i.tab_isDeleted==0}">
+                                <span>正常</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="label label-danger">已删除</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                        <%--这里放操作按钮--%>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/toModifyTab/${i.tab_id}" class="btn btn-warning">修改</a>
+                            <%--逻辑删除与取消删除--%>
+                        <c:choose>
+                            <c:when test="${i.tab_isDeleted==0}">
+                                <a href="${pageContext.request.contextPath}/delTab/${i.tab_id}" class="btn btn-danger">删除</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${pageContext.request.contextPath}/cancelDelClassify/${i.tab_id}" class="btn btn-success">取消删除</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
-        <input type="button" class="btn btn-default" value="返回"
-               style="margin-left: 20%"/>
+        <a href="${pageContext.request.contextPath}/" class="btn btn-default" style="margin-left: 20%">返回</a>
     </div>
 </div>
 

@@ -9,11 +9,11 @@
             </div>
             <div>
                 <%--向左对齐--%>
-                <ul class="nav navbar-nav navbar-left">
+                <%--<ul class="nav navbar-nav navbar-left">
                     <li class="active">
                         <a href="#">技术</a>
                     </li>
-                </ul>
+                </ul>--%>
                 <c:choose>
                     <c:when test="${sessionScope.user.user_name==null}">
                         <%--判断为未登录--%>
@@ -69,14 +69,14 @@
                                             <li role="separator" class="divider"></li>
 
                                                 <%--普通管理员--%>
-                                            <li><a href="#">用户管理</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/userInfo">用户管理</a></li>
                                                 <%--分割线separator--%>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="#">贴子管理</a></li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">分类管理</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
                                             <li role="separator" class="divider"></li>
                                         </ul>
                                     </li>
@@ -97,7 +97,7 @@
                                             <li role="separator" class="divider"></li>
                                             <li><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">分类管理</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
                                             <li role="separator" class="divider"></li>
                                         </ul>
                                     </li>

@@ -24,42 +24,45 @@
         </div>
 
         <div class="panel-body">
-            <form  action="" id="myTabUpdateForm" method="POST" class="form-horizontal" role="form">
+            <form  action="${pageContext.request.contextPath}/modifyTab" id="myTabUpdateForm" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">分类ID</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">分类ID</p>
+                        <p class="form-control-static">${tab.tab_id}</p>
                     </div>
                     <div class="col-sm-5">
-                        <input type="text"  name="tab_id" value="分类ID" readonly />
+                        <input type="text"  name="tab_id" value="${tab.tab_id}" readonly />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">分类名</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">分类名</p>
+                        <p class="form-control-static">${tab.tab_name}</p>
                     </div>
                     <div class="col-sm-5">
                         修改分类名：<br>
-                        <input type="text"  name="tab_name" value="分类名" required />
+                        <input id="tab_name" type="text"  name="tab_name" value="${tab.tab_name}" required />
+                        <p id="tabNameErr"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">所属版块</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">默认</p>
+                        <p class="form-control-static">${tab.forum.forum_name}</p>
                     </div>
                     <div class="col-sm-5">
                         修改所属版块：<br>
-                        <select class="form-control" name="selectedForumId">
+                        <select class="form-control" name="forum_id">
                             <%--遍历所有版块--%>
-                            <option value="1">默认</option>
+                            <c:forEach items="${forum}" var="i">
+                                <option value="${i.forum_id}" <c:if test="${i.forum_name==tab.forum.forum_name}"> selected="selected"</c:if>>${i.forum_name}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>
-                <input class="btn btn-warning" type="button" value="修改"/>
+                <input id="sub" class="btn btn-warning" type="submit" value="修改"/>
                 <input class="btn btn-default" type="reset" value="重填"/>
-                <input type="button" class="btn btn-default" value="返回"/>
+                <a href="${pageContext.request.contextPath}/toTab" class="btn btn-default">返回</a>
             </form>
         </div>
     </div>
@@ -72,7 +75,38 @@
 <%@ include file="footer.jsp"%>
 
 <script>
-
+    $(function () {
+        $("#tab_name").blur(function () {
+            var tab_name= $(this).val();
+            var tabNameErr=$("#tabNameErr");
+            $.ajax({
+                url:"${pageContext.request.contextPath}/uniquenessTabName",
+                type:"post",
+                data:{"tab_name":tab_name},
+                dataType:"text",
+                success:function (result) {
+                    if(tab_name!=""){
+                        if (result!="0"){
+                            tabNameErr.css("color","green");
+                            tabNameErr.text("分类名可以使用！");
+                            $("#sub").attr("disabled", false);
+                        }else{
+                            tabNameErr.css("color","red");
+                            tabNameErr.text("分类名已被使用！");
+                            $("#sub").attr("disabled", true);
+                        }
+                    }else{
+                        tabNameErr.css("color","red");
+                        tabNameErr.text("分类名不能为空！");
+                        $("#sub").attr("disabled", true);
+                    }
+                },
+                error:function () {
+                    alert("获取版块失败！")
+                }
+            })
+        })
+    })
 </script>
 
 </body>

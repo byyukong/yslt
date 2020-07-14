@@ -5,6 +5,7 @@
     <resultMap id="user" type="tip">
         <association property="tab" javaType="tab" >
             <result property="tab_name" column="tab_name"/>
+            <result property="tab_isDeleted" column="tab_isDeleted"/>
         </association>
         <association property="user" javaType="user">
             <result property="user_nick" column="user_nick"/>
@@ -31,7 +32,7 @@
         </association>
     </resultMap>
     <select id="seleall" resultMap="user">
-    SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,f.forum_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+    SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
     FROM tip t
     INNER JOIN tab t1 ON t.tab_id = t1.tab_id
     INNER JOIN `user` u ON u.user_id = t.user_id
