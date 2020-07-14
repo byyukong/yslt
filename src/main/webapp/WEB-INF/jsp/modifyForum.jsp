@@ -20,7 +20,7 @@
 <div style="width: 50%;margin:1% 2% 1% 5%;float: left;">
     <div class="panel panel-default" id="main" style="">
         <div class="panel-heading" style="background-color: white">
-            <a href="<%=basePath%>">论坛</a> › 修改版块信息 › 默认
+            <a href="<%=basePath%>">论坛</a> › <a href="/toForumManage">修改版块信息</a> › <a href="#">${forum.forum_name}</a>
         </div>
 
         <div class="panel-body">

@@ -20,7 +20,7 @@
 <div style="width: 50%;margin:1% 2% 1% 5%;float: left;">
     <div class="panel panel-default" id="main" style="">
         <div class="panel-heading" style="background-color: white">
-            <a href="<%=basePath%>">论坛</a> › 修改分类信息 › 分类名
+            <a href="<%=basePath%>">论坛</a> › <a href="/toTab">修改分类信息</a> › <a href="#">${tab.tab_name}</a>
         </div>
 
         <div class="panel-body">
