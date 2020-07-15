@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class TipController {
     @RequestMapping(value = "/pinglun",method = RequestMethod.GET)
     public String pinglun(@RequestParam("user_id")String user_id, @RequestParam("tip_id")String tip_id, @RequestParam("reply_content")String reply_content) {
         Reply reply = new Reply();
-        reply.setUser_id(Integer.parseInt(user_id));
+        reply.setUser_id(user_id);
         reply.setTip_id(Integer.parseInt(tip_id));
         reply.setReply_content(reply_content);
         reply.setReply_publishTime(new Date());
@@ -92,9 +93,18 @@ public class TipController {
      * @return
      */
     @RequestMapping("/addTip")
-    public String addTip(Tip tip){
-        System.out.println("测试发帖："+tip);
-        return "redirect:/goAddTip";
+    public String addTip(Tip tip, HttpSession session){
+        User user =(User) session.getAttribute("user");
+        tip.setUser_id(user.getUser_id());
+        tip.setTip_publishTime(new Date());
+        tip.setTip_modifyTime(new Date());
+        tip.setTip_click(0);
+        tip.setTip_isDeleted(0);
+        tip.setTip_isKnot(0);
+        tip.setTip_replies(0);
+        tip.setTip_isTop(0);
+        tipService.addTip(tip);
+        return "redirect:/main";
     }
     @RequestMapping(value = "/jietie",method = RequestMethod.GET)
     @ResponseBody

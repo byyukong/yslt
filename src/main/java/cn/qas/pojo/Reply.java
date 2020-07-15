@@ -14,7 +14,7 @@ public class Reply {
   private User user; // 用户
   private Tip tip; // 贴子
 
-  private int user_id; // 回复用户的id
+  private String user_id; // 回复用户的id
   private int tip_id; // 被回复的贴子id
 
   private int reply_id; // 回复id

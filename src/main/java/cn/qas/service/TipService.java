@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TipService {
     //查询所有贴吧
-    public List<Tip> seleall();
+    List<Tip> seleall();
     //搜索功能
     List<Tip> likesele(@Param("title") String title);
     //点击帖子查询回复

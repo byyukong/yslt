@@ -75,7 +75,7 @@
         VALUES (#{reply.user_id},#{reply.tip_id},#{reply.reply_content},#{reply.reply_publishTime})
     </insert>
     <insert id="addTip">
-        insert tip value(NULL,#{user_id},#{tab_id},#{forum_id},#{tip_title},#{tip_content},#{tip_publishTime},#{tip_modifyTime},#{tip_click},#{tip_isDeleted},#{tip_isKnot},#{tip_replies},#{tip_isTop},#{tip_topTime})
+        insert tip value(null,#{user_id},#{tab_id},#{forum_id},#{tip_title},#{tip_content},#{tip_publishTime},#{tip_modifyTime},#{tip_click},#{tip_isDeleted},#{tip_isKnot},#{tip_replies},#{tip_isTop},null)
     </insert>
     <update id="updatetip" >
         UPDATE tip SET tip_isKnot=#{tip_isKnot} WHERE tip_id=#{tip_id}

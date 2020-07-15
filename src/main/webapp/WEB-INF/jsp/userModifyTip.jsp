@@ -57,7 +57,7 @@
                             <td>
                                 <select class="form-control" id="selectForum" name="selectedForumId">
                                     <c:forEach items="${forums}" var="i">
-                                        <option value="${i.forum_id}" >${i.forum_name}</option>
+                                        <option value="${i.forum_id}"<c:if test="${tip.forum_id==i.forum_id}">selected="selected"</c:if>>${i.forum_name}</option>
                                     </c:forEach>
                                 </select>
                             </td>
@@ -73,7 +73,7 @@
                             <td>
                                 <select class="form-control" id="selectTab" name="selectedTabId">
                                     <c:forEach items="${tab}" var="i">
-                                        <option value="${i.tab_id} " >${i.tab_name}</option>
+                                        <option value="${i.tab_id}" <c:if test="${tip.tab_id==i.tab_id}">selected="selected"</c:if>>${i.tab_name}</option>
                                     </c:forEach>
                                 </select>
                             </td>

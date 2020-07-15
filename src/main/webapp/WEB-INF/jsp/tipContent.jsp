@@ -13,7 +13,7 @@
     <link href="<%=path%>/static/css/bootstrap.min.css" rel="stylesheet">
     <script src="<%=path%>/static/js/jquery-3.2.1.js"></script>
     <script src="<%=path%>/static/js/bootstrap.min.js"></script>
-    <title>贴子标题 - 论坛 </title>
+    <title>贴子详细信息 - 论坛 </title>
 </head>
 <body>
 <%--这是进入贴子查看内容的页面--%>
@@ -28,7 +28,7 @@
         <div class="panel-heading" style="background-color: white">
             <div>
                 <div class="panel-heading" style="background-color: white">
-                    <a href="<%=basePath%>">XX论坛</a> › <a href="#">${tip.tip_title}</a>
+                    <a href="<%=basePath%>">论坛</a> › <a href="#">${tip.tip_title}</a>
                 </div>
                 <%--贴子标题--%>
                 <h3>
