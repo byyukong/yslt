@@ -1,8 +1,7 @@
 package cn.qas.controller;
 
 import cn.qas.pojo.Forum;
-import cn.qas.pojo.User;
-import cn.qas.service.forumManageService;
+import cn.qas.service.ForumManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +16,9 @@ import java.util.Date;
  * @create 2020-07-13 12:19
  */
 @Controller
-public class forumManageController {
+public class ForumManageController {
     @Autowired
-    private forumManageService forumManageService;
+    private ForumManageService forumManageService;
 
     /**
      * 跳转到版块并且查询所有版块

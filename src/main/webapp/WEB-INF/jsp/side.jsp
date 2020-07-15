@@ -67,7 +67,7 @@
                         </li>
                             <%--管理员功能 2020-07-4 22:33--%>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/userInfo">用户管理</a></li>
-                        <li class="list-group-item"><a href="#">贴子管理</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>
@@ -84,7 +84,7 @@
                         </c:if>
                             <%--管理员功能 2020-07-04 22:33--%>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/userInfo">用户管理</a></li>
-                        <li class="list-group-item"><a href="#">贴子管理</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>

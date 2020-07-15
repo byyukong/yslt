@@ -1,6 +1,7 @@
-package cn.qas.service;
+package cn.qas.mapper;
 
 import cn.qas.pojo.Forum;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -8,13 +9,13 @@ import java.util.List;
  * @author GaoJianJun
  * @create 2020-07-13 14:00
  */
-public interface forumManageService {
+public interface ForumManageMapper {
     //查询所有版块
     List<Forum> queryForum();
     //删除版块
-    int delForum(int id);
+    int delForum(@Param("id") int id);
     //恢复版块
-    int cancelDel(int id);
+    int cancelDel(@Param("id") int id);
     //判断版块是否存在
     Forum uniquenessForumName(String forum_name);
     //添加版块
@@ -23,4 +24,6 @@ public interface forumManageService {
     Forum queryForumById(int id);
     //修改版块
     int modifyForum(Forum forum);
+
+
 }

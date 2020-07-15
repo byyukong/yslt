@@ -67,4 +67,34 @@ public class TipServiceImpl implements TipService {
     public int updates(int forum_id, int tab_id, String tip_title, String tip_content, Date tip_modifyTime, int tip_id) {
         return tipMapper.updates(forum_id,tab_id,tip_title,tip_content,tip_modifyTime,tip_id);
     }
+
+    @Override
+    public int addTop(int tid) {
+        return tipMapper.addTop(tid);
+    }
+
+    @Override
+    public int canceTop(int tid) {
+        return tipMapper.canceTop(tid);
+    }
+
+    @Override
+    public int stick(int tid) {
+        return tipMapper.stick(tid);
+    }
+
+    @Override
+    public int canceStick(int tid) {
+        return tipMapper.canceStick(tid);
+    }
+
+    @Override
+    public int delTip(int tid) {
+        return tipMapper.delTip(tid);
+    }
+
+    @Override
+    public int canceDelTip(int tid) {
+        return tipMapper.canceDelTip(tid);
+    }
 }

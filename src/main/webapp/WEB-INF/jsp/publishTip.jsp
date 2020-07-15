@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="tip_content">正文</label>
-                    <textarea class="form-control" rows="10" id="tip_content" name="tip_content"></textarea>
+                    <textarea class="form-control" rows="10" id="tip_content" name="tip_content" required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -61,15 +61,15 @@
                 <br><br><br><br>
 
                 <input type="submit" value="发布" class="btn btn-success btn-sm"/>
-                <input type="button" class="btn btn-default" value="返回"/>
+                <a href="${pageContext.request.contextPath}/main" class="btn btn-default">返回</a>
 
             </form>
         </div>
     </div>
 </div>
 
-
-<div class="panel panel-default" id="sidebar2" style="width: 20%;margin:1% 2% 1% 0%;float: right">
+<%@ include file="side.jsp" %>
+<%--<div class="panel panel-default" id="sidebar2" style="width: 20%;margin:1% 2% 1% 0%;float: right">
     <div class="panel-heading" style="background-color: white;text-align: center">
         tips1
     </div>
@@ -88,10 +88,10 @@
             </p>
         </li>
     </ul>
-</div>
+</div>--%>
 
 
-<div class="panel panel-default" id="sidebar1" style="width: 20%;margin:1% 2% 1% 0%;float: right">
+<%--<div class="panel panel-default" id="sidebar1" style="width: 20%;margin:1% 2% 1% 0%;float: right">
     <div class="panel-heading" style="background-color: white;text-align: center">
         tips2
     </div>
@@ -110,7 +110,7 @@
             </p>
         </li>
     </ul>
-</div>
+</div>--%>
 
 
 <!-- 引入footer文件 -->

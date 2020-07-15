@@ -1,8 +1,8 @@
 package cn.qas.service.impl;
 
-import cn.qas.mapper.tabMapper;
+import cn.qas.mapper.TabMapper;
 import cn.qas.pojo.Tab;
-import cn.qas.service.tabService;
+import cn.qas.service.TabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ import java.util.List;
  * @create 2020-07-14 8:46
  */
 @Service
-public class tabServiceImpl implements tabService {
+public class TabServiceImpl implements TabService {
     @Autowired
-    private tabMapper tabMapper;
+    private TabMapper tabMapper;
     @Override
     public List<Tab> queryTab() {
         return tabMapper.queryTab();

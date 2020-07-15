@@ -47,7 +47,7 @@
     <div class="panel-body">
 
             <!-- 这里显示所有贴子信息 -->
-            <table class="table">
+            <table class="table table-hover table-striped">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -64,54 +64,154 @@
                 </thead>
                 <tbody>
                 <%--这里是表格内容，需要遍历数组--%>
-                <tr>
-                    <td>1</td>
-                    <td>其他</td>
-                    <%--标题--%>
-                    <td style="overflow: hidden; text-overflow: ellipsis; max-width: 120px; white-space: nowrap">标题测试</td>
-                    <%--内容--%>
-                    <td style="overflow: hidden; text-overflow: ellipsis; max-width: 120px; white-space: nowrap">内容</td>
-                    <%--发贴用户昵称或用户名--%>
-                    <td>
-                        yukong
-                    </td>
-                    <%--回复数--%>
-                    <td>9</td>
-                    <%--发贴时间 修改时间--%>
-                    <td>
-                        2019-10-23 16:35:17
-                        <br>
-                        2020-06-30 14:40:36
-                    </td>
-                    <%--点击数--%>
-                    <td>99</td>
-                    <%--状态--%>
-                    <td>
-                        <%--2020-03-05 10:44--%>
-                        <span class="label label-danger">已删除</span>
-                        <span class="label label-success">已结贴</span>
-                        <span class="label label-warning">已置顶</span>
-                    </td>
-                    <td><!-- 这里显示操作按钮 -->
-                        <input type="button" class="btn btn-warning" value="修改"/>
-                        <input type="button" class="btn btn-success" value="取消删除">
-                        <input type="button" class="btn btn-danger" value="删除"/>
-                        <input type="button" class="btn btn-success" value="取消结贴"/>
-                        <input type="button" class="btn btn-primary" value="结贴"/>
+                <c:forEach items="${tips}" var="i">
+                    <tr>
+                        <td>${i.tip_id}</td>
+                        <td>${i.tab.tab_name}</td>
+                            <%--标题--%>
+                        <td style="overflow: hidden; text-overflow: ellipsis; max-width: 120px; white-space: nowrap">${i.tip_title}</td>
+                            <%--内容--%>
+                        <td style="overflow: hidden; text-overflow: ellipsis; max-width: 120px; white-space: nowrap">${i.tip_content}</td>
+                            <%--发贴用户昵称或用户名--%>
+                        <td>${i.user.user_nick}</td>
+                            <%--回复数--%>
+                        <td>${i.tip_replies}</td>
+                            <%--发贴时间 修改时间--%>
+                        <td>
+                            <fmt:formatDate value="${i.tip_publishTime}" type="both"/>
+                            <br>
+                            <fmt:formatDate value="${i.tip_modifyTime}" type="both"/>
+                        </td>
+                            <%--点击数--%>
+                        <td>${i.tip_click}</td>
+                            <%--状态--%>
+                        <td>
+                            <c:if test="${i.tip_isDeleted==1}">
+                                <span class="label label-danger">已删除</span>
+                            </c:if>
+                            <c:if test="${i.tip_isKnot==1}">
+                                <span class="label label-success">已结贴</span>
+                            </c:if>
+                            <c:if test="${i.tip_isTop==1}">
+                                <span class="label label-warning">已置顶</span>
+                            </c:if>
+                        </td>
+                        <td><!-- 这里显示操作按钮 -->
+                            <a href="${pageContext.request.contextPath}/modify/${i.tip_id}" class="btn btn-info">修改</a>
+                            <c:choose>
+                                <c:when test="${i.tip_isDeleted==1}">
+                                    <input alt="${i.tip_id}" type="button" class="btn btn-success canceDelTip" value="取消删除">
+                                </c:when>
+                                <c:otherwise>
+                                    <input alt="${i.tip_id}" type="button" class="btn btn-danger delTip" value="删除"/>
+                                </c:otherwise>
+                            </c:choose>
 
-                        <%--置顶 2020-02-27 10:00--%>
-                        <input type="button" class="btn btn-success" value="取消置顶"/>
-                        <input type="button" class="btn btn-warning" value="置顶">
-                    </td>
-                </tr>
+                            <c:choose>
+                                <c:when test="${i.tip_isKnot==1}">
+                                    <input alt="${i.tip_id}" type="button" class="btn btn-success canceStick" value="取消结贴"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input alt="${i.tip_id}" type="button" class="btn btn-primary stick" value="结贴"/>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <c:choose>
+                                <c:when test="${i.tip_isTop==1}">
+                                    <input alt="${i.tip_id}" type="button" class="btn btn-success canceTop" value="取消置顶"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input alt="${i.tip_id}" type="button" class="btn btn-warning addTop" value="置顶"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
-            <input type="button" class="btn btn-default" value="返回"
-                   style="margin-left: 17%"/>
-
+            <a href="${pageContext.request.contextPath}/" class="btn btn-default" style="margin-left: 17%">返回</a>
     </div>
 </div>
-
+<script>
+    $(document).on("click",".addTop",function () {
+        var tid=$(this).attr("alt");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/addTop/"+tid,
+            type:"post",
+            success:function (result) {
+                location.href="${pageContext.request.contextPath}/toTipAdministration";
+            },
+            error:function () {
+                alert("置顶失败！")
+            }
+        })
+    })
+    $(document).on("click",".canceTop",function () {
+        var tid=$(this).attr("alt");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/canceTop/"+tid,
+            type:"post",
+            success:function (result) {
+                location.href="${pageContext.request.contextPath}/toTipAdministration";
+            },
+            error:function () {
+                alert("取消置顶失败！")
+            }
+        })
+    })
+    $(document).on("click",".stick",function () {
+        var tid=$(this).attr("alt");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/stick/"+tid,
+            type:"post",
+            success:function (result) {
+                location.href="${pageContext.request.contextPath}/toTipAdministration";
+            },
+            error:function () {
+                alert("结贴失败！")
+            }
+        })
+    })
+    $(document).on("click",".canceStick",function () {
+        var tid=$(this).attr("alt");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/canceStick/"+tid,
+            type:"post",
+            success:function (result) {
+                location.href="${pageContext.request.contextPath}/toTipAdministration";
+            },
+            error:function () {
+                alert("取消结贴失败！")
+            }
+        })
+    })
+    $(document).on("click",".delTip",function () {
+        var tid=$(this).attr("alt");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/delTip/"+tid,
+            type:"post",
+            success:function (result) {
+                location.href="${pageContext.request.contextPath}/toTipAdministration";
+            },
+            error:function () {
+                alert("删除失败！")
+            }
+        })
+    })
+    $(document).on("click",".canceDelTip",function () {
+        var tid=$(this).attr("alt");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/canceDelTip/"+tid,
+            type:"post",
+            success:function (result) {
+                location.href="${pageContext.request.contextPath}/toTipAdministration";
+            },
+            error:function () {
+                alert("取消删除失败！")
+            }
+        })
+    })
+</script>
 <!-- 引入footer文件 -->
 <%@ include file="footer.jsp"%>
 

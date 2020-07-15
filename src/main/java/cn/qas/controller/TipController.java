@@ -1,9 +1,9 @@
 package cn.qas.controller;
 
 import cn.qas.pojo.*;
-import cn.qas.service.forumManageService;
+import cn.qas.service.ForumManageService;
 import cn.qas.service.impl.TipServiceImpl;
-import cn.qas.service.tabService;
+import cn.qas.service.TabService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class TipController {
     @Autowired
     TipServiceImpl tipService;
     @Autowired
-    private forumManageService forumManageService;
+    private ForumManageService forumManageService;
     @Autowired
-    private tabService tabService;
+    private TabService tabService;
 
     @RequestMapping("/main")
     public String seleall(Model model){
@@ -106,6 +106,92 @@ public class TipController {
         tipService.addTip(tip);
         return "redirect:/main";
     }
+
+    /**
+     * 跳转到贴子管理页面并遍历数据
+     * @param model
+     * @return
+     */
+    @RequestMapping("/toTipAdministration")
+    public String toTipAdministration(Model model){
+        model.addAttribute("tips",tipService.seleall());
+        return "tipManage";
+    }
+
+    /**
+     * 置顶
+     * @param tid
+     * @return
+     */
+    @RequestMapping("/addTop/{tid}")
+    @ResponseBody
+    public ModelAndView addTop(@PathVariable int tid){
+        ModelAndView modelAndView=new ModelAndView();
+        tipService.addTop(tid);
+        modelAndView.setViewName("tipManage");
+        return modelAndView;
+    }
+
+    /**
+     * 取消置顶
+     * @param tid
+     * @return
+     */
+    @RequestMapping("/canceTop/{tid}")
+    @ResponseBody
+    public ModelAndView canceTop(@PathVariable int tid){
+        ModelAndView modelAndView=new ModelAndView();
+        tipService.canceTop(tid);
+        modelAndView.setViewName("tipManage");
+        return modelAndView;
+    }
+
+    /**
+     * 结贴
+     */
+    @RequestMapping("/stick/{tid}")
+    @ResponseBody
+    public ModelAndView stick(@PathVariable int tid){
+        ModelAndView modelAndView=new ModelAndView();
+        tipService.stick(tid);
+        modelAndView.setViewName("tipManage");
+        return modelAndView;
+    }
+    /**
+     * 取消结贴
+     */
+    @RequestMapping("/canceStick/{tid}")
+    @ResponseBody
+    public ModelAndView canceStick(@PathVariable int tid){
+        ModelAndView modelAndView=new ModelAndView();
+        tipService.canceStick(tid);
+        modelAndView.setViewName("tipManage");
+        return modelAndView;
+    }
+    /**
+     * 删除
+     */
+    @RequestMapping("/delTip/{tid}")
+    @ResponseBody
+    public ModelAndView delTip(@PathVariable int tid){
+        ModelAndView modelAndView=new ModelAndView();
+        tipService.delTip(tid);
+        modelAndView.setViewName("tipManage");
+        return modelAndView;
+    }
+    /**
+     * 取消删除
+     */
+    @RequestMapping("/canceDelTip/{tid}")
+    @ResponseBody
+    public ModelAndView canceDelTip(@PathVariable int tid){
+        ModelAndView modelAndView=new ModelAndView();
+        tipService.canceDelTip(tid);
+        modelAndView.setViewName("tipManage");
+        return modelAndView;
+    }
+
+
     @RequestMapping(value = "/jietie",method = RequestMethod.GET)
     @ResponseBody
     public int jietie(@RequestParam("tip_id")int tip_id,@RequestParam("tip_isKnot")int tip_isKnot){

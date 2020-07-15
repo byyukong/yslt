@@ -8,7 +8,7 @@ import java.util.List;
  * @author GaoJianJun
  * @create 2020-07-14 8:46
  */
-public interface tabService {
+public interface TabService {
     //查询所有分类
     List<Tab> queryTab();
     //删除分类 逻辑删除

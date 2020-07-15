@@ -1,9 +1,8 @@
 package cn.qas.controller;
 
-import cn.qas.pojo.Forum;
 import cn.qas.pojo.Tab;
-import cn.qas.service.forumManageService;
-import cn.qas.service.tabService;
+import cn.qas.service.ForumManageService;
+import cn.qas.service.TabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +17,11 @@ import java.util.Date;
  * @create 2020-07-14 8:48
  */
 @Controller
-public class tabController {
+public class TabController {
     @Autowired
-    private tabService tabService;
+    private TabService tabService;
     @Autowired
-    private forumManageService forumManageService;
+    private ForumManageService forumManageService;
 
     /**
      * 跳转到分类页面并回显数据

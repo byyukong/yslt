@@ -72,7 +72,7 @@
                                             <li><a href="${pageContext.request.contextPath}/userInfo">用户管理</a></li>
                                                 <%--分割线separator--%>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">贴子管理</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                                             <li role="separator" class="divider"></li>
@@ -93,7 +93,7 @@
                                             <li><a href="#">用户管理</a></li>
                                                 <%--分割线separator--%>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">贴子管理</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                                             <li role="separator" class="divider"></li>
                                             <li><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                                             <li role="separator" class="divider"></li>

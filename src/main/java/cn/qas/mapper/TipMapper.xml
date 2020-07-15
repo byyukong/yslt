@@ -110,4 +110,22 @@
         </set>
         where tip_id=#{tip_id}
     </update>
+    <update id="addTop">
+        update tip set tip_isTop = 1  where tip_id=#{tid};
+    </update>
+    <update id="canceTop">
+        update tip set tip_isTop = 0  where tip_id=#{tid};
+    </update>
+    <update id="stick">
+        update tip set tip_isKnot = 1  where tip_id=#{tid};
+    </update>
+    <update id="canceStick">
+        update tip set tip_isKnot = 0  where tip_id=#{tid};
+    </update>
+    <update id="delTip">
+        update tip set tip_isDeleted = 1  where tip_id=#{tid};
+    </update>
+    <update id="canceDelTip">
+        update tip set tip_isDeleted = 0  where tip_id=#{tid};
+    </update>
 </mapper>

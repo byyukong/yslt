@@ -1,8 +1,8 @@
 package cn.qas.service.impl;
 
-import cn.qas.mapper.forumManageMapper;
+import cn.qas.mapper.ForumManageMapper;
 import cn.qas.pojo.Forum;
-import cn.qas.service.forumManageService;
+import cn.qas.service.ForumManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ import java.util.List;
  * @create 2020-07-13 14:00
  */
 @Service
-public class forumManageServiceImpl implements forumManageService {
+public class ForumManageServiceImpl implements ForumManageService {
     @Autowired
-    private forumManageMapper forumManageMapper;
+    private ForumManageMapper forumManageMapper;
     @Override
     public List<Forum> queryForum() {
         return forumManageMapper.queryForum();

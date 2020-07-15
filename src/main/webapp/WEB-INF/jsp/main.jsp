@@ -80,7 +80,7 @@
 
     <ul class="list-group" style="width: 100%">
         <c:forEach items="${list}" var="i">
-            <c:if test="${i.forum.forum_isDeleted==0 && i.tab.tab_isDeleted==0}">
+            <c:if test="${i.forum.forum_isDeleted==0 && i.tab.tab_isDeleted==0 && i.tip_isDeleted==0}">
                 <li class="list-group-item">
                     <div style="height: 50px">
                         <div style="width: 89%;float: left">

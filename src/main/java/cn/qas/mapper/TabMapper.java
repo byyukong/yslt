@@ -8,7 +8,7 @@ import java.util.List;
  * @author GaoJianJun
  * @create 2020-07-14 8:44
  */
-public interface tabMapper {
+public interface TabMapper {
     //查询所有分类
     List<Tab> queryTab();
     //删除分类 逻辑删除
