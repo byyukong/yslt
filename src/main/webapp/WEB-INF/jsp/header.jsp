@@ -34,7 +34,7 @@
                             </li>
                                 <%--判断是否为被锁定的用户 被锁定的用户不能发贴--%>
                             <c:if test="${sessionScope.user.user_status!=2}">
-                                <li><p class="navbar-text"><a href="#">发表新贴</a></p></li>
+                                <li><p class="navbar-text"><a href="${pageContext.request.contextPath}/goAddTip">发表新贴</a></p></li>
                             </c:if>
 
                             <li>

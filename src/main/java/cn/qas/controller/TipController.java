@@ -1,8 +1,9 @@
 package cn.qas.controller;
 
-import cn.qas.pojo.Reply;
-import cn.qas.pojo.Tip;
+import cn.qas.pojo.*;
+import cn.qas.service.forumManageService;
 import cn.qas.service.impl.TipServiceImpl;
+import cn.qas.service.tabService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ import java.util.List;
 public class TipController {
     @Autowired
     TipServiceImpl tipService;
+    @Autowired
+    private forumManageService forumManageService;
+    @Autowired
+    private tabService tabService;
 
     @RequestMapping("/main")
     public String seleall(Model model){
@@ -67,5 +72,60 @@ public class TipController {
         reply.setReply_publishTime(new Date());
         int addreply = tipService.addreply(reply);
         return "redirect:/click/"+reply.getTip_id();
+    }
+
+    /**
+     * 跳转到发帖页面并且遍历所有版块，分类
+     * @param model
+     * @return
+     */
+    @RequestMapping("/goAddTip")
+    public String goAddTip(Model model){
+        model.addAttribute("forum",forumManageService.queryForum());
+        model.addAttribute("tab",tabService.queryTab());
+        return "publishTip";
+    }
+
+    /**
+     * 发帖
+     * @param tip
+     * @return
+     */
+    @RequestMapping("/addTip")
+    public String addTip(Tip tip){
+        System.out.println("测试发帖："+tip);
+        return "redirect:/goAddTip";
+    }
+    @RequestMapping(value = "/jietie",method = RequestMethod.GET)
+    @ResponseBody
+    public int jietie(@RequestParam("tip_id")int tip_id,@RequestParam("tip_isKnot")int tip_isKnot){
+        int updatetip = tipService.updatetip(tip_isKnot,tip_id);
+        System.out.println(updatetip);
+        return updatetip;
+    }
+
+    @RequestMapping("/modify/{id}")
+    public ModelAndView clickmodify(@PathVariable("id") int id){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Reply> replyList=tipService.clickreply(id);
+        modelAndView.addObject("replyList",replyList);
+        List<Tip> list=tipService.seleall();
+        Tip tip=tipService.selezuozhe(id);
+        List<User> selectuser = tipService.selectuser();
+
+        modelAndView.addObject("forums",forumManageService.queryForum());
+        modelAndView.addObject("list",list);
+        modelAndView.addObject("tip",tip);
+        modelAndView.addObject("tab",tabService.queryTab());
+        modelAndView.addObject("user",selectuser);
+        modelAndView.setViewName("userModifyTip");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/xiugaitip",method = RequestMethod.GET)
+    @ResponseBody
+    public int xiug(@RequestParam("forum_id")int forum_id,@RequestParam("tab_id")int tab_id,@RequestParam("tip_title")String tip_title,@RequestParam("tip_content")String tip_content,@RequestParam("tip_modifyTime")Date tip_modifyTime,@RequestParam("tip_id")int tip_id){
+        int updates = tipService.updates(forum_id,tab_id,tip_title, tip_content, tip_modifyTime, tip_id);
+        return updates;
     }
 }

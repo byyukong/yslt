@@ -28,7 +28,7 @@
         <div class="panel-heading" style="background-color: white">
             <div>
                 <div class="panel-heading" style="background-color: white">
-                    <a href="<%=basePath%>">论坛</a> › <a href="#">${tip.tip_title}</a>
+                    <a href="<%=basePath%>">XX论坛</a> › <a href="#">${tip.tip_title}</a>
                 </div>
                 <%--贴子标题--%>
                 <h3>
@@ -36,9 +36,11 @@
                     <div style="float: right">
                         <%--判断是否是发帖人--%>
                         <%--仅发贴人可以结贴、修改--%>
-                        <input type="button" class="btn btn-primary" value="结贴"/>
+                            <c:if test="${tip.user.user_id eq sessionScope.user.user_id && tip.tip_isKnot==0}">
+                        <input type="button" class="btn btn-primary jietie" value="结贴"/>
                         <%--发贴人修改贴子有不同的Controller--%>
-                        <input type="button" class="btn btn-warning" value="修改"/>
+                                <a href="${pageContext.request.contextPath}/modify/${tip.tip_id}" class="btn btn-warning xiugai">修改</a>
+                            </c:if>
                     </div>
                 </h3>
 
@@ -194,6 +196,23 @@
 <%@ include file="footer.jsp" %>
 
 <script>
+    $(".jietie").click(function () {
+       if(confirm("确认结贴?,结贴后无法回复。")){
+           $.ajax({
+               url:"${pageContext.request.contextPath}/jietie",
+               type:"get",
+               data:{"tip_id":"${tip.tip_id}","tip_isKnot":"1"},
+               success:function (result) {
+                        if(result>0){
+                            alert("结贴成功")
+                            location.href="${pageContext.request.contextPath}/click/"+${tip.tip_id};
+                        }else {
+                            alert("结贴失败")
+                        }
+               }
+           })
+       }
+    })
     //$(document).on("click","#fabu",function () {
     $("#fabu").click(function () {
        var bodys=$('#reply_content').val();

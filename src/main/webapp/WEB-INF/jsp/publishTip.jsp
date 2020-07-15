@@ -27,7 +27,7 @@
         </div>
 
         <div class="panel-body">
-            <form action="publishNewTip.do" method="POST" id="myNewTipForm">
+            <form action="${pageContext.request.contextPath}/addTip" method="POST" id="myNewTipForm">
                 <div class="form-group">
                     <label for="tip_title">标题</label>
                     <input type="text" class="form-control" id="tip_title" name="tip_title" placeholder="请输入标题"
@@ -41,22 +41,26 @@
 
                 <div class="form-group">
                     <div class="col-sm-6" style="width: 20%">
-                        所属版块：<select class="form-control" id="selectForum" name="selectedForumId">
-                        <option value="" selected>请选择版块</option>
-                        <option value="1">默认</option>
+                        所属版块：
+                    <select class="form-control" id="selectForum" name="forum_id">
+                        <c:forEach items="${forum}" var="i">
+                            <option value="${i.forum_id}">${i.forum_name}</option>
+                        </c:forEach>
                     </select>
                     </div>
                     <div class="col-sm-6" style="width: 20%">
-                        分类：<select class="form-control" id="selectTab" name="tab_id">
-                        <option value="" selected>请选择分类</option>
-                        <option value="2">生活</option>
+                        分类：
+                    <select class="form-control" id="selectTab" name="tab_id">
+                        <c:forEach items="${tab}" var="i">
+                            <option value="${i.tab_id}">${i.tab_name}</option>
+                        </c:forEach>
                     </select>
                     </div>
                 </div>
 
                 <br><br><br><br>
 
-                <input type="button" value="发布" class="btn btn-success btn-sm"/>
+                <input type="submit" value="发布" class="btn btn-success btn-sm"/>
                 <input type="button" class="btn btn-default" value="返回"/>
 
             </form>

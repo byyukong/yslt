@@ -17,6 +17,8 @@ public class Tip {
   private Tab tab; // 分类对象
   private int user_id; // 楼主id（发贴人id）
   private int tab_id; // 分类id
+  private int forum_id; // 版块id
+
 
   private int tip_id; // 贴子id
   private String tip_title; // 标题

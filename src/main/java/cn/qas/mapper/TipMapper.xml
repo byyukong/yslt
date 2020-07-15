@@ -32,7 +32,7 @@
         </association>
     </resultMap>
     <select id="seleall" resultMap="user">
-    SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+    SELECT tip_id,u.user_nick,u.user_id,u.user_name,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
     FROM tip t
     INNER JOIN tab t1 ON t.tab_id = t1.tab_id
     INNER JOIN `user` u ON u.user_id = t.user_id
@@ -63,9 +63,10 @@
     ORDER BY reply_publishTime DESC
     </select>
     <select id="selezuozhe"  resultMap="zuozhe">
-    SELECT tip_id,u.user_nick,u.user_type,u.user_id,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+    SELECT tip_id,u.user_nick,u.user_type,t.tab_id,t.forum_id,f.forum_name,u.user_type,u.user_id,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
         FROM tip t
         INNER JOIN `user` u ON u.user_id = t.user_id
+        INNER JOIN `forum` f ON f.forum_id = t.forum_id
         WHERE tip_id=#{id}
     </select>
 
@@ -73,4 +74,40 @@
         INSERT INTO reply (user_id,tip_id,reply_content,reply_publishTime)
         VALUES (#{reply.user_id},#{reply.tip_id},#{reply.reply_content},#{reply.reply_publishTime})
     </insert>
+    <insert id="addTip">
+        insert tip value(NULL,#{user_id},#{tab_id},#{forum_id},#{tip_title},#{tip_content},#{tip_publishTime},#{tip_modifyTime},#{tip_click},#{tip_isDeleted},#{tip_isKnot},#{tip_replies},#{tip_isTop},#{tip_topTime})
+    </insert>
+    <update id="updatetip" >
+        UPDATE tip SET tip_isKnot=#{tip_isKnot} WHERE tip_id=#{tip_id}
+    </update>
+    <select id="selectForum" resultType="forum">
+        SELECT * FROM forum
+    </select>
+    <select id="selecttab" resultType="tab">
+        select * from tab
+    </select>
+    <select id="selectuser" resultType="user">
+        select * from user
+    </select>
+    <update id="updates">
+        UPDATE tip
+        <set>
+            <if test="forum_id!=0">
+                forum_id=#{forum_id},
+            </if>
+            <if test="tab_id!=0">
+                tab_id=#{tab_id},
+            </if>
+            <if test="tip_title!=null">
+                tip_title=#{tip_title},
+            </if>
+            <if test="tip_content!=null">
+                tip_content=#{tip_content},
+            </if>
+            <if test="tip_modifyTime!=null">
+                tip_modifyTime=#{tip_modifyTime},
+            </if>
+        </set>
+        where tip_id=#{tip_id}
+    </update>
 </mapper>

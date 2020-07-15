@@ -40,81 +40,104 @@
                     <tbody>
                         <tr>
                             <td>贴子ID</td>
-                            <td>1</td>
+                            <td>${tip.tip_id}</td>
                             <%--贴子ID不允许用户修改--%>
                             <td><input class="form-control" type="hidden"
                                         name="tip_id" value="1" readonly/></td>
                         </tr>
                         <tr>
                             <td>版块</td>
-                            <td>默认</td>
                             <td>
-                                <select class="form-control" id="selectForum" name="selectedForumId" onchange="selectForumFunc()">
-                                    <%--遍历所有版块--%>
-                                    <option value="1" selected>默认</option>
+                                <c:forEach items="${forums}" var="i">
+                                    <c:if test="${tip.forum_id==i.forum_id}">
+                                        ${i.forum_name}
+                                    </c:if>
+                                </c:forEach>
+                            </td>
+                            <td>
+                                <select class="form-control" id="selectForum" name="selectedForumId">
+                                    <c:forEach items="${forums}" var="i">
+                                        <option value="${i.forum_id}" >${i.forum_name}</option>
+                                    </c:forEach>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>分类</td>
-                            <td>技术</td>
+                            <td><c:forEach items="${tab}" var="i">
+                                    <c:if test="${tip.tab_id==i.tab_id}">
+                                        ${i.tab_name}
+                                    </c:if>
+                                </c:forEach>
+                            </td>
                             <td>
                                 <select class="form-control" id="selectTab" name="selectedTabId">
-                                    <option value="1" selected>技术</option>
+                                    <c:forEach items="${tab}" var="i">
+                                        <option value="${i.tab_id} " >${i.tab_name}</option>
+                                    </c:forEach>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>发贴人</td>
                             <td>
-                                yukong
+                               <c:forEach items="${user}" var="i">
+                                   <c:if test="${tip.user_id==i.user_id}">
+                                       ${i.user_nick}
+                                   </c:if>
+                               </c:forEach>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>标题</td>
-                            <td>标题测试</td>
-                            <td><input class="form-control" type="text"
-                                       name="tip_title" value="标题测试" required/></td>
+                            <td>${tip.tip_title}</td>
+                            <td>
+                                <textarea class="form-control" rows="2" name="tip_content" id="title" style="resize:none;">${tip.tip_title}</textarea>
+                            </td>
                         </tr>
                         <tr>
                             <td>内容</td>
-                            <td>内容测试</td>
+                            <td>${tip.tip_content}</td>
                             <td>
-                                <textarea class="form-control" rows="2"
-                                          name="tip_content">内容测试</textarea>
+                                <textarea class="form-control" rows="2" name="tip_content" id="content" style="resize:none;">${tip.tip_content}</textarea>
                             </td>
                         </tr>
                         <tr>
                             <td>回复数</td>
-                            <td>99</td>
+                            <td>${tip.tip_replies}</td>
                         </tr>
                         <tr>
                             <td>发表时间<br>更新时间</td>
                             <td>
-                                2019-10-27 23:29:11
+                                <fmt:formatDate value="${tip.tip_publishTime}" type="both"/>
                                 <br>
-                                2020-07-01 22:44:03
+                                <fmt:formatDate value="${tip.tip_modifyTime}" type="both"/>
                             </td>
                         </tr>
                         <tr>
                             <td>点击量</td>
-                            <td>99</td>
+                            <td>${tip.tip_click}</td>
                         </tr>
                         <tr>
                             <td>状态</td>
                             <td>
-                                删除
-                                <br>
-                                结贴
-                                <br>
-                                未结贴
+                                <c:if test="${tip.tip_isDeleted ==1}">
+                                    删除<br>
+                                </c:if>
+                                <c:if test="${tip.tip_isKnot==1}">
+                                    结贴
+                                    <br>
+                                </c:if>
+                                <c:if test="${tip.tip_isKnot==0}">
+                                    未结贴
+                                </c:if>
                             </td>
                         </tr>
                         <tr>
                             <td>操作</td>
                             <td>
-                                <input class="btn btn-warning" type="button" value="修改"/>
+                                <input class="btn btn-warning" type="button" id="xiugai" value="修改"/>
                                 <input class="btn btn-default" type="reset" value="重填"/>
                                 <%--这里的返回应回到贴子详情--%>
                                 <input type="button" class="btn btn-default" value="返回"
@@ -135,7 +158,33 @@
 <%@ include file="footer.jsp"%>
 
 <script>
-
+    $(document).on("click","#xiugai",function () {
+        var  myselect=document.getElementById("selectForum");
+        var index=myselect.selectedIndex ;
+        var forum=myselect.options[index].value;
+        var  tmyselect=document.getElementById("selectTab");
+        var tindex=tmyselect.selectedIndex ;
+        var tab=tmyselect.options[tindex].value;
+        var content=$("#content").val();
+        var title=$("#title").val();
+        $.ajax({
+            url:"${pageContext.request.contextPath}/xiugaitip",
+            type:"get",
+            dataType: "json",
+            data:{"forum_id":forum,"tab_id":tab,"tip_title":title,"tip_content":content,"tip_modifyTime":new Date(),"tip_id":"${tip.tip_id}"},
+            success:function (result) {
+                if (result>0){
+                    alert("修改成功");
+                    location.href="${pageContext.request.contextPath}/click/"+${tip.tip_id};
+                }else {
+                    alert("修改失败");
+                }
+            },
+            error:function () {
+                alert("修改时出错")
+            }
+        })
+    });
 </script>
 
 </body>

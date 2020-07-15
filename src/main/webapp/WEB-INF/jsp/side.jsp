@@ -58,7 +58,7 @@
                             <%--被锁定的用户不能发贴  不显示发帖--%>
                         <c:if test="${sessionScope.user.user_status!=2}">
                             <li class="list-group-item">
-                                <a href="#">发表新贴</a>
+                                <a href="${pageContext.request.contextPath}/goAddTip">发表新贴</a>
                             </li>
                         </c:if>
                             <%--超管特有    判断是否是超管--%>
