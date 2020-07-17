@@ -13,6 +13,11 @@
     <link href="<%=path%>/static/css/bootstrap.min.css" rel="stylesheet">
     <script src="<%=path%>/static/js/jquery-3.2.1.js"></script>
     <script src="<%=path%>/static/js/bootstrap.min.js"></script>
+    <style >
+        .blue{
+            color: deeppink;
+        }
+    </style>
     <title>贴子详细信息 - 论坛 </title>
 </head>
 <body>
@@ -57,6 +62,9 @@
                             ${tip.user.user_nick}
                         </strong>
                         <%--展示用户权限  判断--%>
+
+                        </span>
+                    </a>
                         <c:choose>
                             <c:when test="${tip.user.user_type==0}">
                                 <span class="label label-success">超级管理员</span>
@@ -68,8 +76,6 @@
                                 <span class="label label-default">普通用户</span>
                             </c:when>
                         </c:choose>
-                        </span>
-                    </a>
                 </div>
                 <div>
                     <span>
@@ -91,7 +97,7 @@
     <%--这里显示贴子的回复--%>
     <ul class="list-group" style="width: 100%">
         <%--遍历并显示回复--%>
-        <c:forEach items="${replyList}" var="i">
+        <c:forEach items="${page.list}" var="i">
             <li class="list-group-item">
                 <div style="height: auto; ">
                     <div>
@@ -101,19 +107,19 @@
                                 ${i.user.user_nick}
                             </strong>
                             <%--展示用户权限--%>
-                            <c:choose>
-                                <c:when test="${i.user.user_type==0}">
-                                    <span class="label label-success">超级管理员</span>
-                                </c:when>
-
-                                <c:when test="${i.user.user_type==1}">
-                                    <span class="label label-warning">管理员</span>
-                                </c:when>
-                                <c:when test="${i.user.user_type==2}">
-                                    <span class="label label-default">普通用户</span>
-                                </c:when>
-                            </c:choose>
                         </a>
+                        <c:choose>
+                            <c:when test="${i.user.user_type==0}">
+                                <span class="label label-success">超级管理员</span>
+                            </c:when>
+
+                            <c:when test="${i.user.user_type==1}">
+                                <span class="label label-warning">管理员</span>
+                            </c:when>
+                            <c:when test="${i.user.user_type==2}">
+                                <span class="label label-default">普通用户</span>
+                            </c:when>
+                        </c:choose>
                         <%--发表回复的用户如果是楼主则显示楼主标签 2020-03-14 23:36--%>
                         <c:if test="${tip.user.user_id eq i.user.user_id}">
 
@@ -133,6 +139,29 @@
                 </div>
             </li>
         </c:forEach>
+            <!-- 显示分页信息 -->
+            <div style="width: 100%;text-align: right; " class="panel panel-default">
+                <ul class="pagination" style="width: 40%">
+                    <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=1">首页</a></li>
+                    <c:if test="${page.hasPreviousPage}">
+                        <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
+                    </c:if>
+                    <c:forEach items="${page.navigatepageNums}" var="page_Num">
+                        <c:if test="${page_Num == page.pageNum}">
+                            <li class="active"><a href="#">${page_Num}</a></li>
+                        </c:if>
+                        <c:if test="${page_Num != page.pageNum }">
+                            <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page_Num}">${page_Num}</a></li>
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${page.hasNextPage }">
+                        <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
+                    </c:if>
+                    <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pages}">末页</a></li>
+                </ul>
+                共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
+            </div>
+
     </ul>
 
     <div class="panel panel-default" style="">
@@ -173,19 +202,6 @@
                     <input type="button" id="denglu" class="btn btn-warning btn-sm" value="请先登录"/>
                     </c:if>
             </div>
-        </div>
-    </div>
-    <!--显示分页信息-->
-    <div class="row">
-        <!--分页文字信息-->
-        <div class="col-md-6" id="page_info_area">
-
-        </div>
-        <!--分页条信息  组件 分页-->
-        <div class="col-md-6" id="page_nav_area">
-
-
-
         </div>
     </div>
 </div>
@@ -232,18 +248,7 @@
         // $(location).attr('href', 'login.jsp');
         window.location = "/toLogin.jsp";
     })
-    //构建分页信息
-    function build_page_info(result) {
 
-        //在每次点击页码发送请求之前需要清空分页信息,不然数据会一直追加
-        $("#page_info_area").empty();
-
-        $("#page_info_area").append("当前"+result.extend.pageInfo.pageNum+"页,总"+
-            result.extend.pageInfo.pages+"页,总"+
-            result.extend.pageInfo.total+"条记录");
-        totalRecord=result.extend.pageInfo.total;
-        currentPage=result.extend.pageInfo.pageNum;
-    }
 </script>
 
 </body>

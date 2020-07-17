@@ -36,6 +36,26 @@ public class UserServiceImpl implements UserService {
         return userMapper.getAll();
     }
 
+    @Override
+    public User getAll_Byid(int id) {
+        return userMapper.getAll_Byid(id);
+    }
+
+    @Override
+    public void UpdateByUser1(User user) {
+        userMapper.UpdateByUser(user);
+    }
+
+    @Override
+    public void UpdateUserStatus(User user) {
+        userMapper.UpdateUserStatus(user);
+    }
+
+    @Override
+    public int deleteById(int userid) {
+        return userMapper.deleteById(userid);
+    }
+
     public int regis(User user) {
         return userMapper.regis(user);
     }

@@ -53,6 +53,9 @@
             color: #8A8A8A;
             cursor: pointer;
         }
+        .blue{
+            color: deeppink;
+        }
     </style>
 </head>
 <body>
@@ -77,11 +80,16 @@
         <a style="margin-left: 2%">最近</a>
     </div>
 
-
+    <script>
+        $(document).on("click",".liClick",function () {
+            var tid=$(this).attr("alt");
+            location.href="${pageContext.request.contextPath}/click/"+tid;
+        })
+    </script>
     <ul class="list-group" style="width: 100%">
-        <c:forEach items="${list}" var="i">
+        <c:forEach items="${page.list}" var="i">
             <c:if test="${i.forum.forum_isDeleted==0 && i.tab.tab_isDeleted==0 && i.tip_isDeleted==0}">
-                <li class="list-group-item">
+                <li class="list-group-item liClick" alt="${i.tip_id}">
                     <div style="height: 50px">
                         <div style="width: 89%;float: left">
                                 <%--这里显示贴子标题，点击贴子跳转到贴子详情，需要传参贴子id--%>
@@ -131,8 +139,109 @@
         </c:forEach>
 
     </ul>
+    <c:if test="${code == 1}">
+        <!-- 显示分页信息 -->
+        <div style="width: 100%;text-align: right;">
+            <ul class="pagination" style="width: 40%">
+                <li><a href="${pageContext.request.contextPath}/main?currentPage=1">首页</a></li>
+                <c:if test="${page.hasPreviousPage}">
+                    <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
+                </c:if>
+                <c:forEach items="${page.navigatepageNums}" var="page_Num">
+                    <c:if test="${page_Num == page.pageNum}">
+                        <li class="active"><a href="#">${page_Num}</a></li>
+                    </c:if>
+                    <c:if test="${page_Num != page.pageNum }">
+                        <li><a href="${pageContext.request.contextPath}/main?currentPage=${page_Num}">${page_Num}</a></li>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${page.hasNextPage }">
+                    <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
+                </c:if>
+                <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pages}">末页</a></li>
+            </ul>
+            共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
+        </div>
+    </c:if>
+    <c:if test="${code == 2}">
+        <!-- 显示分页信息 -->
+        <div style="width: 100%;text-align: right;">
+            <ul class="pagination" style="width: 40%">
+                <li><a href="${pageContext.request.contextPath}/sousuo?keyword=${keyword}&currentPage=1">首页</a></li>
+                <c:if test="${page.hasPreviousPage}">
+                    <li><a href="${pageContext.request.contextPath}/sousuo?keyword=${keyword}&currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
+                </c:if>
+                <c:forEach items="${page.navigatepageNums}" var="page_Num">
+                    <c:if test="${page_Num == page.pageNum}">
+                        <li class="active"><a href="#">${page_Num}</a></li>
+                    </c:if>
+                    <c:if test="${page_Num != page.pageNum }">
+                        <li><a href="${pageContext.request.contextPath}/sousuo?keyword=${keyword}&currentPage=${page_Num}">${page_Num}</a></li>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${page.hasNextPage }">
+                    <li><a href="${pageContext.request.contextPath}/sousuo?keyword=${keyword}&currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
+                </c:if>
+                <li><a href="${pageContext.request.contextPath}/sousuo?keyword=${keyword}&currentPage=${page.pages}">末页</a></li>
+            </ul>
+            共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
+        </div>
+    </c:if>
 </div>
+<script>
+    $(document).on("click",".zs",function () {
+        $("#money").val("");
+        $("#empUpdateModel").modal("show");
 
+    })
+    //订单号
+    $(function () {
+        var sNow = "";
+        function GetDateNow() {
+            var vNow = new Date();
+            sNow += String(vNow.getFullYear());
+            sNow += String(vNow.getMonth() + 1);
+            sNow += String(vNow.getDate());
+            sNow += String(vNow.getHours());
+            sNow += String(vNow.getMinutes());
+            sNow += String(vNow.getSeconds());
+            sNow += String(vNow.getMilliseconds());
+            document.getElementById("WIDout_trade_no").value =  sNow;
+
+        }
+        GetDateNow();
+    })
+</script>
+<div class="modal fade" id="empUpdateModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">赞助</h4>
+            </div>
+            <form class="form-horizontal" action="${pageContext.request.contextPath}/aliPay">
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">金额</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="money" name="WIDtotal_amount" oninput="value=value.replace(/[^\d]/g,'')" required class="form-control"/>
+                            <input type="hidden" name="WIDsubject" value="赞助" class="form-control"/>
+                            <input type="hidden" name="WIDbody"  value="赞助" class="form-control"/>
+                            <input type="hidden" id="WIDout_trade_no" name="WIDout_trade_no" class="form-control"/>
+                            <span class="help-block"></span>
+
+                        </div>
+                    </div>
+            </div>
+
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" id="emp_update_btn" value="赞助"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- 引入侧边栏文件 -->
 <%@ include file="side.jsp"%>
 

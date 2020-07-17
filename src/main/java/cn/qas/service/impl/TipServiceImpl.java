@@ -97,4 +97,22 @@ public class TipServiceImpl implements TipService {
     public int canceDelTip(int tid) {
         return tipMapper.canceDelTip(tid);
     }
+    @Override
+    public int selectreply(int tip_id) {
+        return tipMapper.selectreply(tip_id);
+    }
+    @Override
+    public int updatetipreply(int tip_replies, int tip_id) {
+        return tipMapper.updatetipreply(tip_replies,tip_id);
+    }
+
+    @Override
+    public int selectclick(int tip_id) {
+        return tipMapper.selectclick(tip_id);
+    }
+
+    @Override
+    public int updatetipclick(int tip_click, int tip_id) {
+        return tipMapper.updatetipclick(tip_click,tip_id);
+    }
 }

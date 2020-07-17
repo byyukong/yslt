@@ -70,6 +70,7 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
+                        <li class="list-group-item"><a class="zs" href="#">赞助</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>
                     </ul>
 
@@ -79,7 +80,7 @@
                             <%--被锁定的用户不能发贴  不显示发帖--%>
                         <c:if test="${sessionScope.user.user_status!=2}">
                             <li class="list-group-item">
-                                <a href="#">发表新贴</a>
+                                <a href="${pageContext.request.contextPath}/goAddTip">发表新贴</a>
                             </li>
                         </c:if>
                             <%--管理员功能 2020-07-04 22:33--%>
@@ -87,6 +88,7 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
+                        <li class="list-group-item"><a class="zs" href="#">赞助</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>
                     </ul>
 
@@ -96,9 +98,10 @@
                             <%--被锁定的用户不能发贴  不显示发帖--%>
                         <c:if test="${sessionScope.user.user_status!=2}">
                             <li class="list-group-item">
-                                <a href="#">发表新贴</a>
+                                <a href="${pageContext.request.contextPath}/goAddTip">发表新贴</a>
                             </li>
                         </c:if>
+                        <li class="list-group-item"><a class="zs" href="#">赞助</a></li>
                     </ul>
                 </c:when>
             </c:choose>

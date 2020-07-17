@@ -128,4 +128,19 @@
     <update id="canceDelTip">
         update tip set tip_isDeleted = 0  where tip_id=#{tid};
     </update>
+    <select id="selectreply" resultType="int">
+        SELECT COUNT(*) FROM reply WHERE tip_id=#{tip_id}
+    </select>
+
+    <update id="updatetipreply">
+        UPDATE tip SET tip_replies=#{tip_replies} WHERE tip_id=#{tip_id}
+    </update>
+
+    <update id="updatetipclick">
+        UPDATE tip SET tip_click=#{tip_click} WHERE tip_id=#{tip_id}
+    </update>
+
+    <select id="selectclick" resultType="int">
+        SELECT tip_click FROM tip WHERE tip_id=#{tip_id}
+    </select>
 </mapper>

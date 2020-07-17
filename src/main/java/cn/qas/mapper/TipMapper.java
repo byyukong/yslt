@@ -42,5 +42,12 @@ public interface TipMapper {
     int delTip(int tid);
     //取消删除
     int canceDelTip(int tid);
-
+    //查询回复数量
+    int selectreply(@Param("tip_id")int tip_id);
+    //修改回复数量
+    int updatetipreply(@Param("tip_replies")int tip_replies,@Param("tip_id")int tip_id);
+    //查询点击量
+    int selectclick(@Param("tip_id")int tip_id);
+    //修改点击量
+    int updatetipclick(@Param("tip_click")int tip_click,@Param("tip_id")int tip_id);
 }

@@ -26,31 +26,48 @@ public class TipController {
     private TabService tabService;
 
     @RequestMapping("/main")
-    public String seleall(Model model){
+    public String seleall(@RequestParam(defaultValue = "1") Integer currentPage, Model model){
+        PageHelper.startPage(currentPage,10);
         List<Tip> list=tipService.seleall();
-        model.addAttribute("list",list);
+        for (Tip tip : list) {
+            int id=tip.getTip_id();
+            int selectreply = tipService.selectreply(id);
+            tip.setTip_replies(selectreply);
+            tipService.updatetipreply(tip.getTip_replies(),tip.getTip_id());
+        }
+        //List<Tip> allQualification = tipService.getAllQualification();
+        PageInfo page=new PageInfo(list,5);//分页
+        //model.addAttribute("list",list);
+        model.addAttribute("page",page);
+        System.out.println(page.toString());
+        model.addAttribute("code",1);
         return "main";
     }
 
     @RequestMapping("/sousuo")
-    public String likese(Model model,String keyword){
+    public String likese(Model model,String keyword,@RequestParam(defaultValue = "1") Integer currentPage){
+        PageHelper.startPage(currentPage,10);
         List<Tip> list=tipService.likesele(keyword);
-        model.addAttribute("list",list);
+        PageInfo page=new PageInfo(list,5);//分页
+        model.addAttribute("page",page);
+        model.addAttribute("code",2);
+        model.addAttribute("keyword",keyword);
         return "main";
     }
 
-/*    @RequestMapping("/click/{id}")
-    public String clickreply(Model model,@PathVariable("id") int id,@RequestParam(value = "pn",defaultValue = "1")Integer pn){
+    @RequestMapping("/click/{id}")
+    public String clickreply(Model model,@PathVariable("id") int id,@RequestParam(defaultValue = "1")Integer currentPage){
+        PageHelper.startPage(currentPage, 10);
         List<Reply> replyList=tipService.clickreply(id);
         model.addAttribute("replyList",replyList);
         Tip tip=tipService.selezuozhe(id);
         model.addAttribute("tip",tip);
-        PageHelper.startPage(pn,10);
-        PageInfo page=new PageInfo(replyList,10);
+        PageInfo page=new PageInfo(replyList,5);
+        model.addAttribute("page",page);
         return "tipContent";
-    }*/
+    }
 
-    @RequestMapping("/click/{id}")
+/*    @RequestMapping("/click/{id}")
     public ModelAndView clickreply(@PathVariable("id") int id, @RequestParam(value = "pn",defaultValue = "1")Integer pn){
         ModelAndView modelAndView = new ModelAndView();
         List<Reply> replyList=tipService.clickreply(id);
@@ -61,7 +78,7 @@ public class TipController {
         PageInfo page=new PageInfo(replyList,10);
         modelAndView.setViewName("tipContent");
         return modelAndView;
-    }
+    }*/
 
 
     @RequestMapping(value = "/pinglun",method = RequestMethod.GET)

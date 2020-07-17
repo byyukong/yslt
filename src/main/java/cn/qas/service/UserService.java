@@ -25,4 +25,16 @@ public interface UserService {
 
     //查询所有用户
     List<User> getAll();
+
+    //根据id查询所有用户
+    User getAll_Byid(int id);
+
+    //根据id修改用户
+    void UpdateByUser1(User user);
+
+    //根据id修改用户状态
+    void UpdateUserStatus(User user);
+
+    //根据删除用户
+    int deleteById(int  userid);
 }

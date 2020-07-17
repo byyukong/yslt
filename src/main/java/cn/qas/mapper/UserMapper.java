@@ -34,5 +34,16 @@ public interface UserMapper {
     User uniquenessEmail(String email);
 
 
+    //根据id查询所有用户
+    User getAll_Byid(int id);
+
+    //根据id修改用户
+    int UpdateByUser(User user);
+
+    //根据id修改用户状态
+    int UpdateUserStatus(User user);
+
+    //根据删除用户
+    int deleteById(int id);
 
 }

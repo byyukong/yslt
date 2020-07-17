@@ -1,5 +1,6 @@
 package cn.qas.controller;
 
+import cn.qas.pojo.Msg;
 import cn.qas.pojo.User;
 import cn.qas.service.UserService;
 import cn.qas.util.Email;
@@ -7,9 +8,7 @@ import cn.qas.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -65,7 +64,7 @@ public class UserController {
             session.setAttribute("user",login);
             System.out.println("测试身份："+login.getUser_type());
             //return "forward:/yukong"
-            return "redirect:/yukong";
+            return "redirect:/main";
         }
         model.addAttribute("msg","用户名或密码错误！");
         return "login";
@@ -114,9 +113,10 @@ public class UserController {
      * @return
      */
     @RequestMapping("/activation/{code}")
-    public String activation(@PathVariable String code){
+    public String activation(@PathVariable String code,Model model){
         userService.activation(code);
-        return "redirect:/toLogin";
+        model.addAttribute("msg","激活成功，请登录！");
+        return "forward:/toLogin";
     }
 
     /**
@@ -154,5 +154,71 @@ public class UserController {
         List<User> list = userService.getAll();
         model.addAttribute("list",list);
         return "userManage";
+    }
+
+
+
+
+    /**
+     * 根据id查询用户信息
+     * @PathVariable 标志从路径中取出id占位符的值
+     */
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg getEmp(@PathVariable int id){
+        User user=userService.getAll_Byid(id);
+        return Msg.success().add("user",user);
+    }
+
+    /**
+     * 更新用户信息  此处使用empId 和映射文件id保持一致
+     */
+    @RequestMapping(value = "/emp1/{aid}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg updateEmp(User user,@PathVariable String aid){
+        user.setUser_id(aid);
+        userService.UpdateByUser1(user);
+        return Msg.success();
+
+    }
+
+    /**
+     * 更新用户状态1  此处使用uId
+     */
+    @RequestMapping(value = "/emp2/{uid}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg updateEmp_status1(User user,@PathVariable String uid,@RequestParam int status1){
+        user.setUser_id(uid);
+        user.setUser_status(status1);
+        userService.UpdateUserStatus(user);
+        return Msg.success();
+
+    }
+
+    /**
+     * 更新用户状态2  此处使用uId
+     */
+    @RequestMapping(value = "/emp3/{uid}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg updateEmp_status2(User user,@PathVariable String uid,@RequestParam int status2){
+
+        user.setUser_id(uid);
+        user.setUser_status(status2);
+        userService.UpdateUserStatus(user);
+        return Msg.success();
+
+    }
+
+
+
+    /**
+     * 根据id删除用户信息
+     * @PathVariable 标志从路径中取出id占位符的值
+     */
+    @RequestMapping(value = "/emp_del/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg delUser(@PathVariable("id") int id){
+        int i = userService.deleteById(id);
+        return Msg.success().add("i",i);
     }
 }

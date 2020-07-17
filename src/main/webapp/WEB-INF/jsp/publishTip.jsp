@@ -23,7 +23,7 @@
 <div style="width: 70%;margin:1% 2% 1% 5%;float: left;">
     <div class="panel panel-default" id="main" style="">
         <div class="panel-heading" style="background-color: white">
-            <a href="<%=basePath%>">论坛</a> › 发表新贴
+            <a href="<%=basePath%>">论坛</a> › <a href="">发表新贴</a>
         </div>
 
         <div class="panel-body">
