@@ -53,6 +53,9 @@
                                             <span class="label label-default">普通用户</span>
                                         </c:when>
                                     </c:choose>
+                                    <c:if test="${sessionScope.user.is_Vip==1}">
+                                         <span class="label label-danger" >VIP</span>
+                                    </c:if>
                                 </p>
                             </li>
                             <c:choose>

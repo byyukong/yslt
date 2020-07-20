@@ -49,4 +49,7 @@
     <update id="updUserById" parameterType="user">
         update user set user_password=#{user_password},user_nick=#{user_nick} where user_id=#{user_id};
     </update>
+    <update id="updVipById">
+        update user set is_Vip = 1 where user_id=#{user_id};
+    </update>
 </mapper>

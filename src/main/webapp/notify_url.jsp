@@ -5,6 +5,7 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="cn.qas.pojo.User" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -79,7 +80,8 @@
 		
 		out.println("success");
 	}else {//验证失败
-		response.sendRedirect(basePath + "main");
+		User user=(User)session.getAttribute("user");
+		response.sendRedirect(basePath + "updVip/"+user.getUser_id());
 		out.println("fail");
 	
 		//调试用，写文本函数记录程序运行情况是否正常

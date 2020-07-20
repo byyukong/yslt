@@ -238,6 +238,12 @@ public class UserController {
         model.addAttribute("user",userService.getAll_Byid(uId));
         return "update_userInfo";
     }
+    @RequestMapping("/updVip/{id}")
+    public String updVip(@PathVariable int id){
+        userService.updVipById(id);
+        return "redirect:/main";
+    }
+
     @RequestMapping("/update_userInfo/{id}")
     @ResponseBody
     public String update_userInfo(@PathVariable String id, User user){

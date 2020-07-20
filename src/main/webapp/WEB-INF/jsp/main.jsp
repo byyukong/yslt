@@ -116,9 +116,15 @@
                              <c:choose>
                                  <c:when test="${i.user.user_id==sessionScope.user.user_id}">
                                      <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${i.user.user_id}"><span><strong>${i.user.user_nick}</strong></span></a>
+                                     <c:if test="${i.user.is_Vip==1}">
+                                         <span class="label label-danger" >VIP</span>
+                                     </c:if>
                                  </c:when>
                                  <c:otherwise>
                                      <a href=""><span><strong>${i.user.user_nick}</strong></span></a>
+                                     <c:if test="${i.user.is_Vip==1}">
+                                         <span class="label label-danger" >VIP</span>
+                                     </c:if>
                                  </c:otherwise>
                              </c:choose>
                                     <%--显示贴子发表时间--%>
@@ -194,7 +200,7 @@
 </div>
 <script>
     $(document).on("click",".zs",function () {
-        $("#money").val("");
+        $("#money").val("999.99");
         $("#empUpdateModel").modal("show");
 
     })
@@ -221,16 +227,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">赞助</h4>
+                <h4 class="modal-title">开通会员</h4>
             </div>
             <form class="form-horizontal" action="${pageContext.request.contextPath}/aliPay">
             <div class="modal-body">
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">金额</label>
                         <div class="col-sm-10">
-                            <input type="text" id="money" name="WIDtotal_amount" oninput="value=value.replace(/[^\d]/g,'')" required class="form-control"/>
-                            <input type="hidden" name="WIDsubject" value="赞助" class="form-control"/>
-                            <input type="hidden" name="WIDbody"  value="赞助" class="form-control"/>
+                            <input type="text" readonly value="999.99" id="money" name="WIDtotal_amount" oninput="value=value.replace(/[^\d]/g,'')" required class="form-control"/>
+                            <input type="hidden" name="WIDsubject" value="开通会员" class="form-control"/>
+                            <input type="hidden" name="WIDbody"  value="开通会员" class="form-control"/>
                             <input type="hidden" id="WIDout_trade_no" name="WIDout_trade_no" class="form-control"/>
                             <span class="help-block"></span>
 
@@ -239,7 +245,7 @@
             </div>
 
             <div class="modal-footer">
-                <input type="submit" class="btn btn-primary" id="emp_update_btn" value="赞助"/>
+                <input type="submit" class="btn btn-primary" id="emp_update_btn" value="开通"/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
             </form>

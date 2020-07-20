@@ -49,4 +49,7 @@ public interface UserMapper {
     //修改
     int updUserById(User user);
 
+    //VIP
+    int updVipById(int id);
+
 }

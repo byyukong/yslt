@@ -51,6 +51,9 @@
                         <span class="label label-default">普通用户</span>
                     </c:when>
                 </c:choose>
+                <c:if test="${sessionScope.user.is_Vip==1}">
+                    <span class="label label-danger" >VIP</span>
+                </c:if>
             </div>
             <c:choose>
                 <c:when test="${sessionScope.user.user_type==0}">
@@ -70,7 +73,7 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
-                        <li class="list-group-item"><a class="zs" href="#">赞助</a></li>
+                        <li class="list-group-item"><a class="zs" href="#">开通会员</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>
                     </ul>
 
@@ -88,7 +91,7 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTipAdministration">贴子管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toForumManage">版块管理</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
-                        <li class="list-group-item"><a class="zs" href="#">赞助</a></li>
+                        <li class="list-group-item"><a class="zs" href="#">开通会员</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>
                     </ul>
 
@@ -101,7 +104,7 @@
                                 <a href="${pageContext.request.contextPath}/goAddTip">发表新贴</a>
                             </li>
                         </c:if>
-                        <li class="list-group-item"><a class="zs" href="#">赞助</a></li>
+                        <li class="list-group-item"><a class="zs" href="#">开通会员</a></li>
                     </ul>
                 </c:when>
             </c:choose>

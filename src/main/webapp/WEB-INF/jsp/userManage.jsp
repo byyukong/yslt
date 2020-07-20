@@ -193,21 +193,16 @@
 
                     <td>
                         <c:if test="${i.user_type eq 0}">
-
                             <span class="label label-success">超级管理员</span>
-
                         </c:if>
-
                         <c:if test="${i.user_type eq 1}">
-
                             <span class="label label-warning">管理员</span>
-
                         </c:if>
-
                         <c:if test="${i.user_type eq 2}">
-
                             <span class="label label-primary">普通用户</span>
-
+                        </c:if>
+                        <c:if test="${i.is_Vip==1}">
+                            <span class="label label-danger" >VIP</span>
                         </c:if>
                     </td>
 
@@ -225,21 +220,29 @@
                         <c:if test="${i.user_status eq 2}">
                             <p class="warning">锁定</p>
                         </c:if>
+                        <c:if test="${i.user_status eq 3}">
+                            <p class="warning">未激活</p>
+                        </c:if>
 
                     </td>
 
                     <td>
-                        <c:if test="${i.user_type eq 0}">
-
+                        <%--<c:if test="${i.user_type eq 0}">
                             <input type="button" class="btn btn-primary edit_btn" attr1="${i.user_id}" value="修改"/>
+                        </c:if>--%>
+                        <c:if test="${sessionScope.user.user_type==0}">
+                            <c:if test="${i.user_type eq 1}">
+                                <input type="button" class="btn btn-primary edit_btn" attr1="${i.user_id}" value="修改"/>
 
-                        </c:if>
+                                <c:if test="${i.user_status eq 0 || i.user_status eq 2}">
+                                    <input type="button" class="btn btn-danger  enable_btn "attr1="${i.user_id}" value="禁用"/>
+                                </c:if>
 
-                        <c:if test="${i.user_type eq 1}">
-
-                            <input type="button" class="btn btn-primary edit_btn" attr1="${i.user_id}" value="修改"/>
-                            <%--<input type="button" class="btn btn-default delete_btn" attr2="${i.user_id}" value="删除"/>--%>
-
+                                <c:if test="${i.user_status eq 1}">
+                                    <input type="button" class="btn btn-danger  enable_btn "attr1="${i.user_id}" value="解禁"/>
+                                </c:if>
+                                <%--<input type="button" class="btn btn-default delete_btn" attr2="${i.user_id}" value="删除"/>--%>
+                            </c:if>
                         </c:if>
 
                         <c:if test="${i.user_type eq 2}">

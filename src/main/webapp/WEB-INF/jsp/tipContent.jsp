@@ -56,15 +56,17 @@
                 <span class="label label-warning" title="点击量">${tip.tip_click}次点击</span>
                 <div>
                     <%--显示发贴人昵称--%>
-                    <a href="">
+                    <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">
                         <span>
                         <strong>
                             ${tip.user.user_nick}
                         </strong>
                         <%--展示用户权限  判断--%>
-
                         </span>
                     </a>
+                        <c:if test="${tip.user.is_Vip==1}">
+                            <span class="label label-danger" >VIP</span>
+                        </c:if>
                         <c:choose>
                             <c:when test="${tip.user.user_type==0}">
                                 <span class="label label-success">超级管理员</span>
@@ -121,6 +123,9 @@
                                 <span class="label label-default">普通用户</span>
                             </c:when>
                         </c:choose>
+                        <c:if test="${i.user.is_Vip==1}">
+                            <span class="label label-danger" >VIP</span>
+                        </c:if>
                         <%--发表回复的用户如果是楼主则显示楼主标签 2020-03-14 23:36--%>
                         <c:if test="${tip.user.user_id eq i.user.user_id}">
                             <span class="label label-info">楼主</span>

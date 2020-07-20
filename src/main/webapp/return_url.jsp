@@ -10,6 +10,7 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Iterator"%>
 <%@ page import="java.util.Map" %>
+<%@ page import="cn.qas.pojo.User" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -59,7 +60,8 @@
 		
 		out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
 	}else {
-		response.sendRedirect(basePath + "main");
+		User user=(User)session.getAttribute("user");
+		response.sendRedirect(basePath + "updVip/"+user.getUser_id());
 		out.println("验签失败");
 	}
 	//——请在这里编写您的程序（以上代码仅作参考）——

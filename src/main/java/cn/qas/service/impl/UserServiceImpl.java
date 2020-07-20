@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.updUserById(user);
     }
 
+    @Override
+    public int updVipById(int id) {
+        return userMapper.updVipById(id);
+    }
+
     public int regis(User user) {
         return userMapper.regis(user);
     }

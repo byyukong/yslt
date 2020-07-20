@@ -9,6 +9,7 @@
         </association>
         <association property="user" javaType="user">
             <result property="user_nick" column="user_nick"/>
+            <result property="is_Vip" column="is_Vip"/>
         </association>
         <association property="forum" javaType="forum">
             <result property="forum_name" column="forum_name"/>
@@ -20,6 +21,7 @@
     <resultMap id="reply" type="reply">
         <association property="user" javaType="user">
             <result property="user_nick" column="user_nick"/>
+            <result property="is_Vip" column="is_Vip"/>
         </association>
         <association property="tip" javaType="tip">
             <result property="tip_title" column="tip_title"/>
@@ -32,7 +34,7 @@
         </association>
     </resultMap>
     <select id="seleall" resultMap="user">
-    SELECT tip_id,u.user_nick,u.user_id,u.user_name,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+    SELECT tip_id,u.user_nick,u.is_Vip,u.user_id,u.user_name,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
     FROM tip t
     INNER JOIN tab t1 ON t.tab_id = t1.tab_id
     INNER JOIN `user` u ON u.user_id = t.user_id
@@ -42,7 +44,7 @@
     </select>
 
     <select id="queryAllTip" resultMap="user">
-        SELECT tip_id,u.user_nick,u.user_id,u.user_name,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+        SELECT tip_id,u.user_nick,u.is_Vip,u.user_id,u.user_name,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
         FROM tip t
         INNER JOIN tab t1 ON t.tab_id = t1.tab_id
         INNER JOIN `user` u ON u.user_id = t.user_id
@@ -51,7 +53,7 @@
     </select>
 
     <select id="likesele" resultMap="user">
-        SELECT tip_id,u.user_nick,t1.tab_name,f.forum_name,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+        SELECT tip_id,u.user_nick,u.is_Vip,t1.tab_name,f.forum_name,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
         FROM tip t
         INNER JOIN tab t1 ON t.tab_id = t1.tab_id
         INNER JOIN `user` u ON u.user_id = t.user_id
@@ -65,7 +67,7 @@
     </select>
 
     <select id="clickreply" resultMap="reply">
-    SELECT reply_id,u.user_nick,u.user_type,u.user_id,t.tip_title,t.tip_click,t.tip_replies,reply_content,reply_publishTime,reply_modifyTime,reply_isDeleted
+    SELECT reply_id,u.user_nick,u.is_Vip,u.user_type,u.user_id,t.tip_title,t.tip_click,t.tip_replies,reply_content,reply_publishTime,reply_modifyTime,reply_isDeleted
     FROM reply r
     INNER JOIN tip t ON r.tip_id = t.tip_id
     INNER JOIN `user` u ON u.user_id = r.user_id
@@ -73,7 +75,7 @@
     ORDER BY reply_publishTime DESC
     </select>
     <select id="selezuozhe"  resultMap="zuozhe">
-    SELECT tip_id,u.user_nick,u.user_type,t.tab_id,t.forum_id,f.forum_name,u.user_type,u.user_id,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+    SELECT tip_id,u.user_nick,u.is_Vip,u.user_type,t.tab_id,t.forum_id,f.forum_name,u.user_type,u.user_id,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
         FROM tip t
         INNER JOIN `user` u ON u.user_id = t.user_id
         INNER JOIN `forum` f ON f.forum_id = t.forum_id
