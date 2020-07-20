@@ -74,7 +74,7 @@
         </div>
     </form>
 
-    <div class="panel-heading" style="background-color: white">
+    <div class="panel-heading" style="background-color: white;">
         <a style="margin-left: 2%">活跃</a>
         <a style="margin-left: 2%">精华</a>
         <a style="margin-left: 2%">最近</a>
