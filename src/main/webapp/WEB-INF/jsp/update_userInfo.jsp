@@ -20,29 +20,29 @@
 <div style="width: 70%;margin:1% 2% 1% 5%;float: left;">
     <div class="panel panel-default" id="main" style="">
         <div class="panel-heading" style="background-color: white">
-            <a href="<%=basePath%>">论坛</a> › 修改用户信息 ›用户名
+            <a href="<%=basePath%>">论坛</a> › 修改用户信息 ›${user.user_nick}
         </div>
 
         <div class="panel-body">
 
-            <form  action="updateUserInfo.do" id="myUpdateForm" method="POST" class="form-horizontal" role="form">
+            <form <%--action="${pageContext.request.contextPath}/update_userInfo/${user.user_id}"--%> id="myUpdateForm" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">ID</label>
+                    <%--<label class="col-sm-2 control-label">ID</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">1</p>
-                    </div>
+                        <p class="form-control-static">${user.user_id}</p>
+                    </div>--%>
                     <%--隐藏用户ID的修改--%>
                     <div class="col-sm-5">
-                        <input type="text"  name="user_id" value="1" readonly hidden/>
+                        <input id="user_id" type="text" name="user_id" value="${user.user_id}" readonly hidden/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">用户名</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">yukong</p>
+                        <p class="form-control-static">${user.user_name}</p>
                     </div>
                     <div class="col-sm-5">
-                        <input type="text"  name="user_name" value="yukong" readonly />
+                        <p class="form-control-static">${user.user_name}</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,16 +51,16 @@
                         <p class="form-control-static"></p>
                     </div>
                     <div class="col-sm-5">
-                        如需修改请输入新密码：<br><input type="password"  name="user_password" value="123456" required />
+                        如需修改请输入新密码：<br><input type="password"  name="user_password" value="${user.user_password}" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">昵称</label>
                     <div class="col-sm-5">
-                        <p class="form-control-static">admin</p>
+                        <p class="form-control-static">${user.user_nick}</p>
                     </div>
                     <div class="col-sm-5">
-                        新昵称：<br><input type="text"  name="user_nick" value="admin" required />
+                        新昵称：<br><input type="text"  name="user_nick" value="${user.user_nick}" required />
                     </div>
                 </div>
                 <div class="form-group">
@@ -68,9 +68,17 @@
                     <div class="col-sm-5">
                         <p class="form-control-static">
                             <%--判断用户状态--%>
-                            禁用
-                            锁定
-                            正常
+                            <c:choose>
+                                <c:when test="${user.user_status==0}">
+                                    正常
+                                </c:when>
+                                <c:when test="${user.user_status==1}">
+                                    禁用
+                                </c:when>
+                                <c:when test="${user.user_status==2}">
+                                    锁定
+                                </c:when>
+                            </c:choose>
                         </p>
                     </div>
                     <%--隐藏用户状态的修改--%>
@@ -83,9 +91,17 @@
                     <div class="col-sm-5">
                         <p class="form-control-static">
                             <%--判断显示用户权限--%>
-                            超级管
-                            理员管理员
-                            普通用户
+                                <c:choose>
+                                    <c:when test="${user.user_type==0}">
+                                        超级管理员
+                                    </c:when>
+                                    <c:when test="${user.user_type==1}">
+                                        管理员
+                                    </c:when>
+                                    <c:when test="${user.user_type==2}">
+                                        普通用户
+                                    </c:when>
+                                </c:choose>
                         </p>
                     </div>
                     <%--隐藏用户权限的修改--%>
@@ -95,10 +111,10 @@
                     </div>
                 </div>
 
-                <input class="btn btn-warning" type="button" value="修改" onclick="update_confirm()">
+                <input id="btnSub" class="btn btn-warning" type="button" value="修改">
                 <input class="btn btn-default" type="reset" value="重填">
-                <input type="button" class="btn btn-default" value="返回"
-                       style="margin-left: 10%"/>
+                <a href="${pageContext.request.contextPath}/" class="btn btn-default"
+                       style="margin-left: 10%">返回</a>
             </form>
         </div>
     </div>
@@ -111,7 +127,25 @@
 <%@ include file="footer.jsp"%>
 
 <script>
-
+    $("#btnSub").click(function () {
+        var id=$("#user_id").val();
+        $.ajax({
+            url:"${pageContext.request.contextPath}/update_userInfo/"+id,
+            type:"post",
+            data:$("form").serialize(),
+            success:function (result) {
+                if (result=="0") {
+                    alert("修改成功！")
+                    location.href="${pageContext.request.contextPath}/toUpdate_userInfo/"+id;
+                }else{
+                    alert("修改失败！")
+                }
+            },
+            error:function () {
+                alert("服务器错误！")
+            }
+        })
+    })
 </script>
 
 </body>

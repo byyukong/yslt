@@ -31,11 +31,11 @@
         select * from user where user_id=#{id}
     </select>
 
-    <delete id="deleteById" parameterType="int">
+    <!--<delete id="deleteById" parameterType="int">
         delete from user where user_id=#{user_id};
         delete from tip where user_id=#{user_id};
         delete from reply where user_id=#{user_id};
-    </delete>
+    </delete>-->
 
     <update id="UpdateByUser">
         update user set user_email=#{user_email},user_type=#{user_type}
@@ -45,5 +45,8 @@
     <update id="UpdateUserStatus">
          update user set user_status=#{user_status}
          where user_id=#{user_id}
+    </update>
+    <update id="updUserById" parameterType="user">
+        update user set user_password=#{user_password},user_nick=#{user_nick} where user_id=#{user_id};
     </update>
 </mapper>

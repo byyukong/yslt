@@ -37,7 +37,17 @@
     INNER JOIN tab t1 ON t.tab_id = t1.tab_id
     INNER JOIN `user` u ON u.user_id = t.user_id
     INNER JOIN forum f ON t.forum_id = f.forum_id
-    ORDER BY tip_isTop DESC
+    WHERE t1.tab_isDeleted=0 AND f.forum_isDeleted=0 AND t.tip_isDeleted=0
+    ORDER BY tip_isTop DESC,t.tip_id DESC
+    </select>
+
+    <select id="queryAllTip" resultMap="user">
+        SELECT tip_id,u.user_nick,u.user_id,u.user_name,t1.tab_name,f.forum_name,f.forum_isDeleted,t1.tab_isDeleted,tip_title,tip_content,tip_publishTime,tip_modifyTime,tip_click,tip_isDeleted,tip_isKnot,tip_replies,tip_isTop,tip_topTime
+        FROM tip t
+        INNER JOIN tab t1 ON t.tab_id = t1.tab_id
+        INNER JOIN `user` u ON u.user_id = t.user_id
+        INNER JOIN forum f ON t.forum_id = f.forum_id
+        ORDER BY tip_isTop DESC,t.tip_id DESC
     </select>
 
     <select id="likesele" resultMap="user">
@@ -137,7 +147,7 @@
     </update>
 
     <update id="updatetipclick">
-        UPDATE tip SET tip_click=#{tip_click} WHERE tip_id=#{tip_id}
+        UPDATE tip SET tip_click=tip_click+1 WHERE tip_id=#{tip_id}
     </update>
 
     <select id="selectclick" resultType="int">

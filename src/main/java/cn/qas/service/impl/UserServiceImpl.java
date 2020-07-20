@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getAll_Byid(int id) {
+    public User getAll_Byid(String id) {
         return userMapper.getAll_Byid(id);
     }
 
@@ -54,6 +54,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int deleteById(int userid) {
         return userMapper.deleteById(userid);
+    }
+
+    @Override
+    public int updUserById(User user) {
+        return userMapper.updUserById(user);
     }
 
     public int regis(User user) {

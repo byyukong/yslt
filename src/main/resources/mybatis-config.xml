@@ -15,12 +15,19 @@
     <typeAliases>
         <package name="cn.qas.pojo"/>
     </typeAliases>
-    <plugins>
-        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+    <!--<plugins>
+        &lt;!&ndash; com.github.pagehelper为PageHelper类所在包名 &ndash;&gt;
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
-            <!-- 使用下面的方式配置参数，后面会有所有的参数介绍，可以不写参数-->
+            &lt;!&ndash; 使用下面的方式配置参数，后面会有所有的参数介绍，可以不写参数&ndash;&gt;
             <property name="param1" value="value1"/>
-            <!-- <property name="reasonable" value="true"/>-->
+            &lt;!&ndash; <property name="reasonable" value="true"/>&ndash;&gt;
+        </plugin>
+    </plugins>-->
+    <!--分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--分页参数合理化  -->
+            <property name="reasonable" value="true"/>
         </plugin>
     </plugins>
     <!--每一个Mapper.xml的需要在Mybatis核心配置文件中注册-->

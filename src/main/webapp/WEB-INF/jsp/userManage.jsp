@@ -56,6 +56,9 @@
             /* vertical-align:middle; */ /*设置垂直居中*/
             /* border: 1px solid gray; */
         }
+        .blue{
+            color: deeppink;
+        }
     </style>
 </head>
 <body>
@@ -181,7 +184,7 @@
             <tbody>
             <!-- 这里是表格内容，需要遍历数组 -->
 
-            <c:forEach items="${list}" var="i">
+            <c:forEach items="${page.list}" var="i">
                 <tr>
                     <td>${i.user_id}</td>
                     <td>${i.user_name}</td>
@@ -268,6 +271,28 @@
             </c:forEach>
             </tbody>
         </table>
+        <!-- 显示分页信息 -->
+        <div style="width: 100%;text-align: right;">
+            <ul class="pagination" style="width: 40%">
+                <li><a href="${pageContext.request.contextPath}/userInfo?currentPage=1">首页</a></li>
+                <c:if test="${page.hasPreviousPage}">
+                    <li><a href="${pageContext.request.contextPath}/userInfo?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
+                </c:if>
+                <c:forEach items="${page.navigatepageNums}" var="page_Num">
+                    <c:if test="${page_Num == page.pageNum}">
+                        <li class="active"><a href="#">${page_Num}</a></li>
+                    </c:if>
+                    <c:if test="${page_Num != page.pageNum }">
+                        <li><a href="${pageContext.request.contextPath}/userInfo?currentPage=${page_Num}">${page_Num}</a></li>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${page.hasNextPage }">
+                    <li><a href="${pageContext.request.contextPath}/userInfo?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
+                </c:if>
+                <li><a href="${pageContext.request.contextPath}/userInfo?currentPage=${page.pages}">末页</a></li>
+            </ul>
+            共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
+        </div>
         <input type="button" class="btn btn-default turn_back" value="返回"/>
     </div>
 </div>
@@ -417,8 +442,6 @@
     })
 
 </script>
-<!-- 引入footer文件 -->
-<%@ include file="footer.jsp"%>
 
 </body>
 </html>

@@ -5,10 +5,13 @@ import cn.qas.pojo.User;
 import cn.qas.service.UserService;
 import cn.qas.util.Email;
 import cn.qas.util.UUIDUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -150,9 +153,11 @@ public class UserController {
     }
 
     @RequestMapping("/userInfo")
-    public String userInfo(Model model){
+    public String userInfo(Model model,@RequestParam(defaultValue = "1") Integer currentPage){
+        PageHelper.startPage(currentPage,10);
         List<User> list = userService.getAll();
-        model.addAttribute("list",list);
+        PageInfo page=new PageInfo(list,5);//分页
+        model.addAttribute("page",page);
         return "userManage";
     }
 
@@ -165,7 +170,7 @@ public class UserController {
      */
     @RequestMapping(value = "/emp/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Msg getEmp(@PathVariable int id){
+    public Msg getEmp(@PathVariable String id){
         User user=userService.getAll_Byid(id);
         return Msg.success().add("user",user);
     }
@@ -220,5 +225,27 @@ public class UserController {
     public Msg delUser(@PathVariable("id") int id){
         int i = userService.deleteById(id);
         return Msg.success().add("i",i);
+    }
+
+    /**
+     * 跳转到修改用户信息    回显数据
+     * @param uId
+     * @param model
+     * @return
+     */
+    @RequestMapping("/toUpdate_userInfo/{uId}")
+    public String toUpdate_userInfo(@PathVariable String uId,Model model){
+        model.addAttribute("user",userService.getAll_Byid(uId));
+        return "update_userInfo";
+    }
+    @RequestMapping("/update_userInfo/{id}")
+    @ResponseBody
+    public String update_userInfo(@PathVariable String id, User user){
+        user.setUser_id(id);
+        System.out.println(user);
+        if (userService.updUserById(user)>0){
+            return "0";
+        }
+        return "1";
     }
 }

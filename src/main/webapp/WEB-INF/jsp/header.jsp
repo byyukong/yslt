@@ -40,7 +40,7 @@
                             <li>
                                 <p class="navbar-text">
                                         <%--显示用户昵称 点击进入修改页面--%>
-                                    <a href="">${sessionScope.user.user_nick}</a>
+                                    <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">${sessionScope.user.user_nick}</a>
                                     <c:choose>
                                         <c:when test="${sessionScope.user.user_type==0}">
                                             <%--展示用户权限--%>

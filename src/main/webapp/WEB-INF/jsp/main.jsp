@@ -87,7 +87,9 @@
         })
     </script>
     <ul class="list-group" style="width: 100%">
+        <c:set value="false" var="hf"/>
         <c:forEach items="${page.list}" var="i">
+            <c:set value="true" var="hf"/>
             <c:if test="${i.forum.forum_isDeleted==0 && i.tab.tab_isDeleted==0 && i.tip_isDeleted==0}">
                 <li class="list-group-item liClick" alt="${i.tip_id}">
                     <div style="height: 50px">
@@ -111,14 +113,14 @@
                                 <a><span class="label label-warning" >${i.tab.tab_name}</span></a>
                                 &nbsp;&nbsp;&nbsp;
                                     <%--点击用户跳转到用户信息页面，需要传参用户id--%>
-                                <a href="#">
-                            <span>
-                                <strong>
-                                        ${i.user.user_nick}
-                                </strong>
-                            </span>
-                                </a>
-                                &nbsp;&nbsp;&nbsp;
+                             <c:choose>
+                                 <c:when test="${i.user.user_id==sessionScope.user.user_id}">
+                                     <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${i.user.user_id}"><span><strong>${i.user.user_nick}</strong></span></a>
+                                 </c:when>
+                                 <c:otherwise>
+                                     <a href=""><span><strong>${i.user.user_nick}</strong></span></a>
+                                 </c:otherwise>
+                             </c:choose>
                                     <%--显示贴子发表时间--%>
                                 <small class="text-muted" >
                                     发表时间：<fmt:formatDate value="${i.tip_publishTime}" type="both"/>&nbsp;
@@ -140,28 +142,30 @@
 
     </ul>
     <c:if test="${code == 1}">
-        <!-- 显示分页信息 -->
-        <div style="width: 100%;text-align: right;">
-            <ul class="pagination" style="width: 40%">
-                <li><a href="${pageContext.request.contextPath}/main?currentPage=1">首页</a></li>
-                <c:if test="${page.hasPreviousPage}">
-                    <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
-                </c:if>
-                <c:forEach items="${page.navigatepageNums}" var="page_Num">
-                    <c:if test="${page_Num == page.pageNum}">
-                        <li class="active"><a href="#">${page_Num}</a></li>
+        <c:if test="${hf==true}">
+            <!-- 显示分页信息 -->
+            <div style="width: 100%;text-align: right;">
+                <ul class="pagination" style="width: 40%">
+                    <li><a href="${pageContext.request.contextPath}/main?currentPage=1">首页</a></li>
+                    <c:if test="${page.hasPreviousPage}">
+                        <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
                     </c:if>
-                    <c:if test="${page_Num != page.pageNum }">
-                        <li><a href="${pageContext.request.contextPath}/main?currentPage=${page_Num}">${page_Num}</a></li>
+                    <c:forEach items="${page.navigatepageNums}" var="page_Num">
+                        <c:if test="${page_Num == page.pageNum}">
+                            <li class="active"><a href="#">${page_Num}</a></li>
+                        </c:if>
+                        <c:if test="${page_Num != page.pageNum }">
+                            <li><a href="${pageContext.request.contextPath}/main?currentPage=${page_Num}">${page_Num}</a></li>
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${page.hasNextPage }">
+                        <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
                     </c:if>
-                </c:forEach>
-                <c:if test="${page.hasNextPage }">
-                    <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
-                </c:if>
-                <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pages}">末页</a></li>
-            </ul>
-            共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
-        </div>
+                    <li><a href="${pageContext.request.contextPath}/main?currentPage=${page.pages}">末页</a></li>
+                </ul>
+                共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
+            </div>
+        </c:if>
     </c:if>
     <c:if test="${code == 2}">
         <!-- 显示分页信息 -->

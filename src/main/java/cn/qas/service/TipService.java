@@ -29,6 +29,8 @@ public interface TipService {
     List<User>selectuser();
     //修改帖子
     int updates(@Param("forum_id")int forum_id, @Param("tab_id")int tab_id, @Param("tip_title")String tip_title, @Param("tip_content")String tip_content, @Param("tip_modifyTime") Date tip_modifyTime, @Param("tip_id")int tip_id);
+    //贴子管理 查询所有贴子
+    List<Tip> queryAllTip();
     //置顶
     int addTop(int tid);
     //取消置顶
@@ -48,5 +50,5 @@ public interface TipService {
     //查询点击量
     int selectclick(@Param("tip_id")int tip_id);
     //修改点击量
-    int updatetipclick(@Param("tip_click")int tip_click,@Param("tip_id")int tip_id);
+    int updatetipclick(int tip_id);
 }

@@ -140,8 +140,7 @@
                                 <input class="btn btn-warning" type="button" id="xiugai" value="修改"/>
                                 <input class="btn btn-default" type="reset" value="重填"/>
                                 <%--这里的返回应回到贴子详情--%>
-                                <input type="button" class="btn btn-default" value="返回"
-                                       style="margin-left: 10%"/>
+                                <a href="${pageContext.request.contextPath}/click/+${tip.tip_id}" class="btn btn-default">返回</a>
                             </td>
                         </tr>
                     </tbody>

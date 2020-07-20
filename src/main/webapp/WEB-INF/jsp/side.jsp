@@ -38,7 +38,7 @@
         <div class="panel panel-default" id="sidebar2" style="width: 20%;margin:1% 2% 1% 0%;float: right">
             <div class="panel-heading" style="background-color: white;text-align: center">欢迎您！
                     <%--展示用户昵称--%>
-                <a href="">${sessionScope.user.user_nick}</a>
+                <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">${sessionScope.user.user_nick}</a>
                     <%--展示用户权限需要判断--%>
                 <c:choose>
                     <c:when test="${sessionScope.user.user_type==0}">

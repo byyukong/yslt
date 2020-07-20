@@ -69,6 +69,11 @@ public class TipServiceImpl implements TipService {
     }
 
     @Override
+    public List<Tip> queryAllTip() {
+        return tipMapper.queryAllTip();
+    }
+
+    @Override
     public int addTop(int tid) {
         return tipMapper.addTop(tid);
     }
@@ -112,7 +117,9 @@ public class TipServiceImpl implements TipService {
     }
 
     @Override
-    public int updatetipclick(int tip_click, int tip_id) {
-        return tipMapper.updatetipclick(tip_click,tip_id);
+    public int updatetipclick(int tip_id) {
+        return tipMapper.updatetipclick(tip_id);
     }
+
+
 }

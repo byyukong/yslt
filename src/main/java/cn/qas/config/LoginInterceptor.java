@@ -22,6 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(request.getRequestURI().contains("toLogin")){
             return true;
         }
+
         if(request.getRequestURI().contains("userLogin")){
             return true;
         }
@@ -52,13 +53,39 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //登录时放行
         if (user!=null) {
-            request.getRequestURI().contains("addTip");
-            return true;
-        }
-        if (user!=null && user.getUser_type()!=2){
             System.out.println("获取用户类型："+user.getUser_type());
-            request.getRequestURI().contains("userInfo");
-            return true;
+            if (user.getUser_type()!=2){
+                System.out.println("获取用户类型："+user.getUser_type());
+                request.getRequestURI().contains("/**");
+                return true;
+            }
+            if (request.getRequestURI().contains("goAddTip")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("addTip")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("pinglun")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("jietie")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("modify")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("xiugaitip")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("aliPay")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("toUpdate_userInfo")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("update_userInfo")) {
+                return true;
+            }
         }
 
         //没有登录跳转到登录页面

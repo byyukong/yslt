@@ -57,13 +57,17 @@ public class TipController {
 
     @RequestMapping("/click/{id}")
     public String clickreply(Model model,@PathVariable("id") int id,@RequestParam(defaultValue = "1")Integer currentPage){
+
+        tipService.updatetipclick(id);
         PageHelper.startPage(currentPage, 10);
         List<Reply> replyList=tipService.clickreply(id);
         model.addAttribute("replyList",replyList);
         Tip tip=tipService.selezuozhe(id);
         model.addAttribute("tip",tip);
+        model.addAttribute("tiphf",tipService.selectreply(id));
         PageInfo page=new PageInfo(replyList,5);
         model.addAttribute("page",page);
+
         return "tipContent";
     }
 
@@ -88,7 +92,7 @@ public class TipController {
         reply.setTip_id(Integer.parseInt(tip_id));
         reply.setReply_content(reply_content);
         reply.setReply_publishTime(new Date());
-        int addreply = tipService.addreply(reply);
+        tipService.addreply(reply);
         return "redirect:/click/"+reply.getTip_id();
     }
 
@@ -130,8 +134,10 @@ public class TipController {
      * @return
      */
     @RequestMapping("/toTipAdministration")
-    public String toTipAdministration(Model model){
-        model.addAttribute("tips",tipService.seleall());
+    public String toTipAdministration(Model model,@RequestParam(defaultValue = "1") Integer currentPage){
+        PageHelper.startPage(currentPage,10);
+        PageInfo page=new PageInfo(tipService.queryAllTip(),5);//分页
+        model.addAttribute("page",page);
         return "tipManage";
     }
 

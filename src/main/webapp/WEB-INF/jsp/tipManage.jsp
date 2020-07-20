@@ -30,6 +30,9 @@
             /* vertical-align:middle; */ /*设置垂直居中*/
             border: 1px solid gray;
         }
+        .blue{
+            color: deeppink;
+        }
     </style>
 </head>
 <body>
@@ -64,7 +67,7 @@
                 </thead>
                 <tbody>
                 <%--这里是表格内容，需要遍历数组--%>
-                <c:forEach items="${tips}" var="i">
+                <c:forEach items="${page.list}" var="i">
                     <tr>
                         <td>${i.tip_id}</td>
                         <td>${i.tab.tab_name}</td>
@@ -129,6 +132,28 @@
                 </c:forEach>
                 </tbody>
             </table>
+        <!-- 显示分页信息 -->
+        <div style="width: 100%;text-align: right;">
+            <ul class="pagination" style="width: 40%">
+                <li><a href="${pageContext.request.contextPath}/toTipAdministration?currentPage=1">首页</a></li>
+                <c:if test="${page.hasPreviousPage}">
+                    <li><a href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
+                </c:if>
+                <c:forEach items="${page.navigatepageNums}" var="page_Num">
+                    <c:if test="${page_Num == page.pageNum}">
+                        <li class="active"><a href="#">${page_Num}</a></li>
+                    </c:if>
+                    <c:if test="${page_Num != page.pageNum }">
+                        <li><a href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page_Num}">${page_Num}</a></li>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${page.hasNextPage }">
+                    <li><a href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
+                </c:if>
+                <li><a href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pages}">末页</a></li>
+            </ul>
+            共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
+        </div>
             <a href="${pageContext.request.contextPath}/" class="btn btn-default" style="margin-left: 17%">返回</a>
     </div>
 </div>
@@ -152,7 +177,7 @@
             url:"${pageContext.request.contextPath}/canceTop/"+tid,
             type:"post",
             success:function (result) {
-                location.href="${pageContext.request.contextPath}/toTipAdministration";
+                location.href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pageNum}";
             },
             error:function () {
                 alert("取消置顶失败！")
@@ -165,7 +190,7 @@
             url:"${pageContext.request.contextPath}/stick/"+tid,
             type:"post",
             success:function (result) {
-                location.href="${pageContext.request.contextPath}/toTipAdministration";
+                location.href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pageNum}";
             },
             error:function () {
                 alert("结贴失败！")
@@ -178,7 +203,7 @@
             url:"${pageContext.request.contextPath}/canceStick/"+tid,
             type:"post",
             success:function (result) {
-                location.href="${pageContext.request.contextPath}/toTipAdministration";
+                location.href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pageNum}";
             },
             error:function () {
                 alert("取消结贴失败！")
@@ -191,7 +216,7 @@
             url:"${pageContext.request.contextPath}/delTip/"+tid,
             type:"post",
             success:function (result) {
-                location.href="${pageContext.request.contextPath}/toTipAdministration";
+                location.href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pageNum}";
             },
             error:function () {
                 alert("删除失败！")
@@ -204,7 +229,7 @@
             url:"${pageContext.request.contextPath}/canceDelTip/"+tid,
             type:"post",
             success:function (result) {
-                location.href="${pageContext.request.contextPath}/toTipAdministration";
+                location.href="${pageContext.request.contextPath}/toTipAdministration?currentPage=${page.pageNum}";
             },
             error:function () {
                 alert("取消删除失败！")

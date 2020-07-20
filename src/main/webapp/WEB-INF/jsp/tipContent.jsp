@@ -51,7 +51,7 @@
 
                 <%--是否结贴：${tip.tip_isKnot}...贴子发表人：${tip.user_id}...当前登录用户：${USER.user_id}...--%>
                 <%--贴子发表人 == 当前登录用户：${tip.user_id == USER.user_id}--%>
-                <span class="label label-info" title="回复数">${tip.tip_replies}条回复</span>
+                <span class="label label-info" title="回复数">${tiphf}条回复</span>
                 &nbsp;
                 <span class="label label-warning" title="点击量">${tip.tip_click}次点击</span>
                 <div>
@@ -93,12 +93,13 @@
             </li>
         </ul>
     </div>
-
+    <c:set var="hf" value="false"/>
     <%--这里显示贴子的回复--%>
     <ul class="list-group" style="width: 100%">
         <%--遍历并显示回复--%>
         <c:forEach items="${page.list}" var="i">
             <li class="list-group-item">
+                <c:set var="hf" value="true"/>
                 <div style="height: auto; ">
                     <div>
                         <a href="">
@@ -122,7 +123,6 @@
                         </c:choose>
                         <%--发表回复的用户如果是楼主则显示楼主标签 2020-03-14 23:36--%>
                         <c:if test="${tip.user.user_id eq i.user.user_id}">
-
                             <span class="label label-info">楼主</span>
                         </c:if>
 
@@ -139,29 +139,30 @@
                 </div>
             </li>
         </c:forEach>
-            <!-- 显示分页信息 -->
-            <div style="width: 100%;text-align: right; " class="panel panel-default">
-                <ul class="pagination" style="width: 40%">
-                    <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=1">首页</a></li>
-                    <c:if test="${page.hasPreviousPage}">
-                        <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
-                    </c:if>
-                    <c:forEach items="${page.navigatepageNums}" var="page_Num">
-                        <c:if test="${page_Num == page.pageNum}">
-                            <li class="active"><a href="#">${page_Num}</a></li>
+            <c:if test="${hf==true}">
+                <!-- 显示分页信息 -->
+                <div style="width: 100%;text-align: right; " class="panel panel-default">
+                    <ul class="pagination" style="width: 40%">
+                        <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=1">首页</a></li>
+                        <c:if test="${page.hasPreviousPage}">
+                            <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pageNum-1}"> <span>&laquo;</span></a></li>
                         </c:if>
-                        <c:if test="${page_Num != page.pageNum }">
-                            <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page_Num}">${page_Num}</a></li>
+                        <c:forEach items="${page.navigatepageNums}" var="page_Num">
+                            <c:if test="${page_Num == page.pageNum}">
+                                <li class="active"><a href="#">${page_Num}</a></li>
+                            </c:if>
+                            <c:if test="${page_Num != page.pageNum }">
+                                <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page_Num}">${page_Num}</a></li>
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${page.hasNextPage }">
+                            <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
                         </c:if>
-                    </c:forEach>
-                    <c:if test="${page.hasNextPage }">
-                        <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pageNum+1 }"> <span>&raquo;</span></a></li>
-                    </c:if>
-                    <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pages}">末页</a></li>
-                </ul>
-                共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
-            </div>
-
+                        <li><a href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pages}">末页</a></li>
+                    </ul>
+                    共<strong class="blue">${page.total}</strong>条记录，当前显示第&nbsp;<strong class="blue">${page.pageNum}&nbsp;</strong>页 总 <strong class="blue">${page.pages }</strong> 页
+                </div>
+            </c:if>
     </ul>
 
     <div class="panel panel-default" style="">
@@ -229,20 +230,24 @@
            })
        }
     })
-    //$(document).on("click","#fabu",function () {
     $("#fabu").click(function () {
-       var bodys=$('#reply_content').val();
-        $.ajax({
-            url:"${pageContext.request.contextPath}/pinglun",
-            type:"GET",
-            data:{"user_id":"${sessionScope.user.user_id}","tip_id":"${tip.tip_id}","reply_content":bodys},
-            success:function (result) {
+        //判断是否输入内容为空或者全为空格
+        var bodys=$('#reply_content').val();
+        if(bodys.match(/^[ ]*$/)){
+            alert("输入内容不能为空或为空格.")
+        }else {
+            $.ajax({
+                url:"${pageContext.request.contextPath}/pinglun",
+                type:"GET",
+                data:{"user_id":"${sessionScope.user.user_id}","tip_id":"${tip.tip_id}","reply_content":bodys},
+                success:function () {
                     location.href="${pageContext.request.contextPath}/click/"+${tip.tip_id};
-            },
-            error:function () {
-               alert("发送错误")
-            }
-        });
+                },
+                error:function () {
+                    alert("发送错误")
+                }
+            });
+        }
     });
     $(document).on("click","#denglu",function () {
         // $(location).attr('href', 'login.jsp');

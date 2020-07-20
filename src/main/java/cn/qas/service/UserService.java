@@ -27,7 +27,7 @@ public interface UserService {
     List<User> getAll();
 
     //根据id查询所有用户
-    User getAll_Byid(int id);
+    User getAll_Byid(String id);
 
     //根据id修改用户
     void UpdateByUser1(User user);
@@ -37,4 +37,7 @@ public interface UserService {
 
     //根据删除用户
     int deleteById(int  userid);
+
+    //修改
+    int updUserById(User user);
 }
