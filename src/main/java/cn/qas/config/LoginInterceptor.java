@@ -22,6 +22,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(request.getRequestURI().contains("toLogin")){
             return true;
         }
+        if(request.getRequestURI().contains("sousuo")){
+            return true;
+        }
 
         if(request.getRequestURI().contains("userLogin")){
             return true;
