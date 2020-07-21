@@ -96,6 +96,15 @@ public class TipController {
         return "redirect:/click/"+reply.getTip_id();
     }
 
+    @RequestMapping("/delReply/{reply_id}")
+    @ResponseBody
+    public ModelAndView delReply(@PathVariable String reply_id){
+        ModelAndView modelAndView =new ModelAndView();
+        tipService.delReply(reply_id);
+        modelAndView.setViewName("tipContent");
+        return modelAndView;
+    }
+
     /**
      * 跳转到发帖页面并且遍历所有版块，分类
      * @param model

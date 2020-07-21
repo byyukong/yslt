@@ -44,7 +44,7 @@
 <%@ include file="header.jsp" %>
 <%@ include file="side.jsp"%>
 <div class="panel panel-default"
-     style="width: 50%;margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+     style="width: 50%;margin-left: 5%; margin-right: 5%; margin-bottom: 5%;border:2px solid #a1a1a1;padding:20px 40px;width:50%;border-radius:25px;">
     <div class="panel-heading" style="background-color: #fff">
         <h3 class="panel-title">分类管理</h3>
     </div>

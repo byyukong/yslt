@@ -51,4 +51,6 @@ public interface TipService {
     int selectclick(@Param("tip_id")int tip_id);
     //修改点击量
     int updatetipclick(int tip_id);
+    //删除评论
+    int delReply(String reply_id);
 }

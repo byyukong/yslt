@@ -136,6 +136,14 @@
                             <%--显示回复发表的时间--%>
                             <fmt:formatDate value="${i.reply_publishTime}" type="both"/>&nbsp;
                         </small>
+                        &nbsp;&nbsp;&nbsp;
+                        <c:if test="${i.user.user_id==sessionScope.user.user_id || tip.user.user_id eq sessionScope.user.user_id}">
+                            <%--<a href="#" class="delReply" >删除</a>--%>
+                            <div style="float: right" id="deletes"><input type="button" alt="${i.reply_id}" class="btn btn-danger btn-sm delReply" value="删除"/></div>
+                        </c:if>
+                        <%--<c:if test="${tip.user.user_id eq sessionScope.user.user_id}">
+                            <div style="float: right" id="deletes"><input type="button" id="${i.reply_id}"  class="btn btn-danger btn-sm delete" value="删除"/></div>
+                        </c:if>--%>
                     </div>
                     <div style="height: 80px; overflow:auto; word-wrap:break-word;">
                         <%--这里显示回复的正文--%>
@@ -218,6 +226,21 @@
 <%@ include file="footer.jsp" %>
 
 <script>
+    $(document).on("click",".delReply",function () {
+        var delReply=$(this).attr("alt");
+        if (confirm("确认要删除这条评论吗？")){
+            $.ajax({
+                url:"${pageContext.request.contextPath}/delReply/"+delReply,
+                type:"get",
+                success:function () {
+                    location.href="${pageContext.request.contextPath}/click/${tip.tip_id}?currentPage=${page.pageNum}";
+                },
+                error:function () {
+                    alert("服务器错误，删除失败！");
+                }
+            })
+        }
+    })
     $(".jietie").click(function () {
        if(confirm("确认结贴?,结贴后无法回复。")){
            $.ajax({

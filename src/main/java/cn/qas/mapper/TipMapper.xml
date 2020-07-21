@@ -155,4 +155,7 @@
     <select id="selectclick" resultType="int">
         SELECT tip_click FROM tip WHERE tip_id=#{tip_id}
     </select>
+    <delete id="delReply">
+        DELETE FROM reply WHERE reply_id = #{reply_id}
+    </delete>
 </mapper>

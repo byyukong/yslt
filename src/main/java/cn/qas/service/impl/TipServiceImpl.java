@@ -121,5 +121,10 @@ public class TipServiceImpl implements TipService {
         return tipMapper.updatetipclick(tip_id);
     }
 
+    @Override
+    public int delReply(String reply_id) {
+        return tipMapper.delReply(reply_id);
+    }
+
 
 }
