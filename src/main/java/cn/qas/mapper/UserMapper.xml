@@ -38,7 +38,7 @@
     </delete>-->
 
     <update id="UpdateByUser">
-        update user set user_email=#{user_email},user_type=#{user_type}
+        update user set user_email=#{user_email},user_type=#{user_type},user_modifyTime=#{user_modifyTime}
        where user_id=#{user_id}
     </update>
 

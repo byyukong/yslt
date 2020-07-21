@@ -184,6 +184,7 @@ public class UserController {
     @ResponseBody
     public Msg updateEmp(User user,@PathVariable String aid){
         user.setUser_id(aid);
+        user.setUser_modifyTime(new Date());
         userService.UpdateByUser1(user);
         return Msg.success();
 
@@ -240,6 +241,12 @@ public class UserController {
         model.addAttribute("user",userService.getAll_Byid(uId));
         return "update_userInfo";
     }
+
+    /**
+     * VIP
+     * @param id
+     * @return
+     */
     @RequestMapping("/updVip/{id}")
     public String updVip(@PathVariable int id){
         userService.updVipById(id);
