@@ -45,7 +45,7 @@ public class Email {
         }
         // 连接邮件服务器：邮箱类型，帐号，POP3/SMTP协议授权码 163使用：smtp.163.com
         try {
-            ts.connect("smtp.qq.com", "1719549607", "xhbrvnjtgsyhbdfc");
+            ts.connect("smtp.qq.com", "1719549607", "");
         } catch (MessagingException e) {
             e.printStackTrace();
         }

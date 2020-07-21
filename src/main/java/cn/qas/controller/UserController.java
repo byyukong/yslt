@@ -246,10 +246,17 @@ public class UserController {
         return "redirect:/main";
     }
 
+    /**
+     * 修改用户
+     * @param id
+     * @param user
+     * @return
+     */
     @RequestMapping("/update_userInfo/{id}")
     @ResponseBody
     public String update_userInfo(@PathVariable String id, User user){
         user.setUser_id(id);
+        user.setUser_modifyTime(new Date());
         System.out.println(user);
         if (userService.updUserById(user)>0){
             return "0";
