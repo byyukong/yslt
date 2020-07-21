@@ -105,8 +105,10 @@ public class UserController {
         user.setUser_id(UUIDUtils.getId());
         user.setUser_status(3);
         user.setUser_regTime(new Date());
+        user.setIs_Vip(0);
+        user.setActivate(UUIDUtils.getId());
         userService.regis(user);
-        Email.runEmail(user.getUser_email(),user.getUser_id());
+        Email.runEmail(user.getUser_email(),user.getActivate());
         return "redirect:/toLogin";
     }
 

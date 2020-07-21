@@ -14,10 +14,10 @@
         select * from user
     </select>
     <insert id="regis" parameterType="user">
-        insert user value (#{user_id},#{user_name},#{user_nick},#{user_password},#{user_email},#{user_status},#{user_type},#{user_regTime},#{user_lastLoginTime},#{user_modifyTime})
+        insert user value (#{user_id},#{user_name},#{user_nick},#{user_password},#{user_email},#{user_status},#{user_type},#{user_regTime},#{user_lastLoginTime},#{user_modifyTime},#{is_Vip},#{activate})
     </insert>
     <update id="activation">
-        update user set user_status = 0 where user_id=#{user_id};
+        update user set user_status = 0,activate=null where activate=#{activate};
     </update>
     <select id="uniquenessName" resultType="user">
         select * from user where user_name=#{name}

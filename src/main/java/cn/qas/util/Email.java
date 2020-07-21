@@ -69,7 +69,7 @@ public class Email {
         }
     }
     public static MimeMessage createSimpleMail(Session session,String email,String code) throws Exception {
-        String url="http://localhost:8080/activation/"+code;
+        String url="http://106.52.185.64/activation/"+code;
         // 创建邮件对象
         MimeMessage message = new MimeMessage(session);
         // 指明邮件的发件人
