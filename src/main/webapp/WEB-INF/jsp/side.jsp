@@ -7,7 +7,7 @@
         background-color: #EFEFEF;
     }
 </style>
-<script src="<%=path%>/static/js/jquery-3.2.1.js"></script>
+
 <script>
     $(document).on("mouseover","ul li",function () {
         $(this).addClass("bg");

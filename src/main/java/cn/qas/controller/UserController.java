@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -238,9 +239,16 @@ public class UserController {
      * @return
      */
     @RequestMapping("/toUpdate_userInfo/{uId}")
-    public String toUpdate_userInfo(@PathVariable String uId,Model model){
+    public String toUpdate_userInfo(@PathVariable String uId, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user =(User) session.getAttribute("user");
+        System.out.println("测试UserId:"+user.getUser_id()+"，uId："+uId);
+        if (!user.getUser_id().equals(uId)){
+            return "redirect:/main";
+        }
         model.addAttribute("user",userService.getAll_Byid(uId));
         return "update_userInfo";
+
     }
 
     /**

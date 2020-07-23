@@ -126,7 +126,7 @@
 
                             <li>
                                 <p class="navbar-text">
-                                    <img style="margin-top: -7px" src="<%=path%>/static/img/${user.head_portrait}" class="round_icon" />&nbsp;
+                                    <img style="margin-top: -7px" src="<%=path%>/static/img/${sessionScope.user.head_portrait}" class="round_icon" />&nbsp;
 
                                 <%--显示用户昵称 点击进入修改页面--%>
                                     <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">${sessionScope.user.user_nick}</a>
@@ -225,12 +225,18 @@
 
     </div>
 </div>
-<script src="<%=path%>/static/js/jquery-3.2.1.js"></script>
-<script src="<%=path%>/static/js/bootstrap.min.js"></script>
+
 
 <script>
     $(".round_icon").click(function () {
         $("#empAddModel").modal();
+        var file=$("#file");
+        var imgs=$(".imgs");
+        //清除已选择图片
+        imgs.attr("src","../../static/img/default.jpg");
+        //清除已选择图片路径
+        file.after(file.clone().val(""));
+        file.remove();
         $("#empAddModel .round_icon").addClass("round_icons")
     })
     function xll(resl) {
