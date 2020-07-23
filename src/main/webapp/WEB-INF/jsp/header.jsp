@@ -18,7 +18,7 @@
         left: 25%;
         top: 20%;
         width: 40%;
-        height: 40%;
+        height: 45%;
         background: white;
         text-align: left;
     }
@@ -214,7 +214,7 @@
             <div class="file">
                 <input type="hidden" name="user_id" value="${sessionScope.user.user_id}"/>
                 <label for="file">点击选择图片</label>
-                <input type="file" name="file" onchange="xll(this)"  id="file"/>
+                <input type="file" name="file" onchange="xll(this)" id="file"/>
                 <input class="button" type="submit" value="修改">
             </div>
         </form>

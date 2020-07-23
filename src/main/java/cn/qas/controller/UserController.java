@@ -107,6 +107,7 @@ public class UserController {
         user.setUser_regTime(new Date());
         user.setIs_Vip(0);
         user.setActivate(UUIDUtils.getId());
+        user.setHead_portrait("default.jpg");
         userService.regis(user);
         Email.runEmail(user.getUser_email(),user.getActivate());
         return "redirect:/toLogin";
