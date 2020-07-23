@@ -1,6 +1,93 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--这个是头部导航栏--%>
+<style>
+    .round_icon{
+        width: 36px;
+        height: 36px;
+        display: flex;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        float: left;
+    }
+    #empAddModel{
+        border: black solid 1px;
+        position: absolute;
+        left: 25%;
+        top: 20%;
+        width: 40%;
+        height: 40%;
+        background: white;
+        text-align: left;
+    }
+    .round_icons{
+        position: absolute;
+        left: 65%;
+        top: 60px;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        vertical-align:middle;
+    }
+    .file label {
+        display: inline-block;
+    }
+    #file{
+        position: absolute;
+        left: auto;
+        width: 84px;
+    }
+    .imgs{
+        position: absolute;
+        left: 5%;
+        top: 60px;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        vertical-align:middle;
+    }
+    .file button {
+        display: inline-block;
+        vertical-align: middle;
+        width: 80px;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        background-color: #5bc0de;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+    }
+    .file input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 60px;
+        z-index: 3;
+        opacity: 0;
+        width: 300px;
+        height: 40px;
+        line-height: 40px;
+        cursor: pointer;
+    }
+    .activityForm{
+        position: relative;
+        top: 270px;
+        left: 35%;
+        width: 200px;
+    }
+</style>
+
 <header>
     <nav class="navbar navbar-default" role="navigation" style="background-color: white">
         <div class="container-fluid" style="margin-left: 10%">
@@ -39,7 +126,9 @@
 
                             <li>
                                 <p class="navbar-text">
-                                        <%--显示用户昵称 点击进入修改页面--%>
+                                    <img src="<%=path%>/static/img/${user.head_portrait}" class="round_icon" />&nbsp;
+
+                                <%--显示用户昵称 点击进入修改页面--%>
                                     <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">${sessionScope.user.user_nick}</a>
                                     <c:choose>
                                         <c:when test="${sessionScope.user.user_type==0}">
@@ -117,6 +206,39 @@
     </nav>
 
 </header>
+<div class="modal fade" id="empAddModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <h3>论坛>修改头像</h3>
+        <div id="d"><img src="../../static/img/bg.jpg" class="imgs"/></div>
+        <form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data" class="activityForm">
+            <div class="file">
+                <input type="hidden" name="user_id" value="${sessionScope.user.user_id}">
+                <label for="file">点击选择图片</label>
+                <input type="file" name="file" onchange="xll(this)"  id="file">
+                <button type="submit">修改<tton>
+            </div>
+        </form>
+        <div style="float:left;margin-top: 30px;width: 1px;height: 150px; background: darkgray; position: relative;top: -10px;left: 52%;"></div>
+        <div>
+            <img src="../../static/img/${user.head_portrait}" class="round_icon"/>
+        </div>
+
+    </div>
+</div>
+<script src="<%=path%>/static/js/jquery-3.2.1.js"></script>
+<script src="<%=path%>/static/js/bootstrap.min.js"></script>
+
 <script>
+    $(".round_icon").click(function () {
+        $("#empAddModel").modal();
+        $("#empAddModel .round_icon").addClass("round_icons")
+    })
+    function xll(resl) {
+        var Fs = $(resl)[0];
+        var formData = new FormData();
+        formData.append("file",Fs.files[0]);
+        var div = "<img src='"+window.URL.createObjectURL(Fs.files[0])+"' class='imgs'/>";
+        $("#d").html(div);
+    }
 
 </script>

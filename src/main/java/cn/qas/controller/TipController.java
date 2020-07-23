@@ -12,12 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
 @Controller
 public class TipController {
+    Msg msg = new Msg();
     @Autowired
     TipServiceImpl tipService;
     @Autowired
@@ -26,7 +28,7 @@ public class TipController {
     private TabService tabService;
 
     @RequestMapping("/main")
-    public String seleall(@RequestParam(defaultValue = "1") Integer currentPage, Model model){
+    public String seleall(@RequestParam(defaultValue = "1") Integer currentPage, Model model, HttpServletRequest request){
         PageHelper.startPage(currentPage,10);
         List<Tip> list=tipService.seleall();
         for (Tip tip : list) {
@@ -41,6 +43,7 @@ public class TipController {
         model.addAttribute("page",page);
         System.out.println(page.toString());
         model.addAttribute("code",1);
+        msg.setMsg(request.getRequestURI());
         return "main";
     }
 
@@ -57,8 +60,12 @@ public class TipController {
 
     @RequestMapping("/click/{id}")
     public String clickreply(Model model,@PathVariable("id") int id,@RequestParam(defaultValue = "1")Integer currentPage){
-
-        tipService.updatetipclick(id);
+        if(msg.getMsg().equals("/main")){
+            tipService.updatetipclick(tipService.selectclick(id)+1,id);
+            System.out.println(tipService.selectclick(id)+1);
+            System.out.println(msg.getMsg());
+            msg.setMsg("");
+        }
         PageHelper.startPage(currentPage, 10);
         List<Reply> replyList=tipService.clickreply(id);
         model.addAttribute("replyList",replyList);

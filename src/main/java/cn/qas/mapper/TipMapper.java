@@ -50,8 +50,10 @@ public interface TipMapper {
     int updatetipreply(@Param("tip_replies")int tip_replies,@Param("tip_id")int tip_id);
     //查询点击量
     int selectclick(@Param("tip_id")int tip_id);
+    /*//修改点击量
+    int updatetipclick(@Param("tip_id")int tip_id);*/
     //修改点击量
-    int updatetipclick(@Param("tip_id")int tip_id);
+    int updatetipclick(@Param("tip_click")int tip_click,@Param("tip_id")int tip_id);
     //删除评论
     int delReply(String reply_id);
 }

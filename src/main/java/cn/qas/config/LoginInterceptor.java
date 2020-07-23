@@ -62,6 +62,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                 request.getRequestURI().contains("/**");
                 return true;
             }
+            if (request.getRequestURI().contains("upload")) {
+                return true;
+            }
             if (request.getRequestURI().contains("goAddTip")) {
                 return true;
             }

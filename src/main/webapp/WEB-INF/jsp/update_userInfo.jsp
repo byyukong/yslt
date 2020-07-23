@@ -21,7 +21,7 @@
     <center>
         <div class="panel panel-default" id="main" style="border:2px solid #a1a1a1;padding:20px 40px;width:60%;border-radius:25px;">
             <div class="panel-heading" style="background-color: white">
-                <a href="<%=basePath%>">论坛</a> › 修改用户信息 ›${user.user_nick}
+                <a href="<%=basePath%>">论坛</a> › <a href="#">修改用户信息</a>  ›<a href="#">${user.user_nick}</a>
             </div>
 
             <div class="panel-body">

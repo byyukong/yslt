@@ -23,5 +23,6 @@ public class User {
   private Date user_modifyTime; // 修改时间
   private int is_Vip; //是否是VIP
   private String activate;  //激活
+  private String Head_portrait; //头像
 
 }

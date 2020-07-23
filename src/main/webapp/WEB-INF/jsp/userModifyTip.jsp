@@ -12,24 +12,27 @@
     <link href="<%=path%>/static/css/bootstrap.min.css" rel="stylesheet">
     <script src="<%=path%>/static/js/jquery-3.2.1.js"></script>
     <script src="<%=path%>/static/js/bootstrap.min.js"></script>
-    <title>论坛 › 修改贴子 › 贴子标题</title>
+    <title>论坛 › 修改贴子 › ${tip.tip_title}</title>
+    <style>
+
+    </style>
 </head>
 <body>
 <!-- 引入header文件 -->
 <%@ include file="header.jsp"%>
 
 <div style="width: 70%;margin:1% 2% 1% 5%;float: left;">
-    <div class="panel panel-default" id="main" style="">
+    <div class="panel panel-default" id="main"  style="border:2px solid #a1a1a1;padding:20px 40px;width:100%;border-radius:25px;">
         <div class="panel-heading" style="background-color: white">
-            <a href="<%=basePath%>">论坛</a> › 修改贴子 ›
+            <a href="<%=basePath%>">论坛</a> › <a href="#">修改贴子</a> ›
             <%--贴子ID    贴子标题--%>
-            <a href="1">测试</a>
+            <a href="#">${tip.tip_title}</a>
         </div>
 
         <div class="panel-body">
             <%--发贴人修改贴子，不同的action--%>
             <form  action="" id="myTipUpdateForm" method="POST" class="form-horizontal" role="form">
-                <table class="table">
+                <table class="table" style="table-layout:fixed;">
                     <thead>
                     <tr>
                         <th>名称</th>
@@ -91,16 +94,16 @@
                         </tr>
                         <tr>
                             <td>标题</td>
-                            <td>${tip.tip_title}</td>
+                            <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${tip.tip_title}</td>
                             <td>
                                 <textarea class="form-control" rows="2" name="tip_content" id="title" style="resize:none;">${tip.tip_title}</textarea>
                             </td>
                         </tr>
                         <tr>
                             <td>内容</td>
-                            <td>${tip.tip_content}</td>
+                            <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${tip.tip_content}</td>
                             <td>
-                                <textarea class="form-control" rows="2" name="tip_content" id="content" style="resize:none;">${tip.tip_content}</textarea>
+                                <textarea class="form-control" rows="2" name="tip_content" id="content" style="resize:none;box-sizing: border-box">${tip.tip_content}</textarea>
                             </td>
                         </tr>
                         <tr>

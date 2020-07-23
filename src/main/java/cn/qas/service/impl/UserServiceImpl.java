@@ -62,8 +62,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updVipById(int id) {
+    public int updVipById(String id) {
         return userMapper.updVipById(id);
+    }
+
+    @Override
+    public int updateHead(String Head_portrait, String user_id) {
+        return userMapper.updateHead(Head_portrait, user_id);
     }
 
     public int regis(User user) {

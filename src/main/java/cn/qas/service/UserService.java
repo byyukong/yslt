@@ -1,6 +1,7 @@
 package cn.qas.service;
 
 import cn.qas.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -42,5 +43,9 @@ public interface UserService {
     int updUserById(User user);
 
     //VIP
-    int updVipById(int id);
+    int updVipById(String id);
+
+    //修改头像
+    int updateHead(@Param("Head_portrait") String Head_portrait, @Param("user_id") String user_id);
+
 }

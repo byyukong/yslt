@@ -116,10 +116,15 @@ public class TipServiceImpl implements TipService {
         return tipMapper.selectclick(tip_id);
     }
 
-    @Override
+   /* @Override
     public int updatetipclick(int tip_id) {
         return tipMapper.updatetipclick(tip_id);
     }
+*/
+   @Override
+   public int updatetipclick(int tip_click,int tip_id) {
+       return tipMapper.updatetipclick(tip_click,tip_id);
+   }
 
     @Override
     public int delReply(String reply_id) {

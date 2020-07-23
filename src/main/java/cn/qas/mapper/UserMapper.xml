@@ -52,4 +52,8 @@
     <update id="updVipById">
         update user set is_Vip = 1 where user_id=#{user_id};
     </update>
+    <update id="updateHead">
+        UPDATE user SET Head_portrait = #{Head_portrait} WHERE user_id = #{user_id}
+    </update>
+
 </mapper>

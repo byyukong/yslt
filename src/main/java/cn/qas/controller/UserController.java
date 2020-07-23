@@ -248,7 +248,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/updVip/{id}")
-    public String updVip(@PathVariable int id){
+    public String updVip(@PathVariable String id){
         userService.updVipById(id);
         return "redirect:/main";
     }

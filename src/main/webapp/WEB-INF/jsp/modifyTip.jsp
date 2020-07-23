@@ -22,7 +22,7 @@
     <div class="panel panel-default" id="main" style="">
         <div class="panel-heading" style="background-color: white">
             <%--点击跳到首页--%>
-            <a href="<%=basePath%>">论坛</a> › 修改贴子信息 ›
+            <a href="<%=basePath%>">论坛</a> › <a href="#">修改贴子信息</a> ›
             <%--点击跳到贴子页面--%>
             <a href="#">贴子ID</a>
         </div>

@@ -104,6 +104,7 @@
                 <c:set var="hf" value="true"/>
                 <div style="height: auto; ">
                     <div>
+                        <img src="<%=path%>/static/img/${i.user.head_portrait}" class="round_icon" />&nbsp;
                         <a href="">
                             <strong>
                                 <%--显示发表回复的用户昵称--%>

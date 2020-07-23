@@ -67,7 +67,7 @@
     </select>
 
     <select id="clickreply" resultMap="reply">
-    SELECT reply_id,u.user_nick,u.is_Vip,u.user_type,u.user_id,t.tip_title,t.tip_click,t.tip_replies,reply_content,reply_publishTime,reply_modifyTime,reply_isDeleted
+    SELECT reply_id,u.user_nick,u.is_Vip,u.user_type,u.user_id,u.head_portrait,t.tip_title,t.tip_click,t.tip_replies,reply_content,reply_publishTime,reply_modifyTime,reply_isDeleted
     FROM reply r
     INNER JOIN tip t ON r.tip_id = t.tip_id
     INNER JOIN `user` u ON u.user_id = r.user_id
@@ -148,10 +148,13 @@
         UPDATE tip SET tip_replies=#{tip_replies} WHERE tip_id=#{tip_id}
     </update>
 
-    <update id="updatetipclick">
+   <!-- <update id="updatetipclick">
         UPDATE tip SET tip_click=tip_click+1 WHERE tip_id=#{tip_id}
     </update>
-
+-->
+    <update id="updatetipclick">
+        UPDATE tip SET tip_click=#{tip_click} WHERE tip_id=#{tip_id}
+    </update>
     <select id="selectclick" resultType="int">
         SELECT tip_click FROM tip WHERE tip_id=#{tip_id}
     </select>
