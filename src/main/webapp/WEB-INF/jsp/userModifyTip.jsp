@@ -20,7 +20,6 @@
 <body>
 <!-- 引入header文件 -->
 <%@ include file="header.jsp"%>
-
 <div style="width: 70%;margin:1% 2% 1% 5%;float: left;">
     <div class="panel panel-default" id="main"  style="border:2px solid #a1a1a1;padding:20px 40px;width:100%;border-radius:25px;">
         <div class="panel-heading" style="background-color: white">

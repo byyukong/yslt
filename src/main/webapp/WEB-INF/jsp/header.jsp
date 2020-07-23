@@ -220,9 +220,8 @@
         </form>
         <div style="float:left;margin-top: 30px;width: 1px;height: 150px; background: darkgray; position: relative;top: -10px;left: 52%;"></div>
         <div>
-            <img src="../../static/img/${user.head_portrait}" class="round_icon"/>
+            <img src="../../static/img/${sessionScope.user.head_portrait}" class="round_icon"/>
         </div>
-
     </div>
 </div>
 
