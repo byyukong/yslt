@@ -257,8 +257,7 @@
 <!-- 引入footer文件 -->
 <%@ include file="footer.jsp"%>
 </body>
-<script src="/static/js/jquery-3.2.1.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
+
 <script>
 
 </script>
