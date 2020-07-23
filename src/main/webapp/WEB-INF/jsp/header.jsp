@@ -56,7 +56,7 @@
         overflow: hidden;
         vertical-align:middle;
     }
-    .file button {
+    .file .button {
         display: inline-block;
         vertical-align: middle;
         width: 80px;
@@ -126,7 +126,7 @@
 
                             <li>
                                 <p class="navbar-text">
-                                    <img src="<%=path%>/static/img/${user.head_portrait}" class="round_icon" />&nbsp;
+                                    <img style="margin-top: -7px" src="<%=path%>/static/img/${user.head_portrait}" class="round_icon" />&nbsp;
 
                                 <%--显示用户昵称 点击进入修改页面--%>
                                     <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">${sessionScope.user.user_nick}</a>
@@ -209,13 +209,13 @@
 <div class="modal fade" id="empAddModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <h3>论坛>修改头像</h3>
-        <div id="d"><img src="../../static/img/bg.jpg" class="imgs"/></div>
+        <div id="d"><label for="file"><img src="../../static/img/default.jpg" class="imgs"/></label></div>
         <form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data" class="activityForm">
             <div class="file">
-                <input type="hidden" name="user_id" value="${sessionScope.user.user_id}">
+                <input type="hidden" name="user_id" value="${sessionScope.user.user_id}"/>
                 <label for="file">点击选择图片</label>
-                <input type="file" name="file" onchange="xll(this)"  id="file">
-                <button type="submit">修改<tton>
+                <input type="file" name="file" onchange="xll(this)"  id="file"/>
+                <input class="button" type="submit" value="修改">
             </div>
         </form>
         <div style="float:left;margin-top: 30px;width: 1px;height: 150px; background: darkgray; position: relative;top: -10px;left: 52%;"></div>
