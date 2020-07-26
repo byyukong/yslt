@@ -17,6 +17,14 @@
         .blue{
             color: deeppink;
         }
+        .showtext {
+            width: 100%;
+            height: 100%;
+            resize: none;
+        }
+        .replyto{
+            display: none;
+        }
     </style>
     <title>贴子详细信息 - 论坛 </title>
 </head>
@@ -104,7 +112,15 @@
                 <c:set var="hf" value="true"/>
                 <div style="height: auto; ">
                     <div>
-                        <img src="<%=path%>/static/img/${i.user.head_portrait}" class="round_icon" />&nbsp;
+                        <c:choose>
+                            <c:when test="${fn:contains(i.user.head_portrait,'http')}">
+                                <img src="${i.user.head_portrait}" class="round_icon" />&nbsp;
+                            </c:when>
+                            <c:otherwise>
+                                <img src="<%=path%>/static/img/${i.user.head_portrait}" class="round_icon" />&nbsp;
+                            </c:otherwise>
+                        </c:choose>
+                        <%--<img src="<%=path%>/static/img/${i.user.head_portrait}" class="round_icon" />--%>&nbsp;
                         <a href="">
                             <strong>
                                 <%--显示发表回复的用户昵称--%>
@@ -140,7 +156,9 @@
                         &nbsp;&nbsp;&nbsp;
                         <c:if test="${i.user.user_id==sessionScope.user.user_id || tip.user.user_id eq sessionScope.user.user_id}">
                             <%--<a href="#" class="delReply" >删除</a>--%>
-                            <div style="float: right" id="deletes"><input type="button" alt="${i.reply_id}" class="btn btn-danger btn-sm delReply" value="删除"/></div>
+                            <%--<div style="float: right"><input onclick="replytoClick(this)" type="button" alt="${i.reply_id}" class="btn btn-success btn-sm replytoShow" alt="${i.reply_id}" value="回复"/></div>
+                            <div style="float: right;margin-top: 35px;margin-right: -46px;" id="deletes"><input type="button" alt="${i.reply_id}" class="btn btn-danger btn-sm delReply" value="删除"/></div>--%>
+                            <div style="float: right;" id="deletes"><input type="button" alt="${i.reply_id}" class="btn btn-danger btn-sm delReply" value="删除"/></div>
                         </c:if>
                         <%--<c:if test="${tip.user.user_id eq sessionScope.user.user_id}">
                             <div style="float: right" id="deletes"><input type="button" id="${i.reply_id}"  class="btn btn-danger btn-sm delete" value="删除"/></div>
@@ -149,8 +167,28 @@
                     <div style="height: 80px; overflow:auto; word-wrap:break-word;">
                         <%--这里显示回复的正文--%>
                        <xmp>${i.reply_content}</xmp>
+
                     </div>
+                    <%--<ul style="width:900px;border: 1px solid red">
+                        <li style="line-height:50px;text-decoration: underline;">
+                            aaa
+                        </li>
+                        <li style="line-height:50px;text-decoration: underline;">bbb</li>
+                        <li style="line-height:50px;text-decoration: underline;">ccc</li>
+                    </ul>--%>
                 </div>
+
+                <%--<div class="replyto">
+                    <form action="" method="post" id="">
+                            &lt;%&ndash;隐藏域获取贴子ID&ndash;%&gt;
+                        <input type="hidden" name="tip_id" value="" >
+                            &lt;%&ndash;这里显示输入回复内容的文本框&ndash;%&gt;
+                        <textarea class="form-control" rows="3" name="reply_content" id="reply_content" required ></textarea>
+                        <br/>
+                        <input type="button" class="btn btn-success btn-sm" value="回复"/>
+                    </form>
+                </div>--%>
+
             </li>
         </c:forEach>
             <c:if test="${hf==true}">
@@ -197,7 +235,7 @@
                             <%--隐藏域获取贴子ID--%>
                             <input type="hidden" name="tip_id" value="" >
                             <%--这里显示输入回复内容的文本框--%>
-                            <textarea class="form-control" rows="3" name="reply_content" id="reply_content" required disabled="disabled"></textarea>
+                            <textarea style="overflow-y:scroll" class="showtext form-control" rows="3" name="reply_content" id="reply_content" required disabled="disabled"></textarea>
                             <br/>
                             <input type="button" class="btn btn-success btn-sm" disabled="disabled" value="发表"/>
                         </form>
@@ -207,7 +245,7 @@
                         <%--隐藏域获取贴子ID--%>
                         <input type="hidden" name="tip_id" value="" >
                         <%--这里显示输入回复内容的文本框--%>
-                        <textarea class="form-control" rows="3" name="reply_content" id="reply_content" required ></textarea>
+                        <textarea style="overflow-y:scroll" class="showtext form-control" rows="3" name="reply_content" id="reply_content" required ></textarea>
                         <br/>
                         <input type="button" class="btn btn-success btn-sm" id="fabu" value="发表"/>
                     </form>
@@ -227,6 +265,15 @@
 <%@ include file="footer.jsp" %>
 
 <script>
+    /*$(document).on("click",".replytoShow",function () {
+           $(".replyto").toggle();
+       })*/
+    /*function replytoClick(this_click){
+        $(this_click).parent("div").parent("div").parent("div").next().toggle();
+        $($(this_click).parent("div").parent("div").parent("div").next().find(":last")).click(function () {
+            $(".replyto").hide()
+        })
+    }*/
     $(document).on("click",".delReply",function () {
         var delReply=$(this).attr("alt");
         if (confirm("确认要删除这条评论吗？")){

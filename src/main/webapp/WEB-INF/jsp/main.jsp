@@ -62,7 +62,7 @@
 
 <!-- 引入header文件 -->
 <%@ include file="header.jsp"%>
-
+<div style="margin-left: 100px"><span id="runtime_span"><script type="text/javascript">function show_runtime(){window.setTimeout("show_runtime()",1000);X=new Date("7/24/2020 17:07:00");Y=new Date();T=(Y.getTime()-X.getTime());M=24*60*60*1000;a=T/M;A=Math.floor(a);b=(a-A)*24;B=Math.floor(b);c=(b-B)*60;C=Math.floor((b-B)*60);D=Math.floor((c-C)*60);runtime_span.innerHTML="本站勉强运行: "+A+"天"+B+"小时"+C+"分"+D+"秒"}show_runtime();</script></span></div>
 <div class="panel panel-default" id="main" style="width: 70%;margin:1% 2% 5% 5%;float: left;">
     <form role="form" method="post" action="${pageContext.request.contextPath}/sousuo" method="post">
         <div class="input-group col-md-3" style="margin-top:2px; float: left; text-align: center;">

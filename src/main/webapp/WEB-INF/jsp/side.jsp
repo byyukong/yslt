@@ -75,8 +75,8 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
                         <li class="list-group-item"><a class="zs" href="#">开通会员</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>
-                    </ul>
 
+                    </ul>
                 </c:when>
                 <c:when test="${sessionScope.user.user_type==1}">
                     <ul class="list-group" style="width: 100%">
@@ -93,8 +93,8 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/toTab">分类管理</a></li>
                         <li class="list-group-item"><a class="zs" href="#">开通会员</a></li>
                         <li class="list-group-item"><a href="#">...待添加...</a></li>
-                    </ul>
 
+                    </ul>
                 </c:when>
                 <c:when test="${sessionScope.user.user_type==2}">
                     <ul class="list-group" style="width: 100%">
@@ -112,4 +112,5 @@
     </c:otherwise>
 </c:choose>
 <!-- 已登录 -->
+
 </div>

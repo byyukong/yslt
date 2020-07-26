@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--这个是头部导航栏--%>
 <style>
@@ -18,7 +19,7 @@
         left: 25%;
         top: 20%;
         width: 40%;
-        height: 45%;
+        height: 54%;
         background: white;
         text-align: left;
     }
@@ -64,6 +65,17 @@
         height: 40px;
         line-height: 40px;
         font-size: 14px;
+        background-color: #5bc0de;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+    }
+    .button {
+        display: inline-block;
+        vertical-align: middle;
+        width: 40px;
+        height: 30px;
+        border-radius:20px;
         background-color: #5bc0de;
         border: none;
         color: #fff;
@@ -126,7 +138,15 @@
 
                             <li>
                                 <p class="navbar-text">
-                                    <img style="margin-top: -7px" src="<%=path%>/static/img/${sessionScope.user.head_portrait}" class="round_icon" />&nbsp;
+                                    <c:choose>
+                                        <c:when test="${fn:contains(sessionScope.user.head_portrait,'http')}">
+                                            <img style="margin-top: -7px" src="${sessionScope.user.head_portrait}" class="round_icon" />&nbsp;
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img style="margin-top: -7px" src="<%=path%>/static/img/${sessionScope.user.head_portrait}" class="round_icon" />&nbsp;
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <%--<img style="margin-top: -7px" src="<%=path%>/static/img/${sessionScope.user.head_portrait}" class="round_icon" />&nbsp;--%>
 
                                 <%--显示用户昵称 点击进入修改页面--%>
                                     <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">${sessionScope.user.user_nick}</a>
@@ -218,24 +238,65 @@
                 <input class="button" type="submit" value="修改">
             </div>
         </form>
-        <div style="float:left;margin-top: 30px;width: 1px;height: 150px; background: darkgray; position: relative;top: -10px;left: 52%;"></div>
+
+        <div style="float:left;margin-top: 30px;width: 1px;height: 130px; background: darkgray; position: relative;top: -10px;left: 52%;"></div>
         <div>
-            <img src="../../static/img/${sessionScope.user.head_portrait}" class="round_icon"/>
+            <c:choose>
+                <c:when test="${fn:contains(sessionScope.user.head_portrait,'http')}">
+                    <img src="${sessionScope.user.head_portrait}" class="round_icon"/>
+                </c:when>
+                <c:otherwise>
+                    <img src="../../static/img/${sessionScope.user.head_portrait}" class="round_icon"/>
+                </c:otherwise>
+            </c:choose>
         </div>
+
     </div>
+    <label style="margin-top: 270px;margin-left: 140px">获取QQ头像：
+        <input class="qq" placeholder="QQ号码" type="text">
+        <button class="button" id="qqtx">修改</button>
+    </label>
 </div>
 
-
 <script>
+    /*$("#qqtx").click(function () {
+        var qq=$(".qq").val();
+        $.ajax({
+            url:"https://tenapi.cn/qqtx/",
+            data:{"qq":qq},
+            dataType:"json",
+            success:function (data) {
+                alert(data)
+            },
+            error:function () {
+                alert()
+            }
+        })
+    })*/
+    $("#qqtx").click(function () {
+        var qq=$(".qq").val();
+        $.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/upload2",
+            data:{"imgHttp":"http://q1.qlogo.cn/g?b=qq&nk="+qq+"&s=640","user_id":${sessionScope.user.user_id}},
+            dataType: "json",
+        })
+        location.href="${pageContext.request.contextPath}/main"
+    })
+
     $(".round_icon").click(function () {
         $("#empAddModel").modal();
         var file=$("#file");
         var imgs=$(".imgs");
+        var qq=$(".qq");
+        //清除QQ号码
+        qq.val("")
         //清除已选择图片
         imgs.attr("src","../../static/img/default.jpg");
         //清除已选择图片路径
         file.after(file.clone().val(""));
         file.remove();
+
         $("#empAddModel .round_icon").addClass("round_icons")
     })
     function xll(resl) {

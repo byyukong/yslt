@@ -82,4 +82,9 @@ public class FileController {
         is.close();
         return "redirect:/main";
     }
+    @RequestMapping("/upload2")
+    public void fileUpload2(HttpSession session,String user_id,String imgHttp){
+        userService.updateHead(imgHttp,user_id);
+        session.setAttribute("user",userService.getAll_Byid(user_id));
+    }
 }
