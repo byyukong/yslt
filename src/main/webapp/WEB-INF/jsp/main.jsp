@@ -130,7 +130,7 @@
                                     <%--显示贴子发表时间--%>
                                 <small class="text-muted" >
                                     发表时间：<fmt:formatDate value="${i.tip_publishTime}" type="both"/>&nbsp;
-                                    &nbsp;更新时间：<fmt:formatDate value="${i.tip_modifyTime}" type="both"/>
+                                    更新时间：<fmt:formatDate value="${i.tip_modifyTime}" type="both"/>
                                     <span class="label label-warning" title="点击量">${i.tip_click}次点击</span>
                                 </small>
                             </div>
@@ -198,7 +198,7 @@
         </div>
     </c:if>
 </div>
-<script>
+<%--<script>
     $(document).on("click",".zs",function () {
         $("#money").val("999.99");
         $("#empUpdateModel").modal("show");
@@ -220,37 +220,10 @@
         }
         GetDateNow();
     })
-</script>
-<div class="modal fade" id="empUpdateModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">开通会员</h4>
-            </div>
-            <form class="form-horizontal" action="${pageContext.request.contextPath}/aliPay">
-            <div class="modal-body">
-                    <div class="form-group">
-                        <label  class="col-sm-2 control-label">金额</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly value="999.99" id="money" name="WIDtotal_amount" oninput="value=value.replace(/[^\d]/g,'')" required class="form-control"/>
-                            <input type="hidden" name="WIDsubject" value="开通会员" class="form-control"/>
-                            <input type="hidden" name="WIDbody"  value="开通会员" class="form-control"/>
-                            <input type="hidden" id="WIDout_trade_no" name="WIDout_trade_no" class="form-control"/>
-                            <span class="help-block"></span>
+</script>--%>
 
-                        </div>
-                    </div>
-            </div>
 
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-primary" id="emp_update_btn" value="开通"/>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 <!-- 引入侧边栏文件 -->
 <%@ include file="side.jsp"%>
 

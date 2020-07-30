@@ -53,7 +53,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(request.getRequestURI().contains("logOut")){
             return true;
         }
-
+        if (request.getRequestURI().contains("404.html")) {
+            return true;
+        }
         //登录时放行
         if (user!=null) {
             System.out.println("获取用户类型："+user.getUser_type());
@@ -96,6 +98,12 @@ public class LoginInterceptor implements HandlerInterceptor {
                 return true;
             }
             if (request.getRequestURI().contains("update_userInfo")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("upload2")) {
+                return true;
+            }
+            if (request.getRequestURI().contains("404.html")) {
                 return true;
             }
         }

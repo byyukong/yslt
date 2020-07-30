@@ -72,15 +72,18 @@
                         <%--展示用户权限  判断--%>
                         </span>
                     </a>
-                        <c:if test="${tip.user.is_Vip==1}">
+                        <%--<c:if test="${tip.user.is_Vip==1}">
                             <span class="label label-danger" >VIP</span>
-                        </c:if>
+                        </c:if>--%>
                         <c:choose>
                             <c:when test="${tip.user.user_type==0}">
                                 <span class="label label-success">超级管理员</span>
                             </c:when>
                             <c:when test="${tip.user.user_type==1}">
                                 <span class="label label-warning">管理员</span>
+                            </c:when>
+                            <c:when test="${tip.user.user_type==2 && tip.user.is_Vip==1}">
+                                <span class="label label-danger" >VIP</span>
                             </c:when>
                             <c:when test="${tip.user.user_type==2}">
                                 <span class="label label-default">普通用户</span>
@@ -121,28 +124,60 @@
                             </c:otherwise>
                         </c:choose>
                         <%--<img src="<%=path%>/static/img/${i.user.head_portrait}" class="round_icon" />--%>&nbsp;
-                        <a href="">
+                        <%--<a href="">
                             <strong>
-                                <%--显示发表回复的用户昵称--%>
+                                &lt;%&ndash;显示发表回复的用户昵称&ndash;%&gt;
                                 ${i.user.user_nick}
                             </strong>
-                            <%--展示用户权限--%>
-                        </a>
+                            &lt;%&ndash;展示用户权限&ndash;%&gt;
+                        </a>--%>
                         <c:choose>
-                            <c:when test="${i.user.user_type==0}">
+                            <c:when test="${i.user.user_id==sessionScope.user.user_id}">
+                                <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${i.user.user_id}"><span><strong>${i.user.user_nick}</strong></span></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="#"><span><strong>${i.user.user_nick}</strong></span></a>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <%--<c:when test="${i.user.user_type==0}">
                                 <span class="label label-success">超级管理员</span>
                             </c:when>
 
                             <c:when test="${i.user.user_type==1}">
                                 <span class="label label-warning">管理员</span>
+                            </c:when>--%>
+
+                            <%--<c:when test="${i.user.user_type==0 && i.user.is_Vip==1}">
+                                <span class="label label-danger" >超级VIP</span>
+                            </c:when>--%>
+                            <c:when test="${i.user.user_type==0}">
+                                <%--展示用户权限--%>
+                                <span class="label label-success">超级管理员</span>
+                            </c:when>
+
+
+                            <%--<c:when test="${i.user.user_type==1 && i.user.is_Vip==1}">
+                                <span class="label label-danger" >VIP</span>
+                            </c:when>--%>
+                            <c:when test="${i.user.user_type==1}">
+                                <span class="label label-warning">管理员</span>
+                            </c:when>
+
+
+                            <%--<c:when test="${i.user.user_type==2}">
+                                <span class="label label-default">普通用户</span>
+                            </c:when>--%>
+                            <c:when test="${i.user.user_type==2 && i.user.is_Vip==1}">
+                                <span class="label label-danger" >VIP</span>
                             </c:when>
                             <c:when test="${i.user.user_type==2}">
                                 <span class="label label-default">普通用户</span>
                             </c:when>
                         </c:choose>
-                        <c:if test="${i.user.is_Vip==1}">
+                        <%--<c:if test="${i.user.is_Vip==1}">
                             <span class="label label-danger" >VIP</span>
-                        </c:if>
+                        </c:if>--%>
                         <%--发表回复的用户如果是楼主则显示楼主标签 2020-03-14 23:36--%>
                         <c:if test="${tip.user.user_id eq i.user.user_id}">
                             <span class="label label-info">楼主</span>
@@ -167,15 +202,23 @@
                     <div style="height: 80px; overflow:auto; word-wrap:break-word;">
                         <%--这里显示回复的正文--%>
                        <xmp>${i.reply_content}</xmp>
-
+                            <%--<ul style="width:1000px;background-color:#FEFCF4;border:1px solid #FFDAB9;margin-left: 30px">
+                                <li>
+                                    <span>@bbb</span><br>
+                                    <span><c:choose>
+                                        <c:when test="${fn:contains(i.user.head_portrait,'http')}">
+                                            <img src="${i.user.head_portrait}" class="round_icon" />&nbsp;
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="<%=path%>/static/img/${i.user.head_portrait}" class="round_icon" />&nbsp;
+                                        </c:otherwise>
+                                    </c:choose></span>
+                                    <span>aaa   &nbsp;&nbsp;&nbsp;&nbsp;<a>删除</a></span>
+                                </li>
+                                <li style="line-height:50px;">bbb</li>
+                                <li style="line-height:50px;">ccc</li>
+                            </ul>--%>
                     </div>
-                    <%--<ul style="width:900px;border: 1px solid red">
-                        <li style="line-height:50px;text-decoration: underline;">
-                            aaa
-                        </li>
-                        <li style="line-height:50px;text-decoration: underline;">bbb</li>
-                        <li style="line-height:50px;text-decoration: underline;">ccc</li>
-                    </ul>--%>
                 </div>
 
                 <%--<div class="replyto">

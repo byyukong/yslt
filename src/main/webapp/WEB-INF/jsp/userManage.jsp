@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -176,6 +177,9 @@
                 <th>用户名</th>
                 <th>用户昵称</th>
                 <th>邮箱</th>
+                <th>注册时间</th>
+                <th>最后登录时间</th>
+                <th>邮箱</th>
                 <th>用户权限</th>
                 <th>状态</th>
                 <th>操作</th>
@@ -191,6 +195,10 @@
                     <td>${i.user_nick}</td>
                     <td>${i.user_email}</td>
 
+                    <td><fmt:formatDate value="${i.user_regTime}" type="both"/></td>
+                    <td><fmt:formatDate value="${i.user_lastLoginTime}" type="both"/></td>
+                    <td>${i.user_email}</td>
+
                     <td>
                         <c:if test="${i.user_type eq 0}">
                             <span class="label label-success">超级管理员</span>
@@ -198,7 +206,7 @@
                         <c:if test="${i.user_type eq 1}">
                             <span class="label label-warning">管理员</span>
                         </c:if>
-                        <c:if test="${i.user_type eq 2}">
+                        <c:if test="${i.user_type eq 2 && i.is_Vip!=1}">
                             <span class="label label-primary">普通用户</span>
                         </c:if>
                         <c:if test="${i.is_Vip==1}">
@@ -233,7 +241,13 @@
                         <c:if test="${sessionScope.user.user_type==0}">
                             <c:if test="${i.user_type eq 1}">
                                 <input type="button" class="btn btn-primary edit_btn" attr1="${i.user_id}" value="修改"/>
+                                <c:if test="${i.user_status eq 0}">
+                                    <input type="button" class="btn btn-warning lock_btn" attr1="${i.user_id}" value="锁定"/>
+                                </c:if>
 
+                                <c:if test="${i.user_status eq 2}">
+                                    <input type="button" class="btn btn-warning lock_btn" attr1="${i.user_id}" value="解锁"/>
+                                </c:if>
                                 <c:if test="${i.user_status eq 0 || i.user_status eq 2}">
                                     <input type="button" class="btn btn-danger  enable_btn "attr1="${i.user_id}" value="禁用"/>
                                 </c:if>

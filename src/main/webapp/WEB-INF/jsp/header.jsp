@@ -151,20 +151,34 @@
                                 <%--显示用户昵称 点击进入修改页面--%>
                                     <a href="${pageContext.request.contextPath}/toUpdate_userInfo/${sessionScope.user.user_id}">${sessionScope.user.user_nick}</a>
                                     <c:choose>
+
+
+                                        <%--<c:when test="${sessionScope.user.user_type==0 && sessionScope.user.is_Vip==1}">
+                                            <span class="label label-danger" >超级VIP</span>
+                                        </c:when>--%>
                                         <c:when test="${sessionScope.user.user_type==0}">
                                             <%--展示用户权限--%>
                                             <span class="label label-success">超级管理员</span>
                                         </c:when>
+
+
+                                        <%--<c:when test="${sessionScope.user.user_type==1 && sessionScope.user.is_Vip==1}">
+                                            <span class="label label-danger" >VIP</span>
+                                        </c:when>--%>
                                         <c:when test="${sessionScope.user.user_type==1}">
                                             <span class="label label-warning">管理员</span>
+                                        </c:when>
+
+                                        <c:when test="${sessionScope.user.user_type==2 && sessionScope.user.is_Vip==1}">
+                                            <span class="label label-danger" >VIP</span>
                                         </c:when>
                                         <c:when test="${sessionScope.user.user_type==2}">
                                             <span class="label label-default">普通用户</span>
                                         </c:when>
                                     </c:choose>
-                                    <c:if test="${sessionScope.user.is_Vip==1}">
+                                    <%--<c:if test="${sessionScope.user.is_Vip==1}">
                                          <span class="label label-danger" >VIP</span>
-                                    </c:if>
+                                    </c:if>--%>
                                 </p>
                             </li>
                             <c:choose>
@@ -275,13 +289,18 @@
     })*/
     $("#qqtx").click(function () {
         var qq=$(".qq").val();
-        $.ajax({
-            type: "GET",
-            url: "${pageContext.request.contextPath}/upload2",
-            data:{"imgHttp":"http://q1.qlogo.cn/g?b=qq&nk="+qq+"&s=640","user_id":${sessionScope.user.user_id}},
-            dataType: "json",
-        })
-        location.href="${pageContext.request.contextPath}/main"
+        if (qq!=""){
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/upload2",
+                data:{"imgHttp":"http://q1.qlogo.cn/g?b=qq&nk="+qq+"&s=640","user_id":"${sessionScope.user.user_id}"},
+                dataType: "json",
+            })
+            location.href="${pageContext.request.contextPath}/main"
+
+        }else{
+            alert("QQ不能为空！")
+        }
     })
 
     $(".round_icon").click(function () {

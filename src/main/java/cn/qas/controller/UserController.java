@@ -66,8 +66,6 @@ public class UserController {
             //修改最后登录时间
             userService.updLoginTime(new Date(),login.getUser_id());
             session.setAttribute("user",login);
-            System.out.println("测试身份："+login.getUser_type());
-            //return "forward:/yukong"
             return "redirect:/main";
         }
         model.addAttribute("msg","用户名或密码错误！");
